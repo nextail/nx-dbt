@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+
+  # This service runs the postgres DB used by dagster for run storage, schedule storage,
+  # and event log storage.
+  postgres_db:
+    image: postgres:11
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+    networks:
+      - nxnet
+
+  # This service runs dagit, which loads your user code from the user code container.
+  # Since our instance uses the QueuedRunCoordinator, any runs submitted from dagit will be put on
+  # a queue and later dequeued and launched by dagster-daemon.
+  dagit:
+    build:
+      context: ../..
+      dockerfile: ./docker/Dockerfile
+      target: dev
+    container_name: dagit
+    restart: on-failure
+    entrypoint:
+      - "dagit"
+      - "-h"
+      - "0.0.0.0"
+      - "-p"
+      - "3000"
+      - "-w"
+      - "workspace.yaml"
+    environment:
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+    ports: # Make docker client accessible so we can terminate containers from dagit
+      - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../../dagster:/opt/dagster/
+    depends_on:
+      - postgres_db
+    networks:
+      - nxnet
+
+  # This service runs the dagster-daemon process, which is responsible for taking runs
+  # off of the queue and launching them, as well as creating runs from schedules or sensors.
+  daemon:
+    build:
+      context: ../..
+      dockerfile: ./docker/Dockerfile
+      target: dev
+    container_name: daemon
+    restart: on-failure
+    entrypoint:
+      - "dagster-daemon"
+      - "run"
+    environment:
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../../dagster:/opt/dagster/
+    depends_on:
+      - postgres_db
+    networks:
+      - nxnet
+
+networks:
+  nxnet:
+    driver: bridge
+    name: nxnet
