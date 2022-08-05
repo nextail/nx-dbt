@@ -1,6 +1,7 @@
 #!/bin/bash
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-IMAGE="dagster_test"
+SERVICE=$(basename `git rev-parse --show-toplevel`)
+IMAGE="nextail/${SERVICE}_test"
 TARGET="test"
 docker_run(){
     echo 
@@ -8,11 +9,11 @@ docker_run(){
     echo "Run tests"
     echo "------------------------------"
     echo
-    docker run --rm -it -v ${SCRIPTPATH}/../dagster:/opt/dagster/ --entrypoint pytest  ${IMAGE}
+    docker run --rm -it --entrypoint pytest  "${IMAGE}"
 }
 
 docker_build(){
-    docker build --target ${TARGET} -t ${IMAGE} -f ${SCRIPTPATH}/../docker/Dockerfile ${SCRIPTPATH}/..
+    docker build --no-cache --target ${TARGET} -t "${IMAGE}" -f ${SCRIPTPATH}/../docker/Dockerfile ${SCRIPTPATH}/..
 }
 
 docker_build

@@ -6,7 +6,7 @@ services:
   # and event log storage.
   postgres_db:
     image: postgres:11
-    container_name: postgres_db
+    container_name: ${SERVICE_NAME}_postgres
     environment:
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
@@ -21,8 +21,10 @@ services:
     build:
       context: ../..
       dockerfile: ./docker/Dockerfile
-      target: dev
-    container_name: dagit
+      target: stage
+    working_dir: /usr/src/dagster
+    image: nextail/${SERVICE_NAME}_dagit
+    container_name: ${SERVICE_NAME}_dagit
     restart: on-failure
     entrypoint:
       - "dagit"
@@ -40,7 +42,7 @@ services:
       - "3000:3000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../dagster:/opt/dagster/
+      - ../../dagster:/usr/src/dagster
     depends_on:
       - postgres_db
     networks:
@@ -52,8 +54,10 @@ services:
     build:
       context: ../..
       dockerfile: ./docker/Dockerfile
-      target: dev
-    container_name: daemon
+      target: stage
+    working_dir: /usr/src/dagster
+    image: nextail/${SERVICE_NAME}_daemon
+    container_name: ${SERVICE_NAME}_daemon
     restart: on-failure
     entrypoint:
       - "dagster-daemon"
@@ -64,7 +68,7 @@ services:
       POSTGRES_PASSWORD: postgres_password
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../dagster:/opt/dagster/
+      - ../../dagster:/usr/src/dagster
     depends_on:
       - postgres_db
     networks:

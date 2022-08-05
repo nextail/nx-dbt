@@ -1,0 +1,32 @@
+version: 2.1
+
+orbs: 
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@0.1.3
+
+workflows:
+  build-and-deploy:
+    jobs:
+      # unit-test for all branches
+      - dagster-pipelines-orb/unit-test
+      # build-and-deploy for sandbox dagster environment
+      - dagster-pipelines-orb/build-and-deploy-sandbox:
+          requires:
+            - dagster-pipelines-orb/unit-test
+          context:
+            - org-global
+            - github-tokens
+          filters:
+            branches:
+              only:
+                - sandbox
+      # build-and-deploy for prod dagster environment
+      - dagster-pipelines-orb/build-and-deploy-prod:
+          requires:
+            - dagster-pipelines-orb/unit-test
+          context:
+            - org-global
+            - github-tokens
+          filters:
+            branches:
+              only:
+                - main

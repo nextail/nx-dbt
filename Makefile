@@ -1,15 +1,22 @@
-.PHONY = help dev-deps test start-dev start-dev-nocache stop-dev dev-clean dev-clean-full clean-build clean-pyc clean-test clean-persistence
+.PHONY = help dev-deps test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test
 MAKEFLAGS += --warn-undefined-variables
+
+SERVICE_NAME := $(shell basename `git rev-parse --show-toplevel`)
 
 # Shell to use for running scripts
 SHELL := $(shell which bash)
-
 # Get docker path or an empty string
 DOCKER := $(shell command -v docker)
 # Get docker-compose path or an empty string
 DOCKER_COMPOSE := $(shell command -v docker-compose)
 # Get current path
 MKFILE_PATH := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
+# Get OS
+OSTYPE := $(shell uname)
+
+# Export local user & group
+export UID := $(shell id -u)
+export GID := $(shell id -g)
 
 # Setup msg colors
 NOFORMAT := \033[0m
@@ -39,51 +46,68 @@ endif
 ## test              : pytest
 test: dev-deps
 	@bash scripts/make-test.sh
+
+## create-env        : create .env file
+create-env: 
+	@echo "SERVICE_NAME=${SERVICE_NAME}" > ${MKFILE_PATH}/docker/dagster/.env
 	
 ## start-dev         : start the docker environment in background
-start-dev: 
+start-dev: create-env
 	@cd ${MKFILE_PATH}/docker/dagster && ${DOCKER_COMPOSE} up --build -d
 
+## shell             : start the docker environment in background with shell
+shell: start-dev
+	@echo \
+	&& DOCKER_BUILDKIT=1 \
+	&& ${DOCKER} build --target dev -t nextail/${SERVICE_NAME}_dev \
+		--build-arg UNAME=local-dev \
+		--build-arg USER_ID=${UID} \
+		--build-arg GROUP_ID=${GID} \
+		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
+	&& echo \
+	&& echo -e "${BLUE}Dockerized ${NOFORMAT} shell ready to interact with the project." \
+	&& echo -e "Execute ${CYAN}'exit'${NOFORMAT} to close and remove the container.\n" \
+	&& ${DOCKER} run --rm -it --network=nxnet \
+        --hostname dagster-shell \
+		--user local-dev:local-dev \
+        -v ${MKFILE_PATH}/dagster:/usr/src/dagster \
+		-v ${MKFILE_PATH}/scripts/:/usr/src/scripts \
+        -w /usr/src \
+        --entrypoint /bin/bash \
+        nextail/${SERVICE_NAME}_dev
+
 ## start-dev-nocache : start the docker environment in background without cache on build
-start-dev-nocache: 
-	@cd ${MKFILE_PATH}/docker/dagster && ${DOCKER_COMPOSE} build --no-cache && ${DOCKER_COMPOSE} up -d 
+start-dev-nocache: create-env
+	@cd ${MKFILE_PATH}/docker/dagster \
+	&& ${DOCKER_COMPOSE} build --no-cache \
+	&& ${DOCKER_COMPOSE} up -d 
 
 ## stop-dev          : stop the the docker environment in background
-stop-dev: 
-	@cd ${MKFILE_PATH}/docker/dagster && ${DOCKER_COMPOSE} down
+stop-dev:
+	@cd ${MKFILE_PATH}/docker/dagster \
+	&& ${DOCKER_COMPOSE} down
 
 ## dev-clean         : clean all the created containers
 dev-clean:
-	@cd ${MKFILE_PATH}/docker/dagster && ${DOCKER_COMPOSE} down --rmi local
+	@cd ${MKFILE_PATH}/docker/dagster \
+	&& ${DOCKER_COMPOSE} down --rmi local
 
 ## dev-clean-full    : clean all the created containers and their data
 dev-clean-full: 
-	@cd ${MKFILE_PATH}/docker/dagster &&${DOCKER_COMPOSE} down --rmi local -v
+	@cd ${MKFILE_PATH}/docker/dagster \
+	&& ${DOCKER_COMPOSE} down --rmi local -v
 
 ## clean             : remove all build, test, coverage and Python artifacts
-clean: clean-build clean-pyc clean-test clean-persistence
+clean: clean-packages clean-pyc clean-test
 
-## clean-build       : remove build artifacts
-clean-build: 
-	@rm -fr build/
-	@rm -fr dist/
-	@rm -fr .eggs/
-	@find . -name '*.egg-info' -exec rm -fr {} +
-	@find . -name '*.egg' -exec rm -f {} +
+## clean-packages    : remove build packages
+clean-packages: 
+	@bash scripts/clean-packages.sh
 
-## clean-pyc         : remove Python file artifacts
+## clean-pyc         : remove python pyc files
 clean-pyc: 
-	@find . -name '*.pyc' -exec rm -f {} +
-	@find . -name '*.pyo' -exec rm -f {} +
-	@find . -name '*~' -exec rm -f {} +
-	@find . -name '__pycache__' -exec rm -fr {} +
+	@bash scripts/clean-pyc.sh
+
 ## clean-test        : remove test and coverage artifacts
 clean-test:
-	@find . -name '.pytest_cache' -exec rm -fr {} +
-
-## clean-persistence : remove local persistence
-clean-persistence:
-	@find . -name '.logs_queue' -exec rm -fr {} +
-	@find . -name 'history' -exec rm -fr {} +
-	@find . -name 'logs' -exec rm -fr {} +
-	@find . -name 'storage' -exec rm -fr {} +
+	@bash scripts/clean-test.sh
