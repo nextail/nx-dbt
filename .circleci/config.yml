@@ -15,6 +15,7 @@ workflows:
           context:
             - org-global
             - github-tokens
+            - dagster-tokens
           filters:
             branches:
               only:
@@ -26,6 +27,7 @@ workflows:
           context:
             - org-global
             - github-tokens
+            - dagster-tokens
           filters:
             branches:
               only:
