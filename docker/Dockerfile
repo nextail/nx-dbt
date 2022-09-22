@@ -24,7 +24,7 @@ COPY ./dagster/pyproject.toml ./dagster/pdm.lock $PYPACKAGES/
 
 # install dependencies
 RUN pdm config python.use_venv false
-RUN pdm install --prod --no-lock --no-editable
+RUN pdm install --prod --check --no-editable
 
 # set python  env
 ENV PYTHONPATH=$PYPACKAGES/__pypackages__/3.9/lib
