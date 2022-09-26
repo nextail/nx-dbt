@@ -21,3 +21,9 @@ First dagster template.
 - Docker images
 - Makefile update
 - New scripts
+
+## [0.2.0] - 2022-09-26
+
+### Changed
+
+- New Dagster version 1.0.10

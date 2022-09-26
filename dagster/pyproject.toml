@@ -6,15 +6,15 @@ authors = [
     {name = "nextail"},
 ]
 dependencies = [
-    "dagster>=0.15.7",
-    "dagit>=0.15.7",
-    "dagster-graphql>=0.15.7",
-    "dagster-postgres>=0.15.7",
-    "dagster-aws>=0.15.7",
-    "dagster-docker>=0.15.7",
-    "dagster-cloud>=0.15.7",
-    "dagster-dbt>=0.15.7",
-    "dagster-k8s>=0.15.7",
+    "dagster>=1.0.10",
+    "dagit>=1.0.10",
+    "dagster-graphql>=1.0.10",
+    "dagster-cloud>=1.0.10",
+    "dagster-postgres",
+    "dagster-aws",
+    "dagster-docker",
+    "dagster-dbt",
+    "dagster-k8s",
 ]
 requires-python = ">=3.9"
 license = {text = "MIT"}
