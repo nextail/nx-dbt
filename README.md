@@ -127,7 +127,7 @@ The workflows included in this template already has this worflow setup for you:
 
 [More info](https://circleci.com/developer/orbs/orb/nextail/dagster-pipelines-orb)
 
-#### Permissions
+#### 2.2.3 Permissions
 
 The template provided for development provides an integration with Dagster Cloud that omits any type of requirement of a service account for the deployment.
 
