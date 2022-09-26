@@ -99,6 +99,13 @@ We have two operating environments: sandbox and production.
 
 CI/CD Integration with CircleCI Orb.
 
+#### 2.2.0 Requirements
+
+- Request Docker image on Docker Hub with the same name as your repository to #squad-platform
+- Configure the project in CircleCI. Pipelines are configured in the default folder .circleci
+  - Search your project https://app.circleci.com/projects/project-dashboard/github/nextail/
+  - Push Set Up Project: ![Set up project](./resources/images/circleci.png)
+  - Set the config.yml file: ![Set config file](./resources/images/circleci-2.png)
 #### 2.2.1 Environments
 
 - **Nextail Cloud**: [Link](https://nextail.dagster.cloud/)
@@ -119,3 +126,48 @@ The workflows included in this template already has this worflow setup for you:
 | **build-and-deploy-prod**     | main         | Build docker image from Dockerfile, push image to DockerHub and deploy project in Dagster Production |
 
 [More info](https://circleci.com/developer/orbs/orb/nextail/dagster-pipelines-orb)
+
+#### Permissions
+
+The template provided for development provides an integration with Dagster Cloud that omits any type of requirement of a service account for the deployment.
+
+For the executions we use an Amazon Service Account "user-cloud-dagster-cloud-agent" as default, which has basic permissions for the execution of jobs such as:
+
+- **Amazon S3**: The default Service Account has permissions over the following paths:
+  - For **evo** pipelines (should be everything):
+     - SANDBOX:
+       - nextail-dev-evo/dagster/{{your_path}}:
+          ```
+          s3_bucket: nextail-{{tenant}}-evo
+          s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
+          ```
+
+    - PRODUCTION:
+      - nextail-{{tenant}}-evo/dagster/{{your_path}}:
+          ```
+          s3_bucket: nextail-{{tenant}}-evo
+          s3_prefix: dagster/{{your_path}}
+          ```
+  - For **no evo** pipelines:
+     - SANDBOX:
+       - nextail-dev/dagster/{{your_path}}:
+          ```
+          s3_bucket: nextail-dev
+          s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
+          ```
+
+    - PRODUCTION:
+      - nextail-{{tenant}}/dagster/{{your_path}}:
+          ```
+          s3_bucket: nextail-{{tenant}}
+          s3_prefix: dagster/{{your_path}}
+          ```
+
+- **Amazon Secrets Manager**: access to Secrets containing the following tags
+   - "scope-dagster": "true"
+   - "dagger": ""
+   - "environment": "${environment}" (where environment could be sandbox or production)
+- **K8s**: running jobs on Kubernetes in the environment that corresponds to it.
+
+If for the execution of your pipelines you need more permissions or change any of the existing ones, it will be necessary to create a specific Amazon Service Account for your repository.
+Contact #squad-platform for the request.
