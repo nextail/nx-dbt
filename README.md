@@ -21,7 +21,7 @@ To start, create a new repository and reference this template to make a copy:
 | `.circleci/`                 | workflows of Circleci                                                                 |
 | `.github/`                   | issue and pull request templates                                                      |
 | `dagster/`                   | contains the code for your Dagster repositories                                       |
-| `docker/`                    | A Python directory that contains code for your Dagster repository                     |
+| `docker/`                    | definition of containers on which we will develop                                     |
 | `scripts/`                   | Utils for makefile                                                                    |
 | `CHANGELOG.md`               | Log of all notable changes made for this code repository                              |
 | `Makefile`                   | Automating software building procedure                                                |
