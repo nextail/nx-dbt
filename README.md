@@ -1,4 +1,4 @@
-# dagster-template
+# Dagster Nextail Template
 
 In order to make it easier to start the development in Dagster this template is provided.
 
@@ -8,8 +8,12 @@ This template will give us:
 - CI/CD integration with Dagster Cloud
 - Examples of simple and test pipelines
 
-To start, we will create a new repository where we will reference this template:
+## 0. Template
+
+To start, create a new repository where we will reference this template to make a copy:
 ![Repo-for-template](./images/repository-from-template.png)
+
+> This is a template, do not build on this Github Project
 ### Contents
 
 | **Name**                     | **Description**                                                                       |
