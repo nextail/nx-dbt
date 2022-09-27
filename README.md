@@ -10,7 +10,7 @@ This template will give us:
 
 ## 0. Template
 
-To start, create a new repository where we will reference this template to make a copy:
+To start, create a new repository and reference this template to make a copy:
 ![Repo-for-template](./images/repository-from-template.png)
 
 > This is a template, do not build on this Github Project
