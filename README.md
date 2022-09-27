@@ -1,7 +1,19 @@
-# dagster-template
+# Dagster Nextail Template
 
-Welcome to your new Dagster repository.
+In order to make it easier to start the development in Dagster this template is provided.
 
+This template will give us:
+
+- A local development environment based on docker and docker-compose
+- CI/CD integration with Dagster Cloud
+- Examples of simple and test pipelines
+
+## 0. Template
+
+To start, create a new repository and reference this template to make a copy:
+![Repo-for-template](./images/repository-from-template.png)
+
+> This is a template, do not build on this Github Project
 ### Contents
 
 | **Name**                     | **Description**                                                                       |
@@ -62,9 +74,13 @@ To start the development environment:
 make start-dev
 ```
 
+https://user-images.githubusercontent.com/26308855/192459452-a7eb3a7a-1b03-49e6-b901-f0b1cc41d0fc.mov
+
 Navigate to http://127.0.0.0:3000 in your web browser.
 Go to Launchpad tab. On this tab you will be able to edit job configuration. 
 On the bottom right it is the "Lunch Run" execution button.
+
+https://user-images.githubusercontent.com/26308855/192459512-d8e9141d-0443-459a-a89e-73a0189517a0.mov
 
 #### 2.1.2 Shell
 
@@ -72,14 +88,19 @@ If you want to start a shell with pdm installed, ready to interact with the sour
 ```bash
 make shell
 ```
+
 where workdir is: `/usr/src` with folders:
 - `dagster`: project
 - `scripts`: utils
+
+https://user-images.githubusercontent.com/26308855/192459555-1df66474-f8e8-41e1-a829-124591a77c9b.mov
 
 If you want to install dev-dependencies run the utility:
 ```bash
 ./scripts/pdm-config.sh
 ```
+
+https://user-images.githubusercontent.com/26308855/192459785-decd62cb-1e9d-474e-9441-3722a5c98cc3.mov
 
 #### 2.1.3 Test
 
@@ -88,11 +109,14 @@ For testing (without shell):
 make test
 ```
 
+https://user-images.githubusercontent.com/26308855/192459713-56aec8e3-9804-49cb-9464-e9b75f00c311.mp4
+
 As you create Dagster ops and graphs, add tests in `dagster/tests/` to check that your
 code behaves as desired and does not break over time.
 
 For hints on how to write tests for ops and graphs,
 [see the documentation tutorial of Testing in Dagster](https://docs.dagster.io/tutorial/testable).
+
 ### 2.2. Cloud
 
 We have two operating environments: sandbox and production.
@@ -104,8 +128,8 @@ CI/CD Integration with CircleCI Orb.
 - Request Docker image on Docker Hub with the same name as your repository to #squad-platform
 - Configure the project in CircleCI. Pipelines are configured in the default folder .circleci
   - Search your project https://app.circleci.com/projects/project-dashboard/github/nextail/
-  - Push Set Up Project: ![Set up project](./resources/images/circleci.png)
-  - Set the config.yml file: ![Set config file](./resources/images/circleci-2.png)
+  - Push Set Up Project: ![Set up project](./images/circleci.png)
+  - Set the config.yml file: ![Set config file](./images/circleci-2.png)
 #### 2.2.1 Environments
 
 - **Nextail Cloud**: [Link](https://nextail.dagster.cloud/)
