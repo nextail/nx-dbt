@@ -124,8 +124,8 @@ CI/CD Integration with CircleCI Orb.
 - Request Docker image on Docker Hub with the same name as your repository to #squad-platform
 - Configure the project in CircleCI. Pipelines are configured in the default folder .circleci
   - Search your project https://app.circleci.com/projects/project-dashboard/github/nextail/
-  - Push Set Up Project: ![Set up project](./resources/images/circleci.png)
-  - Set the config.yml file: ![Set config file](./resources/images/circleci-2.png)
+  - Push Set Up Project: ![Set up project](./images/circleci.png)
+  - Set the config.yml file: ![Set config file](./images/circleci-2.png)
 #### 2.2.1 Environments
 
 - **Nextail Cloud**: [Link](https://nextail.dagster.cloud/)
