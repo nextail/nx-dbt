@@ -1,7 +1,15 @@
 # dagster-template
 
-Welcome to your new Dagster repository.
+In order to make it easier to start the development in Dagster this template is provided.
 
+This template will give us:
+
+- A local development environment based on docker and docker-compose
+- CI/CD integration with Dagster Cloud
+- Examples of simple and test pipelines
+
+To start, we will create a new repository where we will reference this template:
+![Repo-for-template](./images/repository-from-template.png)
 ### Contents
 
 | **Name**                     | **Description**                                                                       |
