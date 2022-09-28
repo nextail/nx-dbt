@@ -189,7 +189,7 @@ For the executions we use an Amazon Service Account "user-cloud-dagster-cloud-ag
 
 - **Amazon Secrets Manager**: access to Secrets containing the following tags
    - "scope-dagster": "true"
-   - "dagger": ""
+   - "dagster": ""
    - "environment": "${environment}" (where environment could be sandbox or production)
 - **K8s**: running jobs on Kubernetes in the environment that corresponds to it.
 
