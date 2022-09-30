@@ -4,9 +4,17 @@
 
 FROM python:3.9-slim AS base
 
+RUN set -ex \
+    && apt-get update \
+    && apt-get install -y curl git #git can be removed if not plan to use Nextail libraries.
+
 # install PDM
 RUN pip install -U pip setuptools wheel
-RUN pip install pdm
+
+# Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
+# Ref: https://github.com/pdm-project/pdm/issues/1388
+RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/2.1.4/install-pdm.py | python3 - --version=2.1.4
+ENV PATH=/root/.local/bin:${PATH}
 
 ###############################################################################################
 ######################################   STAGE IMAGE   ########################################
@@ -76,7 +84,7 @@ FROM cloud AS test
 
 # install dev dependencies
 WORKDIR $PYPACKAGES
-RUN pdm install --dev --no-lock
+RUN pdm install --check -G test
 
 # copy project
 COPY ./dagster/tests $DAGSTER_HOME/tests

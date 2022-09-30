@@ -3,3 +3,5 @@ dagster/.logs_queue
 dagster/history
 dagster/logs
 dagster/storage
+
+__pypackages__
