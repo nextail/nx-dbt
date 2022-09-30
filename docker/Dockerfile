@@ -6,7 +6,7 @@ FROM python:3.9-slim AS base
 
 RUN set -ex \
     && apt-get update \
-    && apt-get install -y curl git #git can be removed if not plan to use Nextail libraries.
+    && apt-get install -y curl git #git can be removed if is not planned to use Nextail libraries.
 
 # install PDM
 RUN pip install -U pip setuptools wheel
@@ -15,6 +15,11 @@ RUN pip install -U pip setuptools wheel
 # Ref: https://github.com/pdm-project/pdm/issues/1388
 RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/2.1.4/install-pdm.py | python3 - --version=2.1.4
 ENV PATH=/root/.local/bin:${PATH}
+
+# set required environment vars from host
+# These can be removed if is not planned to use Nextail libraries.
+ARG GITHUB_PIP_TOKEN
+ENV GITHUB_PIP_TOKEN=$GITHUB_PIP_TOKEN
 
 ###############################################################################################
 ######################################   STAGE IMAGE   ########################################

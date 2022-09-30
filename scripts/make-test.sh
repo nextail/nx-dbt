@@ -13,7 +13,7 @@ docker_run(){
 }
 
 docker_build(){
-    docker build --no-cache --target ${TARGET} -t "${IMAGE}" -f ${SCRIPTPATH}/../docker/Dockerfile ${SCRIPTPATH}/..
+    docker build --no-cache --target ${TARGET} -t "${IMAGE}" -f ${SCRIPTPATH}/../docker/Dockerfile ${SCRIPTPATH}/.. --build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN}
 }
 
 docker_build

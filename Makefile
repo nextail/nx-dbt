@@ -63,6 +63,7 @@ shell: start-dev
 		--build-arg UNAME=local-dev \
 		--build-arg USER_ID=${UID} \
 		--build-arg GROUP_ID=${GID} \
+		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
 	&& echo -e "${BLUE}Dockerized ${NOFORMAT} shell ready to interact with the project." \
