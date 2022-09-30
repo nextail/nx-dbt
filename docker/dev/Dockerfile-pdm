@@ -1,0 +1,20 @@
+FROM python:3.9.7-slim AS pdm
+
+ARG GITHUB_USER
+ARG GITHUB_PIP_TOKEN
+
+RUN set -ex \
+    && apt-get update \
+    && apt-get install -y curl \
+    && apt-get install -y --no-install-recommends \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
+# Ref: https://github.com/pdm-project/pdm/issues/1388
+RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/2.1.4/install-pdm.py | python3 - --version=2.1.4
+ENV PATH=/root/.local/bin:${PATH}
+
+RUN pdm config python.use_venv False
+
+WORKDIR /code

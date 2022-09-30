@@ -111,3 +111,11 @@ clean-pyc:
 ## clean-test        : remove test and coverage artifacts
 clean-test:
 	@bash scripts/clean-test.sh
+
+## pdm-lock
+pdm-lock:
+	${DOCKER_COMPOSE} -f ${MKFILE_PATH}/docker/dev/docker-compose-pdm.yml build \
+		--no-cache \
+		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN}&& \
+	${DOCKER_COMPOSE} -f ${MKFILE_PATH}/docker/dev/docker-compose-pdm.yml run \
+		--rm --no-deps lock-generator pdm lock -v
