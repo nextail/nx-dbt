@@ -10,7 +10,7 @@ RUN set -ex \
 
 # install PDM
 RUN pip install -U pip setuptools wheel
-RUN pip install pdm
+RUN pip install pdm==2.1.4
 
 # Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
 # Ref: https://github.com/pdm-project/pdm/issues/1388
