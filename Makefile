@@ -1,4 +1,4 @@
-.PHONY = help dev-deps test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test
+.PHONY = help dev-deps test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test pdm-lock
 MAKEFLAGS += --warn-undefined-variables
 
 SERVICE_NAME := $(shell basename `git rev-parse --show-toplevel`)
@@ -63,6 +63,7 @@ shell: start-dev
 		--build-arg UNAME=local-dev \
 		--build-arg USER_ID=${UID} \
 		--build-arg GROUP_ID=${GID} \
+		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
 	&& echo -e "${BLUE}Dockerized ${NOFORMAT} shell ready to interact with the project." \
@@ -111,3 +112,11 @@ clean-pyc:
 ## clean-test        : remove test and coverage artifacts
 clean-test:
 	@bash scripts/clean-test.sh
+
+## pdm-lock          : lock generator
+pdm-lock:
+	${DOCKER_COMPOSE} -f ${MKFILE_PATH}/docker/dev/docker-compose-pdm.yml build \
+		--no-cache \
+		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN}&& \
+	${DOCKER_COMPOSE} -f ${MKFILE_PATH}/docker/dev/docker-compose-pdm.yml run \
+		--rm --no-deps lock-generator pdm lock -v
