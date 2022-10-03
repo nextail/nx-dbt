@@ -102,6 +102,14 @@ If you want to install dev-dependencies run the utility:
 
 https://user-images.githubusercontent.com/26308855/192459785-decd62cb-1e9d-474e-9441-3722a5c98cc3.mov
 
+Then you can run your test from `dagster/tests/` with pytest:
+
+```bash
+pytest
+```
+
+https://user-images.githubusercontent.com/26308855/193572025-3d50b476-bd05-4e35-b62c-65d33676067f.mov
+
 #### 2.1.3 Test
 
 For testing (without shell):
