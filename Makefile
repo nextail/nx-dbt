@@ -1,4 +1,4 @@
-.PHONY = help dev-deps test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test
+.PHONY = help dev-deps test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test pdm-lock
 MAKEFLAGS += --warn-undefined-variables
 
 SERVICE_NAME := $(shell basename `git rev-parse --show-toplevel`)
@@ -113,7 +113,7 @@ clean-pyc:
 clean-test:
 	@bash scripts/clean-test.sh
 
-## pdm-lock
+## pdm-lock          : lock generator
 pdm-lock:
 	${DOCKER_COMPOSE} -f ${MKFILE_PATH}/docker/dev/docker-compose-pdm.yml build \
 		--no-cache \

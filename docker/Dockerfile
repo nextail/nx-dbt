@@ -10,11 +10,12 @@ RUN set -ex \
 
 # install PDM
 RUN pip install -U pip setuptools wheel
+RUN pip install pdm
 
 # Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
 # Ref: https://github.com/pdm-project/pdm/issues/1388
-RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/2.1.4/install-pdm.py | python3 - --version=2.1.4
-ENV PATH=/root/.local/bin:${PATH}
+#RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/2.1.4/install-pdm.py | python3 - --version=2.1.4
+#ENV PATH=/root/.local/bin:${PATH}
 
 # set required environment vars from host
 # These can be removed if is not planned to use Nextail libraries.
