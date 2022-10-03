@@ -108,7 +108,7 @@ Then you can run your test from `dagster/tests/` with pytest:
 pytest
 ```
 
-https://user-images.githubusercontent.com/26308855/193572025-3d50b476-bd05-4e35-b62c-65d33676067f.mov
+https://user-images.githubusercontent.com/26308855/193572680-99fcdf55-c055-4633-a76f-dba838b3da09.mov
 
 #### 2.1.3 Test
 
