@@ -8,6 +8,8 @@ workflows:
     jobs:
       # unit-test for all branches
       - dagster-pipelines-orb/unit-test
+          context:
+            - github-tokens
       # build-and-deploy for sandbox dagster environment
       - dagster-pipelines-orb/build-and-deploy-sandbox:
           requires:
