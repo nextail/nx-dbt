@@ -23,14 +23,14 @@ workflows:
               only:
                 - sandbox
       # build-and-deploy for prod dagster environment
-      - dagster-pipelines-orb/build-and-deploy-prod:
-          requires:
-            - dagster-pipelines-orb/unit-test
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
-          filters:
-            branches:
-              only:
-                - main
+      # - dagster-pipelines-orb/build-and-deploy-prod:
+      #     requires:
+      #       - dagster-pipelines-orb/unit-test
+      #     context:
+      #       - org-global
+      #       - github-tokens
+      #       - dagster-tokens
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
