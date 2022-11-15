@@ -1,0 +1,15 @@
+# Default values.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Kubernetes Service Account
+# By default it will be false and a default dagster service account will be used.
+# In case of create: true, the circleci pipeline must also be configured setting the property custom_service_account: true.
+serviceAccount:
+  create: false
+
+# envVar: is the name of the environment variable that will be exposed in your application container.
+# key: refers to the key inside your AWS Secrets Manager secret.
+# envFromSecretsManager:
+#   - envVar: ENV_NAME
+#     key: secret_key

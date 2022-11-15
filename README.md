@@ -8,22 +8,16 @@ This template will give us:
 - CI/CD integration with Dagster Cloud
 - Examples of simple and test pipelines
 
-## 0. Template
-
-To start, create a new repository and reference this template to make a copy:
-![Repo-for-template](./images/repository-from-template.png)
-
-> This is a template, do not build on this Github Project
 ### Contents
 
 | **Name**                     | **Description**                                                                       |
 | ---------------------------- | ------------------------------------------------------------------------------------- |
 | `.circleci/`                 | workflows of Circleci                                                                 |
 | `.github/`                   | issue and pull request templates                                                      |
+| `.platform/`                 | Helm chart configuration for our Service Account and Service Provider                 |
 | `dagster/`                   | contains the code for your Dagster repositories                                       |
 | `docker/`                    | definition of containers on which we will develop                                     |
 | `scripts/`                   | Utils for makefile                                                                    |
-| `CHANGELOG.md`               | Log of all notable changes made for this code repository                              |
 | `Makefile`                   | Automating software building procedure                                                |
 | `README.md`                  | A description and guide for this code repository                                      |
 
@@ -45,6 +39,33 @@ To start, create a new repository and reference this template to make a copy:
 | **clean-packages**        | remove build packages                                                   |
 | **clean-pyc**             | remove Python pyc files                                                 |
 | **clean-test**            | remove test and coverage artifacts                                      |
+| **pdm-lock**              | regenerate the pdm file                                                 |
+
+## 0. Template
+
+### Create the project
+
+:warning: **Important: User that creates the Github repository should be the same one that will later configure the project in CircleCI**
+
+To start, create a new repository and reference this template to make a copy:
+![Repo-for-template](./images/repository-from-template.png)
+
+Then rename "dagster-template" references in `.platform/charts/dagster-template/Chart.yaml`.
+
+Also, remember to rename directory `.platform/charts/dagster-template` to match your project name.
+
+### Set up Dockerhub repository for your service
+
+File a Request ticket in [ServiceDesk](https://nextail.atlassian.net/servicedesk/customer/portals) asking for a [new dockerhub repository](https://cloud.docker.com/u/nextail/repository/list) to host your Docker images. Remember to include the name of the DockerHub repository you want. This is a manual process, since appropriate permissions must be set for developers and bots.
+
+### Set up your project in CI
+
+Configure the project in CircleCI. Pipelines are configured in the default folder `.circleci`:
+  - Search your project https://app.circleci.com/projects/project-dashboard/github/nextail/
+  - Push Set Up Project: ![Set up project](./images/circleci.png)
+  - Set the config.yml file: ![Set config file](./images/circleci-2.png)
+
+[More Info](https://app.circleci.com/projects/project-dashboard/github/nextail/)
 
 ## 1. Requirements
 
@@ -123,7 +144,7 @@ As you create Dagster ops and graphs, add tests in `dagster/tests/` to check tha
 code behaves as desired and does not break over time.
 
 For hints on how to write tests for ops and graphs,
-[see the documentation tutorial of Testing in Dagster](https://docs.dagster.io/tutorial/testable).
+[See the documentation tutorial of Testing in Dagster](https://docs.dagster.io/tutorial/testable)
 
 ### 2.2. Cloud
 
@@ -135,9 +156,7 @@ CI/CD Integration with CircleCI Orb.
 
 - Request Docker image on Docker Hub with the same name as your repository to #squad-platform
 - Configure the project in CircleCI. Pipelines are configured in the default folder .circleci
-  - Search your project https://app.circleci.com/projects/project-dashboard/github/nextail/
-  - Push Set Up Project: ![Set up project](./images/circleci.png)
-  - Set the config.yml file: ![Set config file](./images/circleci-2.png)
+
 #### 2.2.1 Environments
 
 - **Nextail Cloud**: [Link](https://nextail.dagster.cloud/)
@@ -149,21 +168,13 @@ CI/CD Integration with CircleCI Orb.
 
 The Circleci workflow lets you automatically update Dagster Cloud code locations when pipeline code is updated. The workflows builds a Docker image, pushes it to a Docker Hub repository, and uses the Dagster Cloud CLI to tell your agent to add the built image to your workspace. 
 
-The workflows included in this template already has this worflow setup for you:
-
-| **Workflow**                  | **Branch**   | **Description**
-| ----------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
-| **unit-test**                 | all          | Execute make test (developer can change the functionality of make test)                             |
-| **build-and-deploy-sandbox**  | sandbox      | Build docker image from Dockerfile, push image to DockerHub and deploy project in Dagster Sandbox    |
-| **build-and-deploy-prod**     | main         | Build docker image from Dockerfile, push image to DockerHub and deploy project in Dagster Production |
-
 [More info](https://circleci.com/developer/orbs/orb/nextail/dagster-pipelines-orb)
 
 #### 2.2.3 Permissions
 
-The template provided for development provides an integration with Dagster Cloud that omits any type of requirement of a service account for the deployment.
+The template provided for development provides an integration with Dagster Cloud that omits any type of requirement of a service account for the deployment by default.
 
-For the executions we use an Amazon Service Account "user-cloud-dagster-cloud-agent" as default, which has basic permissions for the execution of jobs such as:
+For default the executions we use an Amazon Service Account "user-cloud-dagster-cloud-agent" as default, which has basic permissions for the execution of jobs such as:
 
 - **Amazon S3**: The default Service Account has permissions over the following paths:
   - For **evo** pipelines (should be everything):
@@ -197,9 +208,50 @@ For the executions we use an Amazon Service Account "user-cloud-dagster-cloud-ag
 
 - **Amazon Secrets Manager**: access to Secrets containing the following tags
    - "scope-dagster": "true"
-   - "dagster": ""
    - "environment": "${environment}" (where environment could be sandbox or production)
+
 - **K8s**: running jobs on Kubernetes in the environment that corresponds to it.
 
-If for the execution of your pipelines you need more permissions or change any of the existing ones, it will be necessary to create a specific Amazon Service Account for your repository.
-Contact #squad-platform for the request.
+#### 2.2.4 Custom Service Account
+
+If the execution of your pipelines you need more permissions or change any of the existing ones, it will be necessary to create a specific Amazon Service Account for your repository following [this guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers/#table-of-contents). You will create a new AWS role which will contain the permissions of the app to interact with AWS. By default, your app will only be able to interact with AWS Secrets Manager, if you need additional permissions to access other AWS services like S3, Lambda... ask [platform](https://nextail-labs.slack.com/archives/CLZJ97WCC)
+
+##### Step 1: Configure the creation of Service Account and Service Provider
+
+Remember rename "dagster-template" references in the following file `.platform/charts/dagster-template/Chart.yaml`. Also, remember to rename directory `.platform/charts/dagster-template` to match your repository name
+
+Then configure the file `.platform/charts/dagster-template/values.yaml`:
+
+1. Change serviceAccount create to true
+2. Set your envVars and AWS keys to map your secrets into app environment
+
+```yaml
+# Kubernetes Service Account
+# By default it will be false and a default dagster service account will be used.
+# In case of create: true, the circleci pipeline must also be configured setting the property custom_service_account: true.
+serviceAccount:
+  create: true
+
+# envVar: is the name of the environment variable that will be exposed in your application container.
+# key: refers to the key inside your AWS Secrets Manager secret.
+envFromSecretsManager:
+  - envVar: ENV_NAME
+    key: secret_key
+```
+
+##### Step 2: Set our Custom Service Account into our Dagster Project
+
+The last step will be to modify in the file `.circleci/config.yml ` the parameter **custom_service_account** in the line 9 `default: false` to `default: true`.
+
+```yaml
+version: 2.1
+
+orbs:
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@0.2.3
+
+parameters:
+  custom_service_account:
+    type: boolean
+    default: true
+    description: "We use this parameter to define if our project uses its own service account (true) or by default (false)."
+```
