@@ -6,10 +6,10 @@ authors = [
     {name = "nextail"},
 ]
 dependencies = [
-    "dagster>=1.0.11",
-    "dagit>=1.0.11",
-    "dagster-graphql>=1.0.11",
-    "dagster-cloud>=1.0.11",
+    "dagster>=1.0.17",
+    "dagit>=1.0.17",
+    "dagster-graphql>=1.0.17",
+    "dagster-cloud>=1.0.17",
     "dagster-postgres",
     "dagster-aws",
     "dagster-docker",
