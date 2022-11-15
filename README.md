@@ -50,15 +50,13 @@ This template will give us:
 To start, create a new repository and reference this template to make a copy:
 ![Repo-for-template](./images/repository-from-template.png)
 
-> This is a template, do not build on this Github Project
-
 Then rename "dagster-template" references in `.platform/charts/dagster-template/Chart.yaml`.
 
 Also, remember to rename directory `.platform/charts/dagster-template` to match your project name.
 
 ### Set up Dockerhub repository for your service
 
-File a Request ticket in [FreshDesk] (<https://nextail.freshdesk.com/support/tickets/new>) asking for a [new dockerhub repository](https://cloud.docker.com/u/nextail/repository/list) to host your Docker images. Remember to include the name of the DockerHub repository you want. This is a manual process, since appropriate permissions must be set for developers and bots.
+File a Request ticket in [ServiceDesk](https://nextail.atlassian.net/servicedesk/customer/portals) asking for a [new dockerhub repository](https://cloud.docker.com/u/nextail/repository/list) to host your Docker images. Remember to include the name of the DockerHub repository you want. This is a manual process, since appropriate permissions must be set for developers and bots.
 
 ### Set up your project in CI
 
