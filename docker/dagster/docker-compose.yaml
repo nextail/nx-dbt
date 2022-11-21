@@ -21,7 +21,7 @@ services:
     build:
       context: ../..
       dockerfile: ./docker/Dockerfile
-      target: stage
+      target: srv
       args:
         - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
     working_dir: /usr/src/dagster
@@ -29,6 +29,12 @@ services:
     container_name: ${SERVICE_NAME}_dagit
     restart: on-failure
     entrypoint:
+      - "python"
+      - "-m"
+      - "debugpy"
+      - "--listen"
+      - "0.0.0.0:5678"
+      - "-m"
       - "dagit"
       - "-h"
       - "0.0.0.0"
@@ -40,8 +46,9 @@ services:
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
-    ports: # Make docker client accessible so we can terminate containers from dagit
+    ports:
       - "3000:3000"
+      - "5678:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../dagster:/usr/src/dagster
@@ -56,7 +63,7 @@ services:
     build:
       context: ../..
       dockerfile: ./docker/Dockerfile
-      target: stage
+      target: srv
       args:
         - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
     working_dir: /usr/src/dagster
@@ -64,12 +71,20 @@ services:
     container_name: ${SERVICE_NAME}_daemon
     restart: on-failure
     entrypoint:
-      - "dagster-daemon"
+      - "python"
+      - "-m"
+      - "debugpy"
+      - "--listen"
+      - "0.0.0.0:5678"
+      - "-m"
+      - "dagster._daemon"
       - "run"
     environment:
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "5679:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../dagster:/usr/src/dagster

@@ -6,10 +6,10 @@ authors = [
     {name = "nextail"},
 ]
 dependencies = [
-    "dagster>=1.0.17",
-    "dagit>=1.0.17",
-    "dagster-graphql>=1.0.17",
-    "dagster-cloud>=1.0.17",
+    "dagster>=1.1.2",
+    "dagit>=1.1.2",
+    "dagster-graphql>=1.1.2",
+    "dagster-cloud>=1.1.2",
     "dagster-postgres",
     "dagster-aws",
     "dagster-docker",
@@ -27,4 +27,7 @@ build-backend = "pdm.pep517.api"
 [tool.pdm.dev-dependencies]
 test = [
     "pytest>=7.1.2",
+]
+debug = [
+    "debugpy==1.6.3",
 ]
