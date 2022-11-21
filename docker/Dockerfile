@@ -97,3 +97,14 @@ COPY ./dagster/tests $DAGSTER_HOME/tests
 
 # set workdir for tests
 WORKDIR $DAGSTER_HOME/tests
+
+
+###############################################################################################
+####################################   SERVICE IMAGE     ######################################
+###############################################################################################
+
+FROM stage AS srv
+
+# install dev dependencies
+WORKDIR $PYPACKAGES
+RUN pdm install --check -G debug
