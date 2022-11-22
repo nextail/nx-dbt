@@ -12,7 +12,7 @@ run_storage:
   config:
     postgres_db:
       hostname: 
-        env: ${SERVICE_NAME}_postgres
+        env: POSTGRES_HOST
       username:
         env: POSTGRES_USER
       password:
@@ -27,7 +27,7 @@ schedule_storage:
   config:
     postgres_db:
       hostname: 
-        env: ${SERVICE_NAME}_postgres
+        env: POSTGRES_HOST
       username:
         env: POSTGRES_USER
       password:

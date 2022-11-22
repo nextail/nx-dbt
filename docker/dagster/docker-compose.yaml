@@ -43,6 +43,7 @@ services:
       - "-w"
       - "workspace.yaml"
     environment:
+      POSTGRES_HOST: ${SERVICE_NAME}_postgres
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
@@ -52,6 +53,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../dagster:/usr/src/dagster
+      - ../../dagster/dagster.yaml:/opt/dagster/dagster.yaml
     depends_on:
       - postgres_db
     networks:
@@ -80,6 +82,7 @@ services:
       - "dagster._daemon"
       - "run"
     environment:
+      POSTGRES_HOST: ${SERVICE_NAME}_postgres
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
@@ -88,6 +91,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../dagster:/usr/src/dagster
+      - ../../dagster/dagster.yaml:/opt/dagster/dagster.yaml
     depends_on:
       - postgres_db
     networks:
