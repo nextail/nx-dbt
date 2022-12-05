@@ -1,12 +1,12 @@
 from dagster import repository
 
-from src.app.jobs.say_hello import say_hello_job
-from src.app.schedules.my_hourly_schedule import my_hourly_schedule
-from src.app.sensors.my_sensor import my_sensor
+from dagster_template.dagster.example.jobs.say_hello import say_hello_job
+from dagster_template.dagster.example.schedules.my_hourly_schedule import my_hourly_schedule
+from dagster_template.dagster.example.sensors.my_sensor import my_sensor
 
 
 @repository
-def app():
+def example():
     """
     The repository definition for this app Dagster repository.
 

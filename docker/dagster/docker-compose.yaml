@@ -24,7 +24,8 @@ services:
       target: srv
       args:
         - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
-    working_dir: /usr/src/dagster
+        - SERVICE_NAME #This can be removed if is not planned to use Nextail libraries.
+    working_dir: /usr/projects/
     image: nextail/${SERVICE_NAME}_dagit
     container_name: ${SERVICE_NAME}_dagit
     restart: on-failure
@@ -52,8 +53,12 @@ services:
       - "5678:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../dagster:/usr/src/dagster
-      - ../../dagster/dagster.yaml:/opt/dagster/dagster.yaml
+      - ../../${SERVICE_NAME}:/usr/projects/${SERVICE_NAME}
+      - ../../dagster.yaml:/opt/dagster/dagster.yaml
+      - ../../workspace.yaml:/usr/projects/workspace.yaml
+      - ../../repository.py:/usr/projects/repository.py
+      - ../../pdm.lock:/usr/projects/pdm.lock
+      - ../../pyproject.toml:/usr/projects/pyproject.toml
     depends_on:
       - postgres_db
     networks:
@@ -68,7 +73,8 @@ services:
       target: srv
       args:
         - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
-    working_dir: /usr/src/dagster
+        - SERVICE_NAME #This can be removed if is not planned to use Nextail libraries.
+    working_dir: /usr/projects/
     image: nextail/${SERVICE_NAME}_daemon
     container_name: ${SERVICE_NAME}_daemon
     restart: on-failure
@@ -90,8 +96,12 @@ services:
       - "5679:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../dagster:/usr/src/dagster
-      - ../../dagster/dagster.yaml:/opt/dagster/dagster.yaml
+      - ../../${SERVICE_NAME}:/usr/projects/${SERVICE_NAME}
+      - ../../dagster.yaml:/opt/dagster/dagster.yaml
+      - ../../workspace.yaml:/usr/projects/workspace.yaml
+      - ../../repository.py:/usr/projects/repository.py
+      - ../../pdm.lock:/usr/projects/pdm.lock
+      - ../../pyproject.toml:/usr/projects/pyproject.toml
     depends_on:
       - postgres_db
     networks:

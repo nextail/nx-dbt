@@ -1,15 +1,15 @@
 [project]
-name = "dagster-template"
+name = "dagster_template"
 dynamic = ["version"]
 description = ""
 authors = [
     {name = "nextail"},
 ]
 dependencies = [
-    "dagster>=1.1.2",
-    "dagit>=1.1.2",
-    "dagster-graphql>=1.1.2",
-    "dagster-cloud>=1.1.2",
+    "dagster>=1.1.5",
+    "dagit>=1.1.5",
+    "dagster-graphql>=1.1.5",
+    "dagster-cloud>=1.1.5",
     "dagster-postgres",
     "dagster-aws",
     "dagster-docker",

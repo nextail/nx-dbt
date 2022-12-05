@@ -56,7 +56,7 @@ workflows:
           filters:
             branches:
               only:
-                - sandbox
+                - feature/reestructure
 
       # build-and-deploy for prod dagster environment
       # uncomment to deploy to production

@@ -1,7 +1,8 @@
 .PHONY = help dev-deps test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test pdm-lock
 MAKEFLAGS += --warn-undefined-variables
 
-SERVICE_NAME := $(shell basename `git rev-parse --show-toplevel`)
+#SERVICE_NAME := $(shell basename `git rev-parse --show-toplevel`)
+SERVICE_NAME := dagster_template
 
 # Shell to use for running scripts
 SHELL := $(shell which bash)
@@ -64,6 +65,7 @@ shell: start-dev
 		--build-arg USER_ID=${UID} \
 		--build-arg GROUP_ID=${GID} \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
+		--build-arg SERVICE_NAME=${SERVICE_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
 	&& echo -e "${BLUE}Dockerized ${NOFORMAT} shell ready to interact with the project." \
@@ -71,8 +73,7 @@ shell: start-dev
 	&& ${DOCKER} run --rm -it --network=nxnet \
         --hostname dagster-shell \
 		--user local-dev:local-dev \
-        -v ${MKFILE_PATH}/dagster:/usr/src/dagster \
-		-v ${MKFILE_PATH}/scripts/:/usr/src/scripts \
+        -v ${MKFILE_PATH}/:/usr/projects/ \
         -w /usr/src \
         --entrypoint /bin/bash \
         nextail/${SERVICE_NAME}_dev

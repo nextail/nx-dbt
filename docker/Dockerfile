@@ -21,6 +21,8 @@ RUN pip install pdm==2.1.4
 # These can be removed if is not planned to use Nextail libraries.
 ARG GITHUB_PIP_TOKEN
 ENV GITHUB_PIP_TOKEN=$GITHUB_PIP_TOKEN
+ARG SERVICE_NAME
+ENV SERVICE_NAME=$SERVICE_NAME
 
 ###############################################################################################
 ######################################   STAGE IMAGE   ########################################
@@ -34,7 +36,7 @@ RUN mkdir -p $PYPACKAGES
 WORKDIR $PYPACKAGES
 
 # copy PDM files
-COPY ./dagster/pyproject.toml ./dagster/pdm.lock $PYPACKAGES/
+COPY ./pyproject.toml ./pdm.lock $PYPACKAGES/
 
 # install dependencies
 RUN pdm config python.use_venv false
@@ -56,8 +58,8 @@ WORKDIR $DAGSTER_HOME
 FROM stage AS cloud
 
 # copy project
-COPY ./dagster/src $DAGSTER_HOME/src
-COPY ./dagster/repository.py $DAGSTER_HOME/
+COPY ./$SERVICE_NAME/ $DAGSTER_HOME/$SERVICE_NAME/
+COPY ./repository.py $DAGSTER_HOME/repository.py
 
 ###############################################################################################
 ####################################    DEV IMAGE     #########################################
@@ -70,7 +72,7 @@ ARG USER_ID=1000
 ARG GROUP_ID=1000
 
 # set python env
-ENV DAGSTER_DEV=/usr/src/dagster
+ENV DAGSTER_DEV=/usr/projects/
 RUN mkdir -p $DAGSTER_DEV
 WORKDIR $DAGSTER_DEV
 
@@ -93,7 +95,7 @@ WORKDIR $PYPACKAGES
 RUN pdm install --check -G test
 
 # copy project
-COPY ./dagster/tests $DAGSTER_HOME/tests
+COPY ./tests $DAGSTER_HOME/tests
 
 # set workdir for tests
 WORKDIR $DAGSTER_HOME/tests

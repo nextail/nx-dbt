@@ -1,4 +1,0 @@
-load_from:
-  - python_file:
-      working_directory: /usr/src/dagster
-      relative_path: /usr/src/dagster/repository.py

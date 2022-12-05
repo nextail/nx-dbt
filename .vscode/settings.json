@@ -1,3 +1,6 @@
 {
-    "debug.showSubSessionsInToolBar": true
+    "debug.showSubSessionsInToolBar": true,
+    "python.analysis.extraPaths": [
+        "./__pypackages__/3.9/lib"
+    ]
 }

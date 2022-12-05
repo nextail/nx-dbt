@@ -13,4 +13,4 @@ services:
       GITHUB_PIP_TOKEN:
     working_dir: /code
     volumes:
-      - ../../dagster:/code
+      - ../..:/code

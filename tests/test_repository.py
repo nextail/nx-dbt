@@ -1,4 +1,4 @@
-from repository import app
+from repository import example
 
 def test_repository_loads_all_definitions():
     """
@@ -6,4 +6,4 @@ def test_repository_loads_all_definitions():
     without errors.
     """
 
-    app.load_all_definitions()
+    example.load_all_definitions()
