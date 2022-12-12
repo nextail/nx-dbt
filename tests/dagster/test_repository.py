@@ -1,4 +1,4 @@
-from repository import example
+from dagster_template.dagster.repository import example
 
 def test_repository_loads_all_definitions():
     """

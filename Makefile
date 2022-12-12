@@ -1,8 +1,8 @@
-.PHONY = help dev-deps test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test pdm-lock
+.PHONY = help dev-deps update test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test pdm-lock
 MAKEFLAGS += --warn-undefined-variables
 
-#SERVICE_NAME := $(shell basename `git rev-parse --show-toplevel`)
-SERVICE_NAME := dagster_template
+REPO_NAME := $(shell basename `git rev-parse --show-toplevel`)
+SERVICE_NAME := $(shell echo $(REPO_NAME) | tr '-' '_')
 
 # Shell to use for running scripts
 SHELL := $(shell which bash)
@@ -44,28 +44,47 @@ ifndef DOCKER_COMPOSE
 	@exit 1
 endif
 
+## update            : This script updates all references.
+update: dev-deps
+	@bash scripts/update-template.sh
+
 ## test              : pytest
 test: dev-deps
-	@bash scripts/make-test.sh
+	@echo \
+	&& DOCKER_BUILDKIT=1 \
+	${DOCKER} build --no-cache --target test -t nextail/${REPO_NAME}_test \
+		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
+		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg REPO_NAME=${REPO_NAME} \
+		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
+	&& echo \
+	&& ${DOCKER} run --rm -it nextail/${REPO_NAME}_test \
+	pytest -c /usr/python/pyproject.toml
 
 ## create-env        : create .env file
 create-env: 
+
 	@echo "SERVICE_NAME=${SERVICE_NAME}" > ${MKFILE_PATH}/docker/dagster/.env
+	@echo "REPO_NAME=${REPO_NAME}" >> ${MKFILE_PATH}/docker/dagster/.env
 	
 ## start-dev         : start the docker environment in background
 start-dev: create-env
-	@cd ${MKFILE_PATH}/docker/dagster && ${DOCKER_COMPOSE} up --build -d
+	
+	@cd ${MKFILE_PATH}/docker/dagster \
+	&& DOCKER_BUILDKIT=1 \
+	${DOCKER_COMPOSE} up --build -d
 
 ## shell             : start the docker environment in background with shell
 shell: start-dev
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
-	&& ${DOCKER} build --target dev -t nextail/${SERVICE_NAME}_dev \
+	${DOCKER} build --target dev -t nextail/${REPO_NAME}_dev \
 		--build-arg UNAME=local-dev \
 		--build-arg USER_ID=${UID} \
 		--build-arg GROUP_ID=${GID} \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
 	&& echo -e "${BLUE}Dockerized ${NOFORMAT} shell ready to interact with the project." \
@@ -73,10 +92,10 @@ shell: start-dev
 	&& ${DOCKER} run --rm -it --network=nxnet \
         --hostname dagster-shell \
 		--user local-dev:local-dev \
-        -v ${MKFILE_PATH}/:/usr/projects/ \
-        -w /usr/src \
+        -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ \
+        -w /opt/${REPO_NAME}/ \
         --entrypoint /bin/bash \
-        nextail/${SERVICE_NAME}_dev
+        nextail/${REPO_NAME}_dev
 
 ## start-dev-nocache : start the docker environment in background without cache on build
 start-dev-nocache: create-env
@@ -104,7 +123,7 @@ clean: clean-packages clean-pyc clean-test
 
 ## clean-packages    : remove build packages
 clean-packages: 
-	@bash scripts/clean-packages.sh
+	@bash scripts/clean-pkg.sh
 
 ## clean-pyc         : remove python pyc files
 clean-pyc: 
@@ -116,8 +135,21 @@ clean-test:
 
 ## pdm-lock          : lock generator
 pdm-lock:
-	${DOCKER_COMPOSE} -f ${MKFILE_PATH}/docker/dev/docker-compose-pdm.yml build \
-		--no-cache \
-		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN}&& \
-	${DOCKER_COMPOSE} -f ${MKFILE_PATH}/docker/dev/docker-compose-pdm.yml run \
-		--rm --no-deps lock-generator pdm lock -v
+	@echo \
+	&& DOCKER_BUILDKIT=1 \
+	${DOCKER} build --target dev -t nextail/${REPO_NAME}_dev \
+		--build-arg UNAME=local-dev \
+		--build-arg USER_ID=${UID} \
+		--build-arg GROUP_ID=${GID} \
+		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
+		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg REPO_NAME=${REPO_NAME} \
+		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
+	&& echo \
+	&& ${DOCKER} run --rm -it --network=nxnet \
+        --hostname dagster-lock \
+		--user local-dev:local-dev \
+        -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ \
+        -w /opt/${REPO_NAME}/ \
+        nextail/${REPO_NAME}_dev \
+		pdm lock -v

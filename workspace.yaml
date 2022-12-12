@@ -1,4 +1,0 @@
-load_from:
-  - python_file:
-      working_directory: /usr/projects/
-      relative_path: /usr/projects/repository.py

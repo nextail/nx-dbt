@@ -1,5 +1,7 @@
 # Dagster Nextail Template
 
+![dagster-in-nextail](images/dagster-in-nextail.png)
+
 In order to make it easier to start the development in Dagster this template is provided.
 
 This template will give us:
@@ -15,10 +17,15 @@ This template will give us:
 | `.circleci/`                 | workflows of Circleci                                                                 |
 | `.github/`                   | issue and pull request templates                                                      |
 | `.platform/`                 | Helm chart configuration for our Service Account and Service Provider                 |
-| `dagster/`                   | contains the code for your Dagster repositories                                       |
+| `.vscode/`                   | Visual Studio Code custom configurations for debugging                                |
+| `dagster_template/`          | python package of your repository,it will change its name once you launch the update  |
 | `docker/`                    | definition of containers on which we will develop                                     |
+| `images/`                    | images for the documentatio                                                           |
 | `scripts/`                   | Utils for makefile                                                                    |
+| `tests/`                     | python tests for your package                                                         |
 | `Makefile`                   | Automating software building procedure                                                |
+| `pyproject.toml`             | This file contains requirements, which are used by pip to build the package           |
+| `pdm.lock`                   | Dependencies and sub-dependencies resolved properly form pyproject.toml               |
 | `README.md`                  | A description and guide for this code repository                                      |
 
 ## Makefile
@@ -27,6 +34,7 @@ This template will give us:
 | ------------------------- | ----------------------------------------------------------------------- |
 | **help**                  | show this help                                                          |
 | **dev-deps**              | test if the dependencies we need to run this Makefile are installed     |
+| **update**                | This script updates all references to dagster-template                  |
 | **test**                  | pytest                                                                  |
 | **create-env**            | create .env file                                                        |
 | **start-dev**             | start the docker environment in background                              |
@@ -48,11 +56,15 @@ This template will give us:
 :warning: **Important: User that creates the Github repository should be the same one that will later configure the project in CircleCI**
 
 To start, create a new repository and reference this template to make a copy:
-![Repo-for-template](./images/repository-from-template.png)
+![Repo-for-template](images/repository-from-template.png)
 
-Then rename "dagster-template" references in `.platform/charts/dagster-template/Chart.yaml`.
+Then run:
 
-Also, remember to rename directory `.platform/charts/dagster-template` to match your project name.
+```bash
+make update
+```
+
+This script updates all references to dagster-template by replacing them with the name of your repository and creates a module with the name of your github repository and will refactor the sample code.
 
 ### Set up Dockerhub repository for your service
 
@@ -63,8 +75,8 @@ File a Request ticket in [ServiceDesk](https://nextail.atlassian.net/servicedesk
 Configure the project in CircleCI. Pipelines are configured in the default folder `.circleci`:
 
 - Search your project "https://app.circleci.com/projects/project-dashboard/github/nextail/"
-- Push Set Up Project: ![Set up project](./images/circleci.png)
-- Set the config.yml file: ![Set config file](./images/circleci-2.png)
+- Push Set Up Project: ![Set up project](images/circleci.png)
+- Set the config.yml file: ![Set config file](images/circleci-2.png)
 
 [More Info](https://app.circleci.com/projects/project-dashboard/github/nextail/)
 
@@ -87,9 +99,9 @@ Include:
 - Dagster Daemon
 - Dagit
 
-Dagster Daemon and Dagit have `dagster` folder as a docker volume.
+Dagster Daemon and Dagit have your package folder as a docker volume.
 
-The folder `dagster_template/dagster/` contains the code for your Dagster repository. A repository is a collection of software-defined assets, jobs, schedules, and sensors. Repositories are loaded as a unit by the Dagster CLI, Dagit and the Dagster Daemon. he repository specifies a list of items, each of which can be a AssetsDefinition, JobDefinition, ScheduleDefinition, or SensorDefinition. If you include a schedule or sensor, the job it targets will be automatically also included on the repository.
+The `dagster` module contains the code for your Dagster repository. A repository is a collection of software-defined assets, jobs, schedules, and sensors. Repositories are loaded as a unit by the Dagster CLI, Dagit and the Dagster Daemon. he repository specifies a list of items, each of which can be a AssetsDefinition, JobDefinition, ScheduleDefinition, or SensorDefinition. If you include a schedule or sensor, the job it targets will be automatically also included on the repository.
 
 #### 2.1.1 Start environment
 
@@ -115,7 +127,7 @@ If you want to start a shell with pdm installed, ready to interact with the sour
 make shell
 ```
 
-where workdir is: `/usr/src` with folders:
+where workdir is: `/opt/dagster-poc` with folders:
 
 - `dagster`: project
 - `scripts`: utils
@@ -130,7 +142,7 @@ If you want to install dev-dependencies run the utility:
 
 <https://user-images.githubusercontent.com/26308855/192459785-decd62cb-1e9d-474e-9441-3722a5c98cc3.mov>
 
-Then you can run your test from `dagster/tests/` with pytest:
+Then you can run your tests with pytest:
 
 ```bash
 pytest
@@ -148,7 +160,7 @@ make test
 
 <https://user-images.githubusercontent.com/26308855/192459713-56aec8e3-9804-49cb-9464-e9b75f00c311.mp4>
 
-As you create Dagster ops and graphs, add tests in `dagster/tests/` to check that your
+As you create Dagster ops and graphs, add tests in `tests/dagster` to check that your
 code behaves as desired and does not break over time.
 
 For hints on how to write tests for ops and graphs,
@@ -237,9 +249,7 @@ If the execution of your pipelines you need more permissions or change any of th
 
 ##### Step 1: Configure the creation of Service Account and Service Provider
 
-Remember rename "dagster-template" references in the following file `.platform/charts/dagster-template/Chart.yaml`. Also, remember to rename directory `.platform/charts/dagster-template` to match your repository name
-
-Then configure the file `.platform/charts/dagster-template/values.yaml`:
+Configure the file `.platform/charts/{{your_repository}}/values.yaml`:
 
 1. Change serviceAccount create to true
 2. Set your envVars and AWS keys to map your secrets into app environment
@@ -266,7 +276,7 @@ The last step will be to modify in the file `.circleci/config.yml` the parameter
 version: 2.1
 
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@0.2.3
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@1.2.3
 
 parameters:
   custom_service_account:

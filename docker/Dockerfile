@@ -1,34 +1,34 @@
+ARG SERVICE_NAME
+ARG REPO_NAME
+ARG PYTHON_MAJOR_VERSION=3.9
+
 ###############################################################################################
 ######################################   BASE IMAGE   #########################################
 ###############################################################################################
 
-FROM python:3.9-slim AS base
+FROM python:$PYTHON_MAJOR_VERSION-slim AS base
 
+#git can be removed if is not planned to use Nextail libraries
 RUN set -ex \
     && apt-get update \
-    && apt-get install -y curl git #git can be removed if is not planned to use Nextail libraries.
+    && apt-get install -y curl git 
 
 # install PDM
 RUN pip install -U pip setuptools wheel
-RUN pip install pdm==2.1.4
-
-# Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
-# Ref: https://github.com/pdm-project/pdm/issues/1388
-#RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/2.1.4/install-pdm.py | python3 - --version=2.1.4
-#ENV PATH=/root/.local/bin:${PATH}
+RUN pip install pdm==2.3.2
 
 # set required environment vars from host
 # These can be removed if is not planned to use Nextail libraries.
 ARG GITHUB_PIP_TOKEN
 ENV GITHUB_PIP_TOKEN=$GITHUB_PIP_TOKEN
-ARG SERVICE_NAME
-ENV SERVICE_NAME=$SERVICE_NAME
 
 ###############################################################################################
 ######################################   STAGE IMAGE   ########################################
 ###############################################################################################
 
 FROM base AS stage
+
+ARG PYTHON_MAJOR_VERSION
 
 # set python env
 ENV PYPACKAGES=/usr/python
@@ -43,8 +43,8 @@ RUN pdm config python.use_venv false
 RUN pdm install --prod --check --no-editable
 
 # set python  env
-ENV PYTHONPATH=$PYPACKAGES/__pypackages__/3.9/lib
-ENV PATH=$PYPACKAGES/__pypackages__/3.9/bin/:$PATH
+ENV PYTHONPATH=$PYPACKAGES/__pypackages__/$PYTHON_MAJOR_VERSION/lib
+ENV PATH=$PYPACKAGES/__pypackages__/$PYTHON_MAJOR_VERSION/bin/:$PATH
 
 # set dagster env & workdir
 ENV DAGSTER_HOME=/opt/dagster
@@ -57,9 +57,11 @@ WORKDIR $DAGSTER_HOME
 
 FROM stage AS cloud
 
+ARG SERVICE_NAME
+ARG REPO_NAME
+
 # copy project
-COPY ./$SERVICE_NAME/ $DAGSTER_HOME/$SERVICE_NAME/
-COPY ./repository.py $DAGSTER_HOME/repository.py
+COPY ./$SERVICE_NAME/ /opt/$REPO_NAME/$SERVICE_NAME/
 
 ###############################################################################################
 ####################################    DEV IMAGE     #########################################
@@ -67,18 +69,26 @@ COPY ./repository.py $DAGSTER_HOME/repository.py
 
 FROM base AS dev
 
+ARG REPO_NAME
+ARG PYTHON_MAJOR_VERSION
+
 ARG UNAME=local-dev
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
+#set venv
+WORKDIR $PYPACKAGES
+RUN pdm config python.use_venv false
+
+
 # set python env
-ENV DAGSTER_DEV=/usr/projects/
+ENV DAGSTER_DEV=/opt/$REPO_NAME
 RUN mkdir -p $DAGSTER_DEV
 WORKDIR $DAGSTER_DEV
 
 # set python  env
-ENV PYTHONPATH=$DAGSTER_DEV/__pypackages__/3.9/lib
-ENV PATH=$DAGSTER_DEV/__pypackages__/3.9/bin/:$PATH
+ENV PYTHONPATH=$DAGSTER_DEV/__pypackages__/$PYTHON_MAJOR_VERSION/lib
+ENV PATH=$DAGSTER_DEV/__pypackages__/$PYTHON_MAJOR_VERSION/bin/:$PATH
 
 RUN groupadd -g $GROUP_ID -o $UNAME
 RUN useradd -m -u $USER_ID -g $GROUP_ID -o -s /bin/bash $UNAME
@@ -90,15 +100,17 @@ USER $UNAME
 
 FROM cloud AS test
 
+ARG REPO_NAME
+
 # install dev dependencies
 WORKDIR $PYPACKAGES
 RUN pdm install --check -G test
 
 # copy project
-COPY ./tests $DAGSTER_HOME/tests
+COPY ./tests /opt/$REPO_NAME/tests
 
 # set workdir for tests
-WORKDIR $DAGSTER_HOME/tests
+WORKDIR /opt/$REPO_NAME
 
 
 ###############################################################################################
@@ -109,4 +121,7 @@ FROM stage AS srv
 
 # install dev dependencies
 WORKDIR $PYPACKAGES
-RUN pdm install --check -G debug
+RUN pdm install --check -G dev
+
+WORKDIR $DAGSTER_HOME
+COPY ./docker/dagster/dagster.yaml ./docker/dagster/workspace.yaml $DAGSTER_HOME/

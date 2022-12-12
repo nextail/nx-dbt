@@ -17,7 +17,7 @@
             "pathMappings": [
                 {
                     "localRoot": "${workspaceFolder}/",
-                    "remoteRoot": "/usr/projects/",
+                    "remoteRoot": "/opt/dagster-template/",
                 }
             ],
             "subProcess": true,
@@ -34,7 +34,7 @@
             "pathMappings": [
                 {
                     "localRoot": "${workspaceFolder}/",
-                    "remoteRoot": "/usr/projects/",
+                    "remoteRoot": "/opt/dagster-template/",
                 }
             ],
             "subProcess": true,
@@ -51,7 +51,7 @@
             "pathMappings": [
                 {
                     "localRoot": "${workspaceFolder}/",
-                    "remoteRoot": "/usr/projects/",
+                    "remoteRoot": "/opt/dagster-template/",
                 }
             ],
             "subProcess": true,
@@ -68,7 +68,7 @@
             "pathMappings": [
                 {
                     "localRoot": "${workspaceFolder}/",
-                    "remoteRoot": "/usr/projects/",
+                    "remoteRoot": "/opt/dagster-template/",
                 }
             ],
             "subProcess": true,

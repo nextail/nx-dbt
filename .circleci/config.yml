@@ -2,7 +2,7 @@ version: 2.1
 
 # cumtom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@0.2.3
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.0.0
 
 # custom pipeline paramenters
 parameters:
@@ -10,6 +10,10 @@ parameters:
     type: boolean
     default: false
     description: "We use this parameter to define if our project uses its own service account (true) or by default (false)."
+  module_name:
+    type: string
+    default: dagster_template.dagster.repository
+    description: "Python module containing the target Dagster repository"
 
 workflows:
   infrastructure:
@@ -32,6 +36,7 @@ workflows:
             branches:
               only:
                 - main
+
   build-and-deploy:
     jobs:
 
@@ -39,15 +44,16 @@ workflows:
       - dagster-pipelines-orb/check-secrets
 
       # unit-test for all branches
-      - dagster-pipelines-orb/unit-test:
-          context:
-            - github-tokens
+      # - dagster-pipelines-orb/unit-test:
+      #     context:
+      #       - github-tokens
 
       # build-and-deploy for sandbox dagster environment
       - dagster-pipelines-orb/build-and-deploy-sandbox:
           custom_service_account: <<pipeline.parameters.custom_service_account>>
+          module_name: <<pipeline.parameters.module_name>>
           requires:
-            - dagster-pipelines-orb/unit-test
+            #- dagster-pipelines-orb/unit-test
             - dagster-pipelines-orb/check-secrets
           context:
             - org-global
@@ -59,18 +65,17 @@ workflows:
                 - feature/reestructure
 
       # build-and-deploy for prod dagster environment
-      # uncomment to deploy to production
-      #
-      # - dagster-pipelines-orb/build-and-deploy-prod:
-      #     custom_service_account: <<pipeline.parameters.custom_service_account>>
-      #     requires:
-      #       - dagster-pipelines-orb/unit-test
-      #       - dagster-pipelines-orb/check-secrets
-      #     context:
-      #       - org-global
-      #       - github-tokens
-      #       - dagster-tokens
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
+      - dagster-pipelines-orb/build-and-deploy-prod:
+          custom_service_account: <<pipeline.parameters.custom_service_account>>
+          module_name: <<pipeline.parameters.module_name>>
+          requires:
+            # - dagster-pipelines-orb/unit-test
+            - dagster-pipelines-orb/check-secrets
+          context:
+            - org-global
+            - github-tokens
+            - dagster-tokens
+          filters:
+            branches:
+              only:
+                - main

@@ -6,7 +6,7 @@ services:
   # and event log storage.
   postgres_db:
     image: postgres:11
-    container_name: ${SERVICE_NAME}_postgres
+    container_name: ${REPO_NAME}_postgres
     environment:
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
@@ -25,9 +25,9 @@ services:
       args:
         - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
         - SERVICE_NAME #This can be removed if is not planned to use Nextail libraries.
-    working_dir: /usr/projects/
-    image: nextail/${SERVICE_NAME}_dagit
-    container_name: ${SERVICE_NAME}_dagit
+    working_dir: /opt/dagster
+    image: nextail/${REPO_NAME}_dagit
+    container_name: ${REPO_NAME}_dagit
     restart: on-failure
     entrypoint:
       - "python"
@@ -44,7 +44,7 @@ services:
       - "-w"
       - "workspace.yaml"
     environment:
-      POSTGRES_HOST: ${SERVICE_NAME}_postgres
+      POSTGRES_HOST: ${REPO_NAME}_postgres
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
@@ -53,12 +53,7 @@ services:
       - "5678:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../${SERVICE_NAME}:/usr/projects/${SERVICE_NAME}
-      - ../../dagster.yaml:/opt/dagster/dagster.yaml
-      - ../../workspace.yaml:/usr/projects/workspace.yaml
-      - ../../repository.py:/usr/projects/repository.py
-      - ../../pdm.lock:/usr/projects/pdm.lock
-      - ../../pyproject.toml:/usr/projects/pyproject.toml
+      - ../../${SERVICE_NAME}:/opt/${REPO_NAME}/${SERVICE_NAME}
     depends_on:
       - postgres_db
     networks:
@@ -74,9 +69,9 @@ services:
       args:
         - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
         - SERVICE_NAME #This can be removed if is not planned to use Nextail libraries.
-    working_dir: /usr/projects/
-    image: nextail/${SERVICE_NAME}_daemon
-    container_name: ${SERVICE_NAME}_daemon
+    working_dir: /opt/dagster
+    image: nextail/${REPO_NAME}_daemon
+    container_name: ${REPO_NAME}_daemon
     restart: on-failure
     entrypoint:
       - "python"
@@ -88,7 +83,7 @@ services:
       - "dagster._daemon"
       - "run"
     environment:
-      POSTGRES_HOST: ${SERVICE_NAME}_postgres
+      POSTGRES_HOST: ${REPO_NAME}_postgres
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
@@ -96,12 +91,7 @@ services:
       - "5679:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../${SERVICE_NAME}:/usr/projects/${SERVICE_NAME}
-      - ../../dagster.yaml:/opt/dagster/dagster.yaml
-      - ../../workspace.yaml:/usr/projects/workspace.yaml
-      - ../../repository.py:/usr/projects/repository.py
-      - ../../pdm.lock:/usr/projects/pdm.lock
-      - ../../pyproject.toml:/usr/projects/pyproject.toml
+      - ../../${SERVICE_NAME}:/opt/${REPO_NAME}/${SERVICE_NAME}
     depends_on:
       - postgres_db
     networks:
