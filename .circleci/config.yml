@@ -44,16 +44,16 @@ workflows:
       - dagster-pipelines-orb/check-secrets
 
       # unit-test for all branches
-      # - dagster-pipelines-orb/unit-test:
-      #     context:
-      #       - github-tokens
+      - dagster-pipelines-orb/unit-test:
+          context:
+            - github-tokens
 
       # build-and-deploy for sandbox dagster environment
       - dagster-pipelines-orb/build-and-deploy-sandbox:
           custom_service_account: <<pipeline.parameters.custom_service_account>>
           module_name: <<pipeline.parameters.module_name>>
           requires:
-            #- dagster-pipelines-orb/unit-test
+            - dagster-pipelines-orb/unit-test
             - dagster-pipelines-orb/check-secrets
           context:
             - org-global
@@ -62,14 +62,14 @@ workflows:
           filters:
             branches:
               only:
-                - feature/reestructure
+                - sandbox
 
       # build-and-deploy for prod dagster environment
       - dagster-pipelines-orb/build-and-deploy-prod:
           custom_service_account: <<pipeline.parameters.custom_service_account>>
           module_name: <<pipeline.parameters.module_name>>
           requires:
-            # - dagster-pipelines-orb/unit-test
+            - dagster-pipelines-orb/unit-test
             - dagster-pipelines-orb/check-secrets
           context:
             - org-global
