@@ -24,7 +24,7 @@ services:
       target: srv
       args:
         - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
-        - SERVICE_NAME #This can be removed if is not planned to use Nextail libraries.
+        - SERVICE_NAME
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_dagit
     container_name: ${REPO_NAME}_dagit
@@ -68,7 +68,7 @@ services:
       target: srv
       args:
         - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
-        - SERVICE_NAME #This can be removed if is not planned to use Nextail libraries.
+        - SERVICE_NAME
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_daemon
     container_name: ${REPO_NAME}_daemon
