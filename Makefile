@@ -157,14 +157,8 @@ pdm-lock:
 		pdm lock -v
 ## lint-check        : test linter without making changes
 lint-check:
-	wget -O pre-commit.pyz https://github.com/pre-commit/pre-commit/releases/download/v${PRECOMMIT_VERSION}/pre-commit-${PRECOMMIT_VERSION}.pyz
-	python3 pre-commit.pyz install
-	python3 pre-commit.pyz run --hook-stage manual
-	rm pre-commit.pyz
+	@bash scripts/lint-check.sh
 
 ## lint              : make linter
 lint:
-	wget -O pre-commit.pyz https://github.com/pre-commit/pre-commit/releases/download/v${PRECOMMIT_VERSION}/pre-commit-${PRECOMMIT_VERSION}.pyz
-	python3 pre-commit.pyz install
-	python3 pre-commit.pyz run
-	rm pre-commit.pyz
+	@bash scripts/lint.sh

@@ -18,7 +18,7 @@ run_storage:
   class: PostgresRunStorage
   config:
     postgres_db:
-      hostname: 
+      hostname:
         env: POSTGRES_HOST
       username:
         env: POSTGRES_USER
@@ -33,7 +33,7 @@ schedule_storage:
   class: PostgresScheduleStorage
   config:
     postgres_db:
-      hostname: 
+      hostname:
         env: POSTGRES_HOST
       username:
         env: POSTGRES_USER

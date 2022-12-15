@@ -5,9 +5,11 @@ default_stages:
   - commit
 
 exclude: |
-  (?x)^(
-      __pypackages__/.*|
-  )$
+    (?x)(
+        ^__pypackages__/.*|
+        .platform/.*/
+    )
+
 repos:
   - repo: https://github.com/psf/black
     rev: 22.10.0
@@ -38,8 +40,6 @@ repos:
           - "--fix"
       - id: ruff
         name: ruff-only-check
-        args:
-          - "--watch"
         stages: [manual]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks

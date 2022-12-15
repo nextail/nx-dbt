@@ -1,5 +1,6 @@
 from dagster_template.dagster.example.ops.hello import hello
 
+
 def test_hello():
     """
     This is an example test for a Dagster op.
