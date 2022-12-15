@@ -1,7 +1,7 @@
 .PHONY = help dev-deps update test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test pdm-lock
 MAKEFLAGS += --warn-undefined-variables
 
-REPO_NAME := $(shell basename `git rev-parse --show-toplevel`)
+REPO_NAME := $(shell basename `git config --get remote.origin.url` .git)
 SERVICE_NAME := $(shell echo $(REPO_NAME) | tr '-' '_')
 
 # Shell to use for running scripts
