@@ -84,7 +84,8 @@ Configure the project in CircleCI. Pipelines are configured in the default folde
 
 - Docker
 - Python ≥3.9
-- [PDM](https://pdm.fming.dev/latest/#installation): using containerization, installing pdm locally is not necessary.(<https://pdm.fming.dev/latest/usage/hooks/#dependencies-management>)
+- [PDM](https://pdm.fming.dev/latest/#installation): using containerization, install pdm locally is not necessary.(<https://pdm.fming.dev/latest/usage/hooks/#dependencies-management>)
+- [pre-commit](https://pre-commit.com/#install): using containerization, install pre-commit locally is not necessary.
 
 ## 2. Scenarios
 
@@ -133,14 +134,6 @@ where workdir is: `/opt/dagster-poc` with folders:
 - `scripts`: utils
 
 <https://user-images.githubusercontent.com/26308855/192459555-1df66474-f8e8-41e1-a829-124591a77c9b.mov>
-
-If you want to install dev-dependencies run the utility:
-
-```bash
-pdm install --dev
-```
-
-<https://user-images.githubusercontent.com/26308855/192459785-decd62cb-1e9d-474e-9441-3722a5c98cc3.mov>
 
 Then you can run your tests with pytest:
 
