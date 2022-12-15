@@ -137,7 +137,7 @@ where workdir is: `/opt/dagster-poc` with folders:
 If you want to install dev-dependencies run the utility:
 
 ```bash
-./scripts/pdm-config.sh
+pdm install --dev
 ```
 
 <https://user-images.githubusercontent.com/26308855/192459785-decd62cb-1e9d-474e-9441-3722a5c98cc3.mov>

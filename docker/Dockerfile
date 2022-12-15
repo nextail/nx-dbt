@@ -78,8 +78,6 @@ ARG GROUP_ID=1000
 
 #set venv
 WORKDIR $PYPACKAGES
-RUN pdm config python.use_venv false
-
 
 # set python env
 ENV DAGSTER_DEV=/opt/$REPO_NAME
@@ -93,6 +91,9 @@ ENV PATH=$DAGSTER_DEV/__pypackages__/$PYTHON_MAJOR_VERSION/bin/:$PATH
 RUN groupadd -g $GROUP_ID -o $UNAME
 RUN useradd -m -u $USER_ID -g $GROUP_ID -o -s /bin/bash $UNAME
 USER $UNAME
+
+# set pdm env
+RUN pdm config python.use_venv false
 
 ###############################################################################################
 ####################################   TEST IMAGE     #########################################
