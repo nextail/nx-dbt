@@ -1,8 +1,10 @@
-.PHONY = help dev-deps update test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test pdm-lock
+.PHONY = help dev-deps update test create-env start-dev shell start-dev-nocache stop-dev dev-clean dev-clean-full clean clean-packages clean-pyc clean-test pdm-lock lint lint-check
 MAKEFLAGS += --warn-undefined-variables
 
 REPO_NAME := $(shell basename `git config --get remote.origin.url` .git)
 SERVICE_NAME := $(shell echo $(REPO_NAME) | tr '-' '_')
+
+PRECOMMIT_VERSION="2.20.0"
 
 # Shell to use for running scripts
 SHELL := $(shell which bash)
@@ -30,7 +32,7 @@ CYAN := \033[0;36m
 YELLOW := \033[1;33m
 
 ## help              : show this help
-help: 
+help:
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
 ## dev-deps          : test if the dependencies we need to run this Makefile are installed
@@ -62,14 +64,14 @@ test: dev-deps
 	pytest -c /usr/python/pyproject.toml
 
 ## create-env        : create .env file
-create-env: 
+create-env:
 
 	@echo "SERVICE_NAME=${SERVICE_NAME}" > ${MKFILE_PATH}/docker/dagster/.env
 	@echo "REPO_NAME=${REPO_NAME}" >> ${MKFILE_PATH}/docker/dagster/.env
-	
+
 ## start-dev         : start the docker environment in background
 start-dev: create-env
-	
+
 	@cd ${MKFILE_PATH}/docker/dagster \
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER_COMPOSE} up --build -d
@@ -101,7 +103,7 @@ shell: start-dev
 start-dev-nocache: create-env
 	@cd ${MKFILE_PATH}/docker/dagster \
 	&& ${DOCKER_COMPOSE} build --no-cache \
-	&& ${DOCKER_COMPOSE} up -d 
+	&& ${DOCKER_COMPOSE} up -d
 
 ## stop-dev          : stop the the docker environment in background
 stop-dev:
@@ -114,7 +116,7 @@ dev-clean:
 	&& ${DOCKER_COMPOSE} down --rmi local
 
 ## dev-clean-full    : clean all the created containers and their data
-dev-clean-full: 
+dev-clean-full:
 	@cd ${MKFILE_PATH}/docker/dagster \
 	&& ${DOCKER_COMPOSE} down --rmi local -v
 
@@ -122,11 +124,11 @@ dev-clean-full:
 clean: clean-packages clean-pyc clean-test
 
 ## clean-packages    : remove build packages
-clean-packages: 
+clean-packages:
 	@bash scripts/clean-pkg.sh
 
 ## clean-pyc         : remove python pyc files
-clean-pyc: 
+clean-pyc:
 	@bash scripts/clean-pyc.sh
 
 ## clean-test        : remove test and coverage artifacts
@@ -153,3 +155,16 @@ pdm-lock:
         -w /opt/${REPO_NAME}/ \
         nextail/${REPO_NAME}_dev \
 		pdm lock -v
+## lint-check        : test linter without making changes
+lint-check:
+	wget -O pre-commit.pyz https://github.com/pre-commit/pre-commit/releases/download/v${PRECOMMIT_VERSION}/pre-commit-${PRECOMMIT_VERSION}.pyz
+	python3 pre-commit.pyz install
+	python3 pre-commit.pyz run --hook-stage manual
+	rm pre-commit.pyz
+
+## lint              : make linter
+lint:
+	wget -O pre-commit.pyz https://github.com/pre-commit/pre-commit/releases/download/v${PRECOMMIT_VERSION}/pre-commit-${PRECOMMIT_VERSION}.pyz
+	python3 pre-commit.pyz install
+	python3 pre-commit.pyz run
+	rm pre-commit.pyz

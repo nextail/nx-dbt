@@ -166,7 +166,21 @@ code behaves as desired and does not break over time.
 For hints on how to write tests for ops and graphs,
 [See the documentation tutorial of Testing in Dagster](https://docs.dagster.io/tutorial/testable)
 
-#### 2.1.4 Debug with vscode
+#### 2.1.4 Linting
+
+For lint the repository:
+
+```bash
+make lint
+```
+
+For linting without apply changes:
+
+```bash
+make lint-check
+```
+
+#### 2.1.5 Debug with vscode
 
 One of the great things in Visual Studio Code is [debugging support](https://code.visualstudio.com/docs/editor/debugging). Set breakpoints, step-in, inspect variables and more. The template is prepared to use this utility. Within the run and debug menu you can select dagit:localhost or dagster-daemon:localhost to start your debug.
 

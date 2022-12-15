@@ -132,6 +132,7 @@ caches/
 __pypackages__
 .pdm.toml
 temp.py
+.ruff_cache
 
 # dagster persistence
 dagster/.logs_queue

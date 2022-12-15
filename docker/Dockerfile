@@ -11,7 +11,7 @@ FROM python:$PYTHON_MAJOR_VERSION-slim AS base
 #git can be removed if is not planned to use Nextail libraries
 RUN set -ex \
     && apt-get update \
-    && apt-get install -y curl git 
+    && apt-get install -y curl git
 
 # install PDM
 RUN pip install -U pip setuptools wheel
@@ -84,6 +84,9 @@ ENV DAGSTER_DEV=/opt/$REPO_NAME
 RUN mkdir -p $DAGSTER_DEV
 WORKDIR $DAGSTER_DEV
 
+# install make & wget
+RUN apt update && apt install -y make wget
+
 # set python  env
 ENV PYTHONPATH=$DAGSTER_DEV/__pypackages__/$PYTHON_MAJOR_VERSION/lib
 ENV PATH=$DAGSTER_DEV/__pypackages__/$PYTHON_MAJOR_VERSION/bin/:$PATH
@@ -103,9 +106,11 @@ FROM cloud AS test
 
 ARG REPO_NAME
 
+RUN apt update && apt install -y make
+
 # install dev dependencies
 WORKDIR $PYPACKAGES
-RUN pdm install --check -G test
+RUN pdm install --dev
 
 # copy project
 COPY ./tests /opt/$REPO_NAME/tests
