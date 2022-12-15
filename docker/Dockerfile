@@ -95,8 +95,9 @@ RUN groupadd -g $GROUP_ID -o $UNAME
 RUN useradd -m -u $USER_ID -g $GROUP_ID -o -s /bin/bash $UNAME
 USER $UNAME
 
-# set pdm env
+# install dev dependencies
 RUN pdm config python.use_venv false
+RUN pdm install --dev
 
 ###############################################################################################
 ####################################   TEST IMAGE     #########################################
@@ -106,6 +107,7 @@ FROM cloud AS test
 
 ARG REPO_NAME
 
+# install make
 RUN apt update && apt install -y make
 
 # install dev dependencies

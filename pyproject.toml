@@ -29,6 +29,8 @@ test = [
 ]
 dev = [
     "debugpy==1.6.3",
+    # linter and formatter
+    "pre-commit==2.20.0",
     "black==22.10.0",                  # python formatter
     "isort==5.10.1",                   # python imports sort
     "ruff",                            # python linter (flake8 compatible)

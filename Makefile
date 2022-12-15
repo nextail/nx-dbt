@@ -95,6 +95,7 @@ shell: start-dev
         --hostname dagster-shell \
 		--user local-dev:local-dev \
         -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ \
+		-v ~/.gitconfig:/etc/gitconfig \
         -w /opt/${REPO_NAME}/ \
         --entrypoint /bin/bash \
         nextail/${REPO_NAME}_dev
