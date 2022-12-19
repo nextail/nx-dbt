@@ -1,5 +1,5 @@
 [project]
-name = "dagster_template"
+name = "dagster_poc"
 dynamic = ["version"]
 description = ""
 license = { text = "Nextail private use" }
@@ -7,17 +7,17 @@ authors = [
     {name = "nextail"},
 ]
 dependencies = [
-    "dagster>=1.1.6",
-    "dagit>=1.1.6",
-    "dagster-graphql>=1.1.6",
-    "dagster-cloud>=1.1.6",
+    "dagster==1.1.7",
+    "dagit==1.1.7",
+    "dagster-graphql==1.1.7",
+    "dagster-cloud==1.1.7",
     "dagster-postgres",
     "dagster-aws",
     "dagster-docker",
     "dagster-dbt",
     "dagster-k8s",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.9, <3.10"
 
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
@@ -38,7 +38,7 @@ dev = [
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra --ignore-glob=**/__pypackages__/**"
+addopts = "-ra --ignore-glob=__pypackages__/**"
 
 [tool.pyright]
 pythonVersion = "3.9"

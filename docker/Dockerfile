@@ -64,17 +64,13 @@ ARG REPO_NAME
 COPY ./$SERVICE_NAME/ /opt/$REPO_NAME/$SERVICE_NAME/
 
 ###############################################################################################
-####################################    DEV IMAGE     #########################################
+####################################    LOCAL IMAGE     #######################################
 ###############################################################################################
 
-FROM base AS dev
+FROM base AS local
 
 ARG REPO_NAME
 ARG PYTHON_MAJOR_VERSION
-
-ARG UNAME=local-dev
-ARG USER_ID=1000
-ARG GROUP_ID=1000
 
 #set venv
 WORKDIR $PYPACKAGES
@@ -84,20 +80,48 @@ ENV DAGSTER_DEV=/opt/$REPO_NAME
 RUN mkdir -p $DAGSTER_DEV
 WORKDIR $DAGSTER_DEV
 
-# install make & wget
-RUN apt update && apt install -y make wget
-
 # set python  env
 ENV PYTHONPATH=$DAGSTER_DEV/__pypackages__/$PYTHON_MAJOR_VERSION/lib
 ENV PATH=$DAGSTER_DEV/__pypackages__/$PYTHON_MAJOR_VERSION/bin/:$PATH
 
+#copy project
+COPY . /opt/$REPO_NAME/
+
+###############################################################################################
+####################################    PDM IMAGE     #########################################
+###############################################################################################
+
+FROM local AS pdm
+
+# set pdm env
+RUN pdm config python.use_venv false
+
+###############################################################################################
+####################################    LINT IMAGE     ########################################
+###############################################################################################
+
+FROM pdm AS lint
+
+# set pdm env
+RUN pdm install --dev
+
+###############################################################################################
+####################################    DEV IMAGE     #########################################
+###############################################################################################
+
+FROM local AS dev
+
+ARG UNAME=local-dev
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
+# set user and group for dev
 RUN groupadd -g $GROUP_ID -o $UNAME
 RUN useradd -m -u $USER_ID -g $GROUP_ID -o -s /bin/bash $UNAME
 USER $UNAME
 
-# install dev dependencies
+# set pdm env
 RUN pdm config python.use_venv false
-RUN pdm install --dev
 
 ###############################################################################################
 ####################################   TEST IMAGE     #########################################
@@ -107,7 +131,6 @@ FROM cloud AS test
 
 ARG REPO_NAME
 
-# install make
 RUN apt update && apt install -y make
 
 # install dev dependencies
@@ -116,10 +139,10 @@ RUN pdm install --dev
 
 # copy project
 COPY ./tests /opt/$REPO_NAME/tests
+COPY .pre-commit-config.yaml .yamllint /opt/$REPO_NAME/
 
 # set workdir for tests
 WORKDIR /opt/$REPO_NAME
-
 
 ###############################################################################################
 ####################################   SERVICE IMAGE     ######################################

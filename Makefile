@@ -95,7 +95,6 @@ shell: start-dev
         --hostname dagster-shell \
 		--user local-dev:local-dev \
         -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ \
-		-v ~/.gitconfig:/etc/gitconfig \
         -w /opt/${REPO_NAME}/ \
         --entrypoint /bin/bash \
         nextail/${REPO_NAME}_dev
@@ -140,26 +139,32 @@ clean-test:
 pdm-lock:
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
-	${DOCKER} build --target dev -t nextail/${REPO_NAME}_dev \
-		--build-arg UNAME=local-dev \
-		--build-arg USER_ID=${UID} \
-		--build-arg GROUP_ID=${GID} \
+	${DOCKER} build --target pdm -t nextail/${REPO_NAME}_dev \
+		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
+		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg REPO_NAME=${REPO_NAME} \
+		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
+	&& echo \
+	&& ${DOCKER} run --rm -it \
+        --hostname dagster-lock \
+        -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ \
+        -w /opt/${REPO_NAME}/ \
+        nextail/${REPO_NAME}_dev \
+		pdm lock -v
+
+## lint-check        : test linter without making changes
+lint-check:
+	@echo \
+	&& DOCKER_BUILDKIT=1 \
+	${DOCKER} build --no-cache --target lint -t nextail/${REPO_NAME}_dev \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
 	&& ${DOCKER} run --rm -it --network=nxnet \
-        --hostname dagster-lock \
-		--user local-dev:local-dev \
-        -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ \
+        --hostname dagster-lint \
+		--user root \
         -w /opt/${REPO_NAME}/ \
         nextail/${REPO_NAME}_dev \
-		pdm lock -v
-## lint-check        : test linter without making changes
-lint-check:
-	@bash scripts/lint-check.sh
-
-## lint              : make linter
-lint:
-	@bash scripts/lint.sh
+	pre-commit run --hook-stage manual --all-files
