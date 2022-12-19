@@ -47,7 +47,8 @@ This template will give us:
 | **clean-packages**        | remove build packages                                                   |
 | **clean-pyc**             | remove Python pyc files                                                 |
 | **clean-test**            | remove test and coverage artifacts                                      |
-| **pdm-lock**              | regenerate the pdm file                                                 |
+| **pdm-lock**              | regenerate the pdm lock file                                            |
+| **lint-check**            | test linter without making changes                                      |
 
 ## 0. Template
 
@@ -101,7 +102,7 @@ Include:
 
 Dagster Daemon and Dagit have your package folder as a docker volume.
 
-The `dagster` module contains the code for your Dagster repository. A repository is a collection of software-defined assets, jobs, schedules, and sensors. Repositories are loaded as a unit by the Dagster CLI, Dagit and the Dagster Daemon. he repository specifies a list of items, each of which can be a AssetsDefinition, JobDefinition, ScheduleDefinition, or SensorDefinition. If you include a schedule or sensor, the job it targets will be automatically also included on the repository.
+The `dagster_template.dagster` module contains the code for your Dagster Definitions, the object that contains all the definitions defined within a code location. Definitions include assets, jobs, resources, schedules, and sensors.
 
 #### 2.1.1 Start environment
 
@@ -127,7 +128,7 @@ If you want to start a shell with pdm installed, ready to interact with the sour
 make shell
 ```
 
-where workdir is: `/opt/dagster-poc` with folders:
+where workdir is: `/opt/dagster-template` with folders:
 
 - `dagster`: project
 - `scripts`: utils
