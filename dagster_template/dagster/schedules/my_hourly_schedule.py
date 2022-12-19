@@ -1,6 +1,6 @@
 from dagster import schedule
 
-from dagster_template.dagster.example.jobs.say_hello import say_hello_job
+from dagster_template.dagster.jobs.say_hello import say_hello_job
 
 
 @schedule(cron_schedule="0 * * * *", job=say_hello_job, execution_timezone="US/Central")

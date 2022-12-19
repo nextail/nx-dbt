@@ -1,4 +1,4 @@
-from dagster_template.dagster.example.ops.hello import hello
+from dagster_template.dagster.ops.hello import hello
 
 
 def test_hello():
