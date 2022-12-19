@@ -24,7 +24,7 @@ mv $TEMPLATE_SRV $SERVICE_NAME
 
 #refactor files
 repo_files=(".platform/charts/$REPO_NAME/Chart.yaml" "docker/dagster/workspace.yaml" ".vscode/launch.json")
-service_files=(".circleci/config.yml" "$SERVICE_NAME/dagster/example/jobs/say_hello.py" "$SERVICE_NAME/dagster/example/jobs/say_hello.py" "$SERVICE_NAME/dagster/example/schedules/my_hourly_schedule.py" "$SERVICE_NAME/dagster/example/sensors/my_sensor.py" "$SERVICE_NAME/dagster/repository.py" "docker/dagster/workspace.yaml" "tests/dagster/test_repository.py" "tests/dagster/example/graphs/test_say_hello.py" "tests/dagster/example/ops/test_hello.py" "pyproject.toml")
+service_files=(".circleci/config.yml" "$SERVICE_NAME/dagster/jobs/say_hello.py" "$SERVICE_NAME/dagster/jobs/say_hello.py" "$SERVICE_NAME/dagster/schedules/my_hourly_schedule.py" "$SERVICE_NAME/dagster/sensors/my_sensor.py" "$SERVICE_NAME/dagster/__init__.py" "docker/dagster/workspace.yaml" "tests/dagster/graphs/test_say_hello.py" "tests/dagster/ops/test_hello.py" "pyproject.toml")
 
 for i in "${repo_files[@]}"
 do
