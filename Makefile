@@ -48,8 +48,7 @@ endif
 
 ## update            : This script updates all references.
 update: dev-deps
-	@bash scripts/update-template.sh
-
+	@${DOCKER} run -it --rm -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ -e REPO_NAME=${REPO_NAME} -e SERVICE_NAME=${SERVICE_NAME} bash:3.2 bash /opt/${REPO_NAME}/scripts/update-template.sh
 ## test              : pytest
 test: dev-deps
 	@echo \
