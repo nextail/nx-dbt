@@ -68,18 +68,20 @@ workflows:
                 - sandbox
 
       # build-and-deploy for prod dagster environment
-      - dagster-pipelines-orb/build-and-deploy-production:
-          custom_service_account: <<pipeline.parameters.custom_service_account>>
-          module_name: <<pipeline.parameters.module_name>>
-          requires:
-            - dagster-pipelines-orb/pre-commit
-            - dagster-pipelines-orb/check-secrets
-            - dagster-pipelines-orb/tests
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
-          filters:
-            branches:
-              only:
-                - main
+      # uncomment to deploy to production
+      #
+      # - dagster-pipelines-orb/build-and-deploy-production:
+      #     custom_service_account: <<pipeline.parameters.custom_service_account>>
+      #     module_name: <<pipeline.parameters.module_name>>
+      #     requires:
+      #       - dagster-pipelines-orb/pre-commit
+      #       - dagster-pipelines-orb/check-secrets
+      #       - dagster-pipelines-orb/tests
+      #     context:
+      #       - org-global
+      #       - github-tokens
+      #       - dagster-tokens
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
