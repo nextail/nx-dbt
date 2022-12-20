@@ -221,7 +221,7 @@ For default the executions we use an Amazon Service Account "user-cloud-dagster-
       - nextail-dev-evo/dagster/{{your_path}}:
 
         ``` yml
-        s3_bucket: nextail-{{tenant}}-evo
+        s3_bucket: nextail-dev-evo
         s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
         ```
 
