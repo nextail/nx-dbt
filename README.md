@@ -1,5 +1,7 @@
 # Dagster Nextail Template
 
+![dagster-in-nextail](images/dagster-in-nextail.png)
+
 In order to make it easier to start the development in Dagster this template is provided.
 
 This template will give us:
@@ -8,38 +10,45 @@ This template will give us:
 - CI/CD integration with Dagster Cloud
 - Examples of simple and test pipelines
 
-### Contents
+## Contents
 
-| **Name**                     | **Description**                                                                       |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
-| `.circleci/`                 | workflows of Circleci                                                                 |
-| `.github/`                   | issue and pull request templates                                                      |
-| `.platform/`                 | Helm chart configuration for our Service Account and Service Provider                 |
-| `dagster/`                   | contains the code for your Dagster repositories                                       |
-| `docker/`                    | definition of containers on which we will develop                                     |
-| `scripts/`                   | Utils for makefile                                                                    |
-| `Makefile`                   | Automating software building procedure                                                |
-| `README.md`                  | A description and guide for this code repository                                      |
+| **Name**            | **Description**                                                                       |
+|---------------------|---------------------------------------------------------------------------------------|
+| `.circleci/`        | CircleCI workflows                                                                    |
+| `.github/`          | issue and pull request templates                                                      |
+| `.platform/`        | Helm chart configuration for the project's Service Account and Secret Provider Class  |
+| `.vscode/`          | Visual Studio Code custom configurations for debugging                                |
+| `dagster_template/` | python package of your repository (it will change its name once you launch the update |
+| `docker/`           | definition of containers on which we will develop                                     |
+| `images/`           | images for the documentation                                                          |
+| `scripts/`          | Utils for makefile                                                                    |
+| `tests/`            | python tests for your package                                                         |
+| `Makefile`          | Automating software building procedure                                                |
+| `pyproject.toml`    | This file contains requirements, which are used by pdm to build the package           |
+| `pdm.lock`          | Dependencies and sub-dependencies resolved properly by pdm from pyproject.toml        |
+| `README.md`         | A description and guide for this code repository                                      |
 
-### Makefile
+## Makefile
 
-| **Action**                | **Description**                                                         |
-| ------------------------- | ----------------------------------------------------------------------- |
-| **help**                  | show this help                                                          |
-| **dev-deps**              | test if the dependencies we need to run this Makefile are installed     |
-| **test**                  | pytest                                                                  |
-| **create-env**            | create .env file                                                        |
-| **start-dev**             | start the docker environment in background                              |
-| **shell**                 | start the docker environment in background with shell                   |
-| **start-dev-nocache**     | start the docker environment in background without cache on build       |
-| **stop-dev**              | stop the the docker environment in background                           |
-| **dev-clean**             | clean all the created containers                                        |
-| **dev-clean-full**        | clean all the created containers and their data                         |
-| **clean**                 | remove all build, test, coverage and Python artifacts                   |
-| **clean-packages**        | remove build packages                                                   |
-| **clean-pyc**             | remove Python pyc files                                                 |
-| **clean-test**            | remove test and coverage artifacts                                      |
-| **pdm-lock**              | regenerate the pdm file                                                 |
+| **Action**            | **Description**                                                       |
+|-----------------------|-----------------------------------------------------------------------|
+| **help**              | show this help                                                        |
+| **dev-deps**          | test if the dependencies needed to run this Makefile are installed    |
+| **update**            | This script updates all references to dagster-template                |
+| **test**              | pytest                                                                |
+| **create-env**        | create .env file                                                      |
+| **start-dev**         | start the docker environment in the background                        |
+| **shell**             | start the docker environment in the background with shell             |
+| **start-dev-nocache** | start the docker environment in the background without cache on build |
+| **stop-dev**          | stop the docker environment                                           |
+| **dev-clean**         | clean all the project containers                                      |
+| **dev-clean-full**    | clean all the project containers and their data                       |
+| **clean**             | remove all build, test, coverage and Python artifacts                 |
+| **clean-packages**    | remove build packages                                                 |
+| **clean-pyc**         | remove Python pyc files                                               |
+| **clean-test**        | remove test and coverage artifacts                                    |
+| **pdm-lock**          | rebuild the pdm lock file                                             |
+| **lint-check**        | test linter without making changes                                    |
 
 ## 0. Template
 
@@ -48,11 +57,22 @@ This template will give us:
 :warning: **Important: User that creates the Github repository should be the same one that will later configure the project in CircleCI**
 
 To start, create a new repository and reference this template to make a copy:
-![Repo-for-template](./images/repository-from-template.png)
+![Repo-for-template](images/repository-from-template.png)
 
-Then rename "dagster-template" references in `.platform/charts/dagster-template/Chart.yaml`.
+Then run:
 
-Also, remember to rename directory `.platform/charts/dagster-template` to match your project name.
+```bash
+make update
+```
+
+This script replaces all references to dagster-template (in folder names and file text content) by the name of your project.
+
+Typically it performs this operation in:
+
+- the platform chart folder and chart name
+- the project's main module name (and textual references to it, typically in imports)
+
+Once the update is complete, commit and push your changes to main.
 
 ### Set up Dockerhub repository for your service
 
@@ -61,9 +81,10 @@ File a Request ticket in [ServiceDesk](https://nextail.atlassian.net/servicedesk
 ### Set up your project in CI
 
 Configure the project in CircleCI. Pipelines are configured in the default folder `.circleci`:
-  - Search your project https://app.circleci.com/projects/project-dashboard/github/nextail/
-  - Push Set Up Project: ![Set up project](./images/circleci.png)
-  - Set the config.yml file: ![Set config file](./images/circleci-2.png)
+
+- Search your project "https://app.circleci.com/projects/project-dashboard/github/nextail/"
+- Push Set Up Project: ![Set up project](images/circleci.png)
+- Set the config.yml file: ![Set config file](images/circleci-2.png)
 
 [More Info](https://app.circleci.com/projects/project-dashboard/github/nextail/)
 
@@ -71,82 +92,101 @@ Configure the project in CircleCI. Pipelines are configured in the default folde
 
 - Docker
 - Python ≥3.9
-- [PDM](https://pdm.fming.dev/latest/#installation): using containerization, installing pdm locally is not necessary.(https://pdm.fming.dev/latest/usage/hooks/#dependencies-management)
+- [PDM](https://pdm.fming.dev/latest/#installation): using containerization, installing pdm locally is not necessary.(<https://pdm.fming.dev/latest/usage/hooks/#dependencies-management>)
 
 ## 2. Scenarios
 
 1. Development
 2. Cloud
+
 ### 2.1. Development
 
 Include:
+
 - Postgres 11
 - Dagster Daemon
 - Dagit
 
-Dagster Daemon and Dagit have `dagster` folder as a docker volume.
+Dagster Daemon and Dagit have your package folder as a docker volume.
 
-The folder `dagster/src/` contains the code for your Dagster repository. A repository is a collection of software-defined assets, jobs, schedules, and sensors. Repositories are loaded as a unit by the Dagster CLI, Dagit and the Dagster Daemon. he repository specifies a list of items, each of which can be a AssetsDefinition, JobDefinition, ScheduleDefinition, or SensorDefinition. If you include a schedule or sensor, the job it targets will be automatically also included on the repository.
+The `dagster_template.dagster` module contains the code for your Dagster Definitions, the object that contains all the definitions defined within a code location. Definitions include assets, jobs, resources, schedules, and sensors.
 
 #### 2.1.1 Start environment
 
 To start the development environment:
+
 ```bash
 make start-dev
 ```
 
-https://user-images.githubusercontent.com/26308855/192459452-a7eb3a7a-1b03-49e6-b901-f0b1cc41d0fc.mov
+<https://user-images.githubusercontent.com/26308855/192459452-a7eb3a7a-1b03-49e6-b901-f0b1cc41d0fc.mov>
 
-Navigate to http://127.0.0.0:3000 in your web browser.
-Go to Launchpad tab. On this tab you will be able to edit job configuration. 
-On the bottom right it is the "Lunch Run" execution button.
+Navigate to <http://127.0.0.0:3000> in your web browser.
+Go to the Launchpad tab. In this tab you will be able to edit the job configuration.
+On the bottom right you will find the "Launch Run" execution button.
 
-https://user-images.githubusercontent.com/26308855/192459512-d8e9141d-0443-459a-a89e-73a0189517a0.mov
+<https://user-images.githubusercontent.com/26308855/192459512-d8e9141d-0443-459a-a89e-73a0189517a0.mov>
 
 #### 2.1.2 Shell
 
 If you want to start a shell with pdm installed, ready to interact with the source projects:
+
 ```bash
 make shell
 ```
 
-where workdir is: `/usr/src` with folders:
+where workdir is: `/opt/dagster-template` with folders:
+
 - `dagster`: project
 - `scripts`: utils
 
-https://user-images.githubusercontent.com/26308855/192459555-1df66474-f8e8-41e1-a829-124591a77c9b.mov
+<https://user-images.githubusercontent.com/26308855/192459555-1df66474-f8e8-41e1-a829-124591a77c9b.mov>
 
-If you want to install dev-dependencies run the utility:
+To download and mount project dependencies within `__pypackages__`, run
+
 ```bash
-./scripts/pdm-config.sh
+pdm install --dev
 ```
 
-https://user-images.githubusercontent.com/26308855/192459785-decd62cb-1e9d-474e-9441-3722a5c98cc3.mov
-
-Then you can run your test from `dagster/tests/` with pytest:
+Then you can run your tests with pytest:
 
 ```bash
 pytest
 ```
 
-https://user-images.githubusercontent.com/26308855/193572680-99fcdf55-c055-4633-a76f-dba838b3da09.mov
+<https://user-images.githubusercontent.com/26308855/193572680-99fcdf55-c055-4633-a76f-dba838b3da09.mov>
 
 #### 2.1.3 Test
 
-For testing (without shell):
+To run the full test suite non-interactively:
+
 ```bash
 make test
 ```
 
-https://user-images.githubusercontent.com/26308855/192459713-56aec8e3-9804-49cb-9464-e9b75f00c311.mp4
+<https://user-images.githubusercontent.com/26308855/192459713-56aec8e3-9804-49cb-9464-e9b75f00c311.mp4>
 
-As you create Dagster ops and graphs, add tests in `dagster/tests/` to check that your
+As you create Dagster ops and graphs, add tests in `tests/dagster` to check that your
 code behaves as desired and does not break over time.
 
 For hints on how to write tests for ops and graphs,
 [See the documentation tutorial of Testing in Dagster](https://docs.dagster.io/tutorial/testable)
 
-#### 2.1.4 Debug with vscode
+#### 2.1.4 Linting
+
+For lint the repository:
+
+```bash
+make lint
+```
+
+For linting without apply changes:
+
+```bash
+make lint-check
+```
+
+#### 2.1.5 Debug with vscode
 
 One of the great things in Visual Studio Code is [debugging support](https://code.visualstudio.com/docs/editor/debugging). Set breakpoints, step-in, inspect variables and more. The template is prepared to use this utility. Within the run and debug menu you can select dagit:localhost or dagster-daemon:localhost to start your debug.
 
@@ -172,63 +212,78 @@ CI/CD Integration with CircleCI Orb.
 
 #### 2.2.2 Orb
 
-The Circleci workflow lets you automatically update Dagster Cloud code locations when pipeline code is updated. The workflows builds a Docker image, pushes it to a Docker Hub repository, and uses the Dagster Cloud CLI to tell your agent to add the built image to your workspace. 
+The Circleci workflow lets you automatically update Dagster Cloud code locations when pipeline code is updated. The workflows builds a Docker image, pushes it to a Docker Hub repository, and uses the Dagster Cloud CLI to tell your agent to add the built image to your workspace.
 
 [More info](https://circleci.com/developer/orbs/orb/nextail/dagster-pipelines-orb)
 
-#### 2.2.3 Permissions
+#### 2.2.3 Default AWS permissions for development
 
-The template provided for development provides an integration with Dagster Cloud that omits any type of requirement of a service account for the deployment by default.
+To help kickstart development, a new data pipeline project can run its jobs using a default application role with common permissions. The default application role is materialied through two artifacts
 
-For default the executions we use an Amazon Service Account "user-cloud-dagster-cloud-agent" as default, which has basic permissions for the execution of jobs such as:
+- an IAM role `{{env}}-dagster` holding permissions to interact with AWS services
+- a k8s service account `user-cloud-dagster-cloud-agent` which references the IAM role
 
-- **Amazon S3**: The default Service Account has permissions over the following paths:
-  - For **evo** pipelines (should be everything):
-     - SANDBOX:
-       - nextail-dev-evo/dagster/{{your_path}}:
-          ```
-          s3_bucket: nextail-{{tenant}}-evo
-          s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
-          ```
+Through these two artifacts, the default application role brings the following permissions to data pipeline jobs
 
-    - PRODUCTION:
-      - nextail-{{tenant}}-evo/dagster/{{your_path}}:
-          ```
-          s3_bucket: nextail-{{tenant}}-evo
-          s3_prefix: dagster/{{your_path}}
-          ```
-  - For **no evo** pipelines:
-     - SANDBOX:
-       - nextail-dev/dagster/{{your_path}}:
-          ```
-          s3_bucket: nextail-dev
-          s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
-          ```
+- **Amazon S3** (granted through the IAM role)
 
-    - PRODUCTION:
-      - nextail-{{tenant}}/dagster/{{your_path}}:
-          ```
-          s3_bucket: nextail-{{tenant}}
-          s3_prefix: dagster/{{your_path}}
-          ```
+  The IAM role has read/write access to the following buckets and paths
+  - **evo** pipelines
+    - SANDBOX
 
-- **Amazon Secrets Manager**: access to Secrets containing the following tags
-   - "scope-dagster": "true"
-   - "environment": "${environment}" (where environment could be sandbox or production)
+        ``` yml
+        s3_bucket: nextail-dev-evo
+        s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
+        ```
 
-- **K8s**: running jobs on Kubernetes in the environment that corresponds to it.
+    - PRODUCTION
 
-#### 2.2.4 Custom Service Account
+        ``` yml
+        s3_bucket: nextail-{{tenant}}-evo
+        s3_prefix: dagster/{{your_path}}
+        ```
 
-If the execution of your pipelines you need more permissions or change any of the existing ones, it will be necessary to create a specific Amazon Service Account for your repository following [this guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers/#table-of-contents). You will create a new AWS role which will contain the permissions of the app to interact with AWS. By default, your app will only be able to interact with AWS Secrets Manager, if you need additional permissions to access other AWS services like S3, Lambda... ask [platform](https://nextail-labs.slack.com/archives/CLZJ97WCC)
+  - **non-evo** pipelines
+    - SANDBOX
+
+        ``` yml
+        s3_bucket: nextail-dev
+        s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
+        ```
+
+    - PRODUCTION
+
+        ```yml
+        s3_bucket: nextail-{{tenant}}
+        s3_prefix: dagster/{{your_path}}
+        ```
+
+- **Amazon Secrets Manager** (granted through the IAM role)
+
+  Read access to Secrets containing the following tags
+  - "scope-dagster": "true"
+  - "environment": "${environment}" (where environment could be sandbox or production)
+
+- **K8s** (granted through the service account)
+
+  Orchestrate jobs in the Kubernetes cluster where the dagster job is running.
+
+Once initial development has been kickstarted, the pipeline project should move on to configuring specific permissions before being promoted to production, as explained in the next section.
+
+#### 2.2.4 Specific AWS permissions for production
+
+To decouple functional pipelines from the underlying platform's runtime, the functional pipelines must be granted specific permissions. To grant these permissions, you will need to have the following artifacts
+
+- an IAM role, which you can create following [this platform guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers/#step-1-setting-up-the-infrastructure-for-my-application). By default, the role will only grant your application permission to interact with AWS Secrets Manager. If the application needs additional permissions to access other AWS services like S3, follow [this platform guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/developer/create_a_new.service#applications-permissions) to grant them
+- a service account referencing the IAM role, deployed as a platform resource of the data pipeline repository via helm, [as provided in this template repository](.platform/charts/dagster-template/templates/serviceaccount.yaml)
+
+For general guidance about how to work with secrets in your pipeline project, check [this platform guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers)
 
 ##### Step 1: Configure the creation of Service Account and Service Provider
 
-Remember rename "dagster-template" references in the following file `.platform/charts/dagster-template/Chart.yaml`. Also, remember to rename directory `.platform/charts/dagster-template` to match your repository name
+Configure the file `.platform/charts/{{your_repository}}/values.yaml`:
 
-Then configure the file `.platform/charts/dagster-template/values.yaml`:
-
-1. Change serviceAccount create to true
+1. Change `serviceAccount.create` to `true`
 2. Set your envVars and AWS keys to map your secrets into app environment
 
 ```yaml
@@ -247,13 +302,13 @@ envFromSecretsManager:
 
 ##### Step 2: Set our Custom Service Account into our Dagster Project
 
-The last step will be to modify in the file `.circleci/config.yml ` the parameter **custom_service_account** in the line 9 `default: false` to `default: true`.
+The last step will be to modify in the file `.circleci/config.yml` the parameter **custom_service_account** in the line 9 `default: false` to `default: true`.
 
 ```yaml
 version: 2.1
 
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@0.2.3
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@1.2.3
 
 parameters:
   custom_service_account:

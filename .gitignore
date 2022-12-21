@@ -132,9 +132,17 @@ caches/
 __pypackages__
 .pdm.toml
 temp.py
+.ruff_cache
 
 # dagster persistence
 dagster/.logs_queue
 dagster/history
 dagster/logs
 dagster/storage
+
+# mac temp
+.DS_Store
+scripts/.DS_Store
+
+#vscode
+.vscode/settings.json
