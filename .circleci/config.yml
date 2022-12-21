@@ -28,13 +28,14 @@ workflows:
                 - sandbox
 
       # internal tool to deploy our Helm chart
-      - dagster-pipelines-orb/service-account-production:
-          context:
-            - org-global
-          filters:
-            branches:
-              only:
-                - main
+      # uncomment to deploy to production
+      # - dagster-pipelines-orb/service-account-production:
+      #     context:
+      #       - org-global
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
 
   build-and-deploy:
     jobs:
