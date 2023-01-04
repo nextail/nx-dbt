@@ -4,7 +4,6 @@ MAKEFLAGS += --warn-undefined-variables
 REPO_NAME := $(shell basename `git config --get remote.origin.url` .git)
 SERVICE_NAME := $(shell echo $(REPO_NAME) | tr '-' '_')
 
-PRECOMMIT_VERSION="2.20.0"
 
 # Shell to use for running scripts
 SHELL := $(shell which bash)
@@ -161,7 +160,7 @@ lint-check:
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
-	&& ${DOCKER} run --rm -it --network=nxnet \
+	&& ${DOCKER} run --rm -it \
         --hostname dagster-lint \
 		--user root \
         -w /opt/${REPO_NAME}/ \

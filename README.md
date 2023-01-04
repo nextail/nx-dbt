@@ -1,4 +1,4 @@
-# Dagster Nextail Template
+# Dagster Nextail Template [![CircleCI](https://dl.circleci.com/status-badge/img/gh/nextail/dagster-template/tree/main.svg?style=shield&circle-token=dfe858a7e1571e4110b73abd75211604c57a6e9b)](https://dl.circleci.com/status-badge/redirect/gh/nextail/dagster-template/tree/main)
 
 ![dagster-in-nextail](images/dagster-in-nextail.png)
 
@@ -192,6 +192,24 @@ One of the great things in Visual Studio Code is [debugging support](https://cod
 
 ![debug-with-vscode](images/debug.png)
 
+#### 2.1.6 Access to Amazon S3 from local env
+
+- First of all you will have to add a new nextail profile to your ~/.aws/config file:
+
+```yml
+[profile dagster-local]
+region         = eu-west-1
+role_arn       = arn:aws:iam::989535222017:role/dagster-local
+source_profile = default
+````
+
+- Secondly, when you configure your access in the job to s3 remember to select as profile: dagster-local
+
+```yml
+profile_name: dagster-local
+region_name: eu-west-1
+```
+
 ### 2.2. Cloud
 
 We have two operating environments: sandbox and production.
@@ -216,7 +234,7 @@ The Circleci workflow lets you automatically update Dagster Cloud code locations
 
 [More info](https://circleci.com/developer/orbs/orb/nextail/dagster-pipelines-orb)
 
-#### 2.2.3 Default AWS permissions for development
+#### 2.2.3 Default AWS permissions for Sandbox
 
 To help kickstart development, a new data pipeline project can run its jobs using a default application role with common permissions. The default application role is materialied through two artifacts
 
@@ -270,7 +288,7 @@ Through these two artifacts, the default application role brings the following p
 
 Once initial development has been kickstarted, the pipeline project should move on to configuring specific permissions before being promoted to production, as explained in the next section.
 
-#### 2.2.4 Specific AWS permissions for production
+#### 2.2.4 Specific AWS permissions for Production
 
 To decouple functional pipelines from the underlying platform's runtime, the functional pipelines must be granted specific permissions. To grant these permissions, you will need to have the following artifacts
 
@@ -278,6 +296,17 @@ To decouple functional pipelines from the underlying platform's runtime, the fun
 - a service account referencing the IAM role, deployed as a platform resource of the data pipeline repository via helm, [as provided in this template repository](.platform/charts/dagster-template/templates/serviceaccount.yaml)
 
 For general guidance about how to work with secrets in your pipeline project, check [this platform guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers)
+
+In addition, we added a property to the service account policies that allows you to have the same permissions that are given by default in Dagster. In this way you can migrate to your custom service account without losing functionality. The property is `add_dagster_policy`. You can set this property in the repository [nextail/aws-infrastructure](https://github.com/nextail/aws-infrastructure).
+
+An example:
+
+``` yml
+name                       = "dagster-poc"
+add_secrets_manager_policy = true
+add_dagster_policy         = true
+custom_policies            = [ ]
+```
 
 ##### Step 1: Configure the creation of Service Account and Service Provider
 
