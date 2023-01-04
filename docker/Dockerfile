@@ -11,7 +11,8 @@ FROM python:$PYTHON_MAJOR_VERSION-slim AS base
 #git can be removed if is not planned to use Nextail libraries
 RUN set -ex \
     && apt-get update \
-    && apt-get install -y curl git
+    && apt-get install -y curl git \
+    && rm -rf /var/lib/apt/lists/*
 
 # install PDM
 RUN pip install -U pip setuptools wheel
