@@ -1,5 +1,5 @@
 load_from:
   - python_module:
-      location_name: dagster-poc-default
-      module_name: dagster_poc.dagster
-      working_directory: /opt/dagster-poc/
+      location_name: dagster-template-default
+      module_name: dagster_template.dagster
+      working_directory: /opt/dagster-template/
