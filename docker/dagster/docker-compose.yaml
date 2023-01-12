@@ -54,6 +54,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../${SERVICE_NAME}:/opt/${REPO_NAME}/${SERVICE_NAME}
+      - ~/.aws:/root/.aws
     depends_on:
       - postgres_db
     networks:
@@ -92,6 +93,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../${SERVICE_NAME}:/opt/${REPO_NAME}/${SERVICE_NAME}
+      - ~/.aws:/root/.aws
     depends_on:
       - postgres_db
     networks:
