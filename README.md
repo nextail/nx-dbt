@@ -172,19 +172,33 @@ code behaves as desired and does not break over time.
 For hints on how to write tests for ops and graphs,
 [See the documentation tutorial of Testing in Dagster](https://docs.dagster.io/tutorial/testable)
 
-#### 2.1.4 Linting
+#### 2.1.4 Pre-commit
 
-For lint the repository:
+Continuous Integration will run code formatting checks like `black`, `ruff`, `isort` and more using pre-commit hooks Any warnings from these checks will cause the Continuous Integration to fail; therefore, it is helpful to run the check yourself before submitting code. This can be done by using pre-commit in our docker shell (`make shell`) or using our docker lint-check (`make lint-check`).
 
-```bash
-make lint
-```
-
-For linting without apply changes:
+You can install locally pre-commit:
 
 ```bash
-make lint-check
+pip install pre-commit
 ```
+
+and then running:
+
+```bash
+pre-commit install
+```
+
+Now all of the styling checks will be run each time you commit changes without your needing to run each one manually. In addition, using `pre-commit` will also allow you to more easily remain up-to-date with our code checks as they change.
+
+Note that if needed, you can skip these checks with `git commit --no-verify`.
+
+If you don’t want to use `pre-commit` as part of your workflow, you can still use it to run its checks with:
+
+```bash
+pre-commit run --files <files you have modified>
+```
+
+without needing to have done `pre-commit install` beforehand.
 
 #### 2.1.5 Debug with vscode
 
