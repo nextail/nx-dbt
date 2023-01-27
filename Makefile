@@ -12,6 +12,9 @@ SHELL := $(shell which bash)
 DOCKER := $(shell command -v docker)
 # Get docker-compose path or an empty string
 DOCKER_COMPOSE := $(shell command -v docker-compose)
+ifndef DOCKER_COMPOSE
+	DOCKER_COMPOSE := ${DOCKER} compose
+endif
 # Get current path
 MKFILE_PATH := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
 # Get OS
