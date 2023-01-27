@@ -11,6 +11,9 @@ SHELL := $(shell which bash)
 DOCKER := $(shell command -v docker)
 # Get docker-compose path or an empty string
 DOCKER_COMPOSE := $(shell command -v docker-compose)
+ifndef DOCKER_COMPOSE
+	DOCKER_COMPOSE := ${DOCKER} compose
+endif
 # Get current path
 MKFILE_PATH := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
 # Get OS
@@ -68,7 +71,7 @@ create-env:
 	@echo "REPO_NAME=${REPO_NAME}" >> ${MKFILE_PATH}/docker/dagster/.env
 
 ## start-dev         : start the docker environment in background
-start-dev: create-env
+start-dev: dev-deps create-env
 
 	@cd ${MKFILE_PATH}/docker/dagster \
 	&& DOCKER_BUILDKIT=1 \
@@ -98,23 +101,23 @@ shell: start-dev
         nextail/${REPO_NAME}_dev
 
 ## start-dev-nocache : start the docker environment in background without cache on build
-start-dev-nocache: create-env
+start-dev-nocache: dev-deps create-env
 	@cd ${MKFILE_PATH}/docker/dagster \
 	&& ${DOCKER_COMPOSE} build --no-cache \
 	&& ${DOCKER_COMPOSE} up -d
 
 ## stop-dev          : stop the the docker environment in background
-stop-dev:
+stop-dev: dev-deps
 	@cd ${MKFILE_PATH}/docker/dagster \
 	&& ${DOCKER_COMPOSE} down
 
 ## dev-clean         : clean all the created containers
-dev-clean:
+dev-clean: dev-deps
 	@cd ${MKFILE_PATH}/docker/dagster \
 	&& ${DOCKER_COMPOSE} down --rmi local
 
 ## dev-clean-full    : clean all the created containers and their data
-dev-clean-full:
+dev-clean-full: dev-deps
 	@cd ${MKFILE_PATH}/docker/dagster \
 	&& ${DOCKER_COMPOSE} down --rmi local -v
 
@@ -134,7 +137,7 @@ clean-test:
 	@bash scripts/clean-test.sh
 
 ## pdm-lock          : lock generator
-pdm-lock:
+pdm-lock: dev-deps
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target pdm -t nextail/${REPO_NAME}_dev \
@@ -151,7 +154,7 @@ pdm-lock:
 		pdm lock -v
 
 ## lint-check        : test linter without making changes
-lint-check:
+lint-check: dev-deps
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --no-cache --target lint -t nextail/${REPO_NAME}_dev \
