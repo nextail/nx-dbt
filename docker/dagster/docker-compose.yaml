@@ -1,7 +1,6 @@
 version: "3.9"
 
 services:
-
   # This service runs the postgres DB used by dagster for run storage, schedule storage,
   # and event log storage.
   postgres_db:
@@ -23,7 +22,7 @@ services:
       dockerfile: ./docker/Dockerfile
       target: srv
       args:
-        - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
+        - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
         - SERVICE_NAME
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_dagit
@@ -68,7 +67,7 @@ services:
       dockerfile: ./docker/Dockerfile
       target: srv
       args:
-        - GITHUB_PIP_TOKEN #This can be removed if is not planned to use Nextail libraries.
+        - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
         - SERVICE_NAME
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_daemon

@@ -153,6 +153,23 @@ pdm-lock: dev-deps
         nextail/${REPO_NAME}_dev \
 		pdm lock -v
 
+## lint              : test linter without making changes
+lint:
+	@echo \
+	&& DOCKER_BUILDKIT=1 \
+	${DOCKER} build --no-cache --target lint -t nextail/${REPO_NAME}_dev \
+		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
+		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg REPO_NAME=${REPO_NAME} \
+		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
+	&& echo \
+	&& ${DOCKER} run --rm -it \
+        --hostname dagster-lint \
+		--user root \
+        -w /opt/${REPO_NAME}/ \
+        nextail/${REPO_NAME}_dev \
+	pre-commit run --hook-stage manual
+
 ## lint-check        : test linter without making changes
 lint-check: dev-deps
 	@echo \

@@ -2,22 +2,41 @@ version: 2.1
 
 # cumtom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.1.0
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.3.0
 
 parameters:
   custom_service_account:
     type: boolean
     default: false
-    description: "We use this parameter to define if our project uses its own service account (true) or by default (false)."
+    description: "Define if our project uses its own service account (true) or by default (false)."
   module_name:
     type: string
     default: dagster_template.dagster
     description: "Python module containing the target Dagster Definitions"
+  project_name:
+    type: string
+    default: default
+    description: "By default all projects will be named as {github-repo-name}-default"
+  code_location_resource_limit_cpu:
+    type: string
+    description: Kubernetes Limits - the container can never consume more than the memory amount indicated.
+    default: 100m
+  code_location_resource_limit_memory:
+    type: string
+    description: Kubernetes Limits - the container can never consume more than the CPU amount indicated.
+    default: 128Mi
+  job_run_resource_limit_cpu:
+    type: string
+    description: Kubernetes Limits - the container can never consume more than the memory amount indicated.
+    default: 500m
+  job_run_resource_limit_memory:
+    type: string
+    description: Kubernetes Limits - the container can never consume more than the CPU amount indicated.
+    default: 1Gi
 
 workflows:
   infrastructure:
     jobs:
-
       # internal tool to deploy our Helm chart
       - dagster-pipelines-orb/service-account-sandbox:
           context:
@@ -28,25 +47,23 @@ workflows:
                 - sandbox
 
       # internal tool to deploy our Helm chart
-      # uncomment to deploy to production
-      # - dagster-pipelines-orb/service-account-production:
-      #     context:
-      #       - org-global
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
+      - dagster-pipelines-orb/service-account-production:
+          context:
+            - org-global
+          filters:
+            branches:
+              only:
+                - main
 
   build-and-deploy:
     jobs:
-
       # check secrets on code
       - dagster-pipelines-orb/check-secrets
 
-      ## pre-commit for all branches
+      # pre-commit for all branches
       - dagster-pipelines-orb/pre-commit
 
-      # unit-test for all branches
+      # basic pytest -c pyproject.toml
       - dagster-pipelines-orb/tests:
           context:
             - github-tokens
@@ -55,6 +72,11 @@ workflows:
       - dagster-pipelines-orb/build-and-deploy-sandbox:
           custom_service_account: <<pipeline.parameters.custom_service_account>>
           module_name: <<pipeline.parameters.module_name>>
+          project_name: <<pipeline.parameters.project_name>>
+          code_location_resource_limit_cpu: <<pipeline.parameters.code_location_resource_limit_cpu>>
+          code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
+          job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
           requires:
             - dagster-pipelines-orb/pre-commit
             - dagster-pipelines-orb/check-secrets
@@ -70,19 +92,23 @@ workflows:
 
       # build-and-deploy for prod dagster environment
       # uncomment to deploy to production
-      #
-      # - dagster-pipelines-orb/build-and-deploy-production:
-      #     custom_service_account: <<pipeline.parameters.custom_service_account>>
-      #     module_name: <<pipeline.parameters.module_name>>
-      #     requires:
-      #       - dagster-pipelines-orb/pre-commit
-      #       - dagster-pipelines-orb/check-secrets
-      #       - dagster-pipelines-orb/tests
-      #     context:
-      #       - org-global
-      #       - github-tokens
-      #       - dagster-tokens
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
+      - dagster-pipelines-orb/build-and-deploy-production:
+          custom_service_account: <<pipeline.parameters.custom_service_account>>
+          module_name: <<pipeline.parameters.module_name>>
+          project_name: <<pipeline.parameters.project_name>>
+          code_location_resource_limit_cpu: <<pipeline.parameters.code_location_resource_limit_cpu>>
+          code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
+          job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
+          requires:
+            - dagster-pipelines-orb/pre-commit
+            - dagster-pipelines-orb/check-secrets
+            - dagster-pipelines-orb/tests
+          context:
+            - org-global
+            - github-tokens
+            - dagster-tokens
+          filters:
+            branches:
+              only:
+                - main

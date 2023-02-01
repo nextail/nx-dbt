@@ -16,7 +16,7 @@ RUN set -ex \
 
 # install PDM
 RUN pip install -U pip setuptools wheel
-RUN pip install pdm==2.3.4
+RUN pip install pdm==2.4.2
 
 # set required environment vars from host
 # These can be removed if is not planned to use Nextail libraries.
