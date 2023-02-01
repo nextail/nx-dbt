@@ -35,7 +35,6 @@ dev = [
     "black==22.12.0",                  # python formatter
     "ruff==v0.0.239",                  # python linter (flake8 compatible)
     "yamllint==1.29.0",                # yaml linter
-
 ]
 
 [tool.pytest.ini_options]

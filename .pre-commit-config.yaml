@@ -66,4 +66,3 @@ repos:
         name: yaml-lint
         stages:
           - commit
-          - manual
