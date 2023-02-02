@@ -38,7 +38,7 @@ repos:
         name: ruff-only-check
         args:
           - "--show-source"
-          - "--fix"
+          - "--no-fix"
           - "--no-update-check"
           - "--format"
           - "grouped"
