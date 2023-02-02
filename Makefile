@@ -51,11 +51,12 @@ endif
 ## update            : This script updates all references.
 update: dev-deps
 	@${DOCKER} run -it --rm -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ -e REPO_NAME=${REPO_NAME} -e SERVICE_NAME=${SERVICE_NAME} bash:3.2 bash /opt/${REPO_NAME}/scripts/update-template.sh
+
 ## test              : pytest
-test: dev-deps
+test:
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
-	${DOCKER} build --no-cache --target test -t nextail/${REPO_NAME}_test \
+	${DOCKER} build --target test -t nextail/${REPO_NAME}_test \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
@@ -66,7 +67,6 @@ test: dev-deps
 
 ## create-env        : create .env file
 create-env:
-
 	@echo "SERVICE_NAME=${SERVICE_NAME}" > ${MKFILE_PATH}/docker/dagster/.env
 	@echo "REPO_NAME=${REPO_NAME}" >> ${MKFILE_PATH}/docker/dagster/.env
 
