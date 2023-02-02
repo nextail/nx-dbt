@@ -128,7 +128,7 @@ RUN pdm config python.use_venv false
 ####################################   TEST IMAGE     #########################################
 ###############################################################################################
 
-FROM cloud AS test
+FROM stage AS test
 
 ARG REPO_NAME
 
@@ -139,6 +139,7 @@ WORKDIR $PYPACKAGES
 RUN pdm install --dev
 
 # copy project
+COPY ./$SERVICE_NAME/ /opt/$REPO_NAME/$SERVICE_NAME/
 COPY ./tests /opt/$REPO_NAME/tests
 COPY .pre-commit-config.yaml .yamllint /opt/$REPO_NAME/
 
