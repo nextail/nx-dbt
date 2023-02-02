@@ -2,7 +2,7 @@ version: 2.1
 
 # cumtom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.3.0
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.3.1
 
 parameters:
   custom_service_account:
@@ -24,7 +24,7 @@ parameters:
   code_location_resource_limit_memory:
     type: string
     description: Kubernetes Limits - the container can never consume more than the CPU amount indicated.
-    default: 128Mi
+    default: 256Mi
   job_run_resource_limit_cpu:
     type: string
     description: Kubernetes Limits - the container can never consume more than the memory amount indicated.
@@ -60,10 +60,14 @@ workflows:
       # check secrets on code
       - dagster-pipelines-orb/check-secrets
 
-      # pre-commit for all branches
-      - dagster-pipelines-orb/pre-commit
+      # pre-commit
+      - dagster-pipelines-orb/pre-commit:
+          filters:
+            branches:
+              ignore:
+                - sandbox
 
-      # basic pytest -c pyproject.toml
+      # run make test
       - dagster-pipelines-orb/tests:
           context:
             - github-tokens
@@ -78,7 +82,6 @@ workflows:
           job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
           job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
           requires:
-            - dagster-pipelines-orb/pre-commit
             - dagster-pipelines-orb/check-secrets
             - dagster-pipelines-orb/tests
           context:
