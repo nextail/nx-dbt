@@ -157,7 +157,7 @@ pdm-lock: dev-deps
 lint:
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
-	${DOCKER} build --no-cache --target lint -t nextail/${REPO_NAME}_dev \
+	${DOCKER} build --target lint -t nextail/${REPO_NAME}_dev \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
@@ -174,7 +174,7 @@ lint:
 lint-check: dev-deps
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
-	${DOCKER} build --no-cache --target lint -t nextail/${REPO_NAME}_dev \
+	${DOCKER} build --target lint -t nextail/${REPO_NAME}_dev \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
