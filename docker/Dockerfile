@@ -16,7 +16,7 @@ RUN set -ex \
 
 # install PDM
 RUN pip install -U pip setuptools wheel
-RUN pip install pdm==2.3.4
+RUN pip install pdm==2.4.2
 
 # set required environment vars from host
 # These can be removed if is not planned to use Nextail libraries.
@@ -128,7 +128,7 @@ RUN pdm config python.use_venv false
 ####################################   TEST IMAGE     #########################################
 ###############################################################################################
 
-FROM cloud AS test
+FROM stage AS test
 
 ARG REPO_NAME
 
@@ -139,6 +139,7 @@ WORKDIR $PYPACKAGES
 RUN pdm install --dev
 
 # copy project
+COPY ./$SERVICE_NAME/ /opt/$REPO_NAME/$SERVICE_NAME/
 COPY ./tests /opt/$REPO_NAME/tests
 COPY .pre-commit-config.yaml .yamllint /opt/$REPO_NAME/
 

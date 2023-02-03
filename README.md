@@ -327,7 +327,9 @@ custom_policies            = [ ]
 Configure the file `.platform/charts/{{your_repository}}/values.yaml`:
 
 1. Change `serviceAccount.create` to `true`
-2. Set your envVars and AWS keys to map your secrets into app environment
+2. Set your envVars and AWS keys to map your secrets into app environment ()
+
+> It is mandatory to have at least one secret mapped so that the deployment does not fail!!!
 
 ```yaml
 # Kubernetes Service Account
