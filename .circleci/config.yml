@@ -2,7 +2,7 @@ version: 2.1
 
 # cumtom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.3.1
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.3.2
 
 parameters:
   custom_service_account:
@@ -95,23 +95,23 @@ workflows:
 
       # build-and-deploy for prod dagster environment
       # uncomment to deploy to production
-      - dagster-pipelines-orb/build-and-deploy-production:
-          custom_service_account: <<pipeline.parameters.custom_service_account>>
-          module_name: <<pipeline.parameters.module_name>>
-          project_name: <<pipeline.parameters.project_name>>
-          code_location_resource_limit_cpu: <<pipeline.parameters.code_location_resource_limit_cpu>>
-          code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
-          job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
-          job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
-          requires:
-            - dagster-pipelines-orb/pre-commit
-            - dagster-pipelines-orb/check-secrets
-            - dagster-pipelines-orb/tests
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
-          filters:
-            branches:
-              only:
-                - main
+      # - dagster-pipelines-orb/build-and-deploy-production:
+      #     custom_service_account: <<pipeline.parameters.custom_service_account>>
+      #     module_name: <<pipeline.parameters.module_name>>
+      #     project_name: <<pipeline.parameters.project_name>>
+      #     code_location_resource_limit_cpu: <<pipeline.parameters.code_location_resource_limit_cpu>>
+      #     code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+      #     job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
+      #     job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
+      #     requires:
+      #       - dagster-pipelines-orb/pre-commit
+      #       - dagster-pipelines-orb/check-secrets
+      #       - dagster-pipelines-orb/tests
+      #     context:
+      #       - org-global
+      #       - github-tokens
+      #       - dagster-tokens
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
