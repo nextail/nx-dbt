@@ -19,9 +19,12 @@ RUN pip install -U pip setuptools wheel
 RUN pip install pdm==2.4.2
 
 # set required environment vars from host
-# These can be removed if is not planned to use Nextail libraries.
 ARG GITHUB_PIP_TOKEN
 ENV GITHUB_PIP_TOKEN=$GITHUB_PIP_TOKEN
+ARG COMMIT
+ENV COMMIT=$COMMIT
+ARG GITHUB_REPOSITORY
+ENV GITHUB_REPOSITORY=$GITHUB_REPOSITORY
 
 ###############################################################################################
 ######################################   STAGE IMAGE   ########################################
