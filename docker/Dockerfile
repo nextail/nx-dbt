@@ -63,6 +63,8 @@ FROM stage AS cloud
 
 ARG SERVICE_NAME
 ARG REPO_NAME
+ARG ENVIRONMENT
+ENV NX_ENVIRONMENT=$ENVIRONMENT
 
 # copy project
 COPY ./$SERVICE_NAME/ /opt/$REPO_NAME/$SERVICE_NAME/
@@ -78,6 +80,8 @@ ARG PYTHON_MAJOR_VERSION
 
 #set venv
 WORKDIR $PYPACKAGES
+
+ENV NX_ENVIRONMENT=test
 
 # set python env
 ENV DAGSTER_DEV=/opt/$REPO_NAME
@@ -136,6 +140,7 @@ FROM stage AS test
 ARG REPO_NAME
 
 RUN apt update && apt install -y make
+ENV NX_ENVIRONMENT=test
 
 # install dev dependencies
 WORKDIR $PYPACKAGES
@@ -154,6 +159,8 @@ WORKDIR /opt/$REPO_NAME
 ###############################################################################################
 
 FROM stage AS srv
+
+ENV NX_ENVIRONMENT=dev
 
 # install dev dependencies
 WORKDIR $PYPACKAGES
