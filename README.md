@@ -1,5 +1,4 @@
-# Dagster Nextail Template [![CircleCI](https://dl.circleci.com/status-badge/img/gh/nextail/dagster-template/tree/main.svg?style=shield&circle-token=dfe858a7e1571e4110b73abd75211604c57a6e9b)](https://dl.circleci.com/status-badge/redirect/gh/nextail/dagster-template/tree/main)
-
+# Dagster Nextail Template [![CircleCI](https://dl.circleci.com/status-badge/img/gh/nextail/dagster-template/tree/main.svg?style=svg&circle-token=241de0bca0173d04a9463346e1224051a0d90e53)](https://dl.circleci.com/status-badge/redirect/gh/nextail/dagster-template/tree/main)
 ![dagster-in-nextail](images/dagster-in-nextail.png)
 
 In order to make it easier to start the development in Dagster this template is provided.
