@@ -16,7 +16,7 @@ RUN set -ex \
 
 # install PDM
 RUN pip install -U pip setuptools wheel
-RUN pip install pdm==2.4.2
+RUN pip install pdm==2.5.3
 
 # set required environment vars from host
 ARG GITHUB_PIP_TOKEN

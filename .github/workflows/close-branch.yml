@@ -1,0 +1,29 @@
+name: Branch Deployment - Close
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  Trigger_PR_Closed:
+    if: github.event.pull_request.merged == false && startsWith(github.head_ref, 'deploy/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: CircleCI Trigger
+        id: circle-trigger
+        uses: CircleCI-Public/trigger-circleci-pipeline-action@dd5d85644c1e65f107ecb7f34402c2825b2e418d
+        with:
+          GHA_Meta: "CLOSED"
+        env:
+          CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
+  Trigger_PR_Closed_Merged:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'deploy/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: CircleCI Trigger
+        id: circle-trigger
+        uses: CircleCI-Public/trigger-circleci-pipeline-action@dd5d85644c1e65f107ecb7f34402c2825b2e418d
+        with:
+          GHA_Meta: "${{ github.head_ref }}"
+        env:
+          CCI_TOKEN: ${{ secrets.CCI_TOKEN }}

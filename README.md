@@ -224,6 +224,19 @@ profile_name: dagster-local
 region_name: eu-west-1
 ```
 
+#### 2.1.7 Deploying Branch Deployments
+
+The branch_deployments will be executed by default from the branches that start with `deploy/` and meet the following situation:
+
+- **Pull Request OPEN**: will create a branch_deployment with the name of the branch
+- **Pull Request CLOSE or MERGED**: will mark the branch_deployment as closed and Dagster Cloud will remove it after a certain amount of time.
+
+The triggers that generate the `Pull Request OPEN`, `Pull Request CLOSE` or `Pull Request MERGED` events are generated from `Github Actions` and sent to `CircleCI` where the pipelines for the creation of the branch deployment and the deployment of the code location are executed.
+
+:warning: **The ENVVAR "DAGSTER_CLOUD_DEPLOYMENT_NAME" will be the deployment ID. It's recommended to use the ENVVAR "NX_ENVIRONMENT" which will be sandbox.**
+
+Recommended reading: [Branch Deployments in Dagster Cloud](https://docs.dagster.io/dagster-cloud/managing-deployments/branch-deployments#branch-deployments-in-dagster-cloud)
+
 ### 2.2. Cloud
 
 We have two operating environments: sandbox and production.
