@@ -7,10 +7,10 @@ authors = [
     {name = "nextail"},
 ]
 dependencies = [
-    "dagster==1.1.14",
-    "dagit==1.1.14",
-    "dagster-graphql==1.1.14",
-    "dagster-cloud==1.1.14",
+    "dagster==1.3.1",
+    "dagit==1.3.1",
+    "dagster-graphql==1.3.1",
+    "dagster-cloud==1.3.1",
     "dagster-postgres",
     "dagster-aws",
     "dagster-docker",
@@ -21,20 +21,20 @@ dependencies = [
 requires-python = ">=3.9, <3.10"
 
 [build-system]
-requires = ["pdm-pep517>=1.0.0"]
-build-backend = "pdm.pep517.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [tool.pdm.dev-dependencies]
 test = [
-    "pytest>=7.1.2",
+    "pytest>=7.3.1",
 ]
 dev = [
-    "debugpy==1.6.3",
+    "debugpy==1.6.7",
     # linter and formatter
-    "pre-commit==2.21.0",
-    "black==22.12.0",                  # python formatter
-    "ruff==v0.0.239",                  # python linter (flake8 compatible)
-    "yamllint==1.29.0",                # yaml linter
+    "pre-commit==3.2.2",
+    "black==23.3.0",                  # python formatter
+    "ruff==v0.0.262",                  # python linter (flake8 compatible)
+    "yamllint==1.31.0",                # yaml linter
 ]
 
 [tool.pytest.ini_options]

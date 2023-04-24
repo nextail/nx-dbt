@@ -2,7 +2,7 @@ version: 2.1
 
 # cumtom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.3.2
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.4.0
 
 parameters:
   custom_service_account:
@@ -17,6 +17,10 @@ parameters:
     type: string
     default: default
     description: "By default all projects will be named as {github-repo-name}-default"
+  branch_deployment:
+    type: string
+    default: /deploy\/.*/
+    description: "Regex for branch deployments. For example: deploy/**"
   code_location_resource_limit_cpu:
     type: string
     description: Kubernetes Limits - the container can never consume more than the memory amount indicated.
@@ -33,9 +37,85 @@ parameters:
     type: string
     description: Kubernetes Limits - the container can never consume more than the CPU amount indicated.
     default: 1Gi
+  GHA_Actor:
+    type: string
+    description: Integration with Github Actions
+    default: ""
+  GHA_Action:
+    type: string
+    description: Integration with Github Actions
+    default: ""
+  GHA_Event:
+    type: string
+    description: Integration with Github Actions
+    default: ""
+  GHA_Meta:
+    type: string
+    description: Integration with Github Actions
+    default: ""
 
 workflows:
+  # This workflow is set to be conditionally triggered, only when
+  # the GitHub Action is triggered .
+  external-trigger-open:
+    when:
+      and:
+        - equal: [OPEN, << pipeline.parameters.GHA_Meta >>]
+    jobs:
+      # check secrets on code
+      - dagster-pipelines-orb/check-secrets
+
+      # run make test
+      - dagster-pipelines-orb/tests:
+          context:
+            - github-tokens
+
+      # build-and-deploy for branch deployment environment
+      - dagster-pipelines-orb/build-and-deploy-branch:
+          actor_op: <<pipeline.parameters.GHA_Actor>>
+          trigger_op: <<pipeline.parameters.GHA_Meta>>
+          custom_service_account: <<pipeline.parameters.custom_service_account>>
+          module_name: <<pipeline.parameters.module_name>>
+          project_name: <<pipeline.parameters.project_name>>
+          code_location_resource_limit_cpu: <<pipeline.parameters.code_location_resource_limit_cpu>>
+          code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
+          job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
+          requires:
+            - dagster-pipelines-orb/check-secrets
+            - dagster-pipelines-orb/tests
+          context:
+            - org-global
+            - github-tokens
+            - dagster-tokens
+  # This workflow is set to be conditionally triggered, only when
+  # the GitHub Action is triggered.
+  external-trigger-close-or-merge:
+    when:
+      or:
+        - equal: [CLOSED, <<pipeline.parameters.GHA_Meta>>]
+        - matches: {pattern: <<pipeline.parameters.branch_deployment>>, value: <<pipeline.parameters.GHA_Meta>>}
+    jobs:
+      # build-and-deploy for branch deployment environment
+      - dagster-pipelines-orb/build-and-deploy-branch:
+          actor_op: <<pipeline.parameters.GHA_Actor>>
+          trigger_op: <<pipeline.parameters.GHA_Meta>>
+          custom_service_account: <<pipeline.parameters.custom_service_account>>
+          module_name: <<pipeline.parameters.module_name>>
+          project_name: <<pipeline.parameters.project_name>>
+          code_location_resource_limit_cpu: <<pipeline.parameters.code_location_resource_limit_cpu>>
+          code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
+          job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
+          context:
+            - org-global
+            - github-tokens
+            - dagster-tokens
+
   infrastructure:
+    when:
+      and:
+        - not: <<pipeline.parameters.GHA_Action>>
     jobs:
       # internal tool to deploy our Helm chart
       - dagster-pipelines-orb/service-account-sandbox:
@@ -56,9 +136,16 @@ workflows:
                 - main
 
   build-and-deploy:
+    when:
+      and:
+        - not: <<pipeline.parameters.GHA_Action>>
     jobs:
       # check secrets on code
-      - dagster-pipelines-orb/check-secrets
+      - dagster-pipelines-orb/check-secrets:
+          filters:
+            branches:
+              ignore:
+                - <<pipeline.parameters.branch_deployment>>
 
       # pre-commit
       - dagster-pipelines-orb/pre-commit:
@@ -66,11 +153,16 @@ workflows:
             branches:
               ignore:
                 - sandbox
+                - <<pipeline.parameters.branch_deployment>>
 
       # run make test
       - dagster-pipelines-orb/tests:
           context:
             - github-tokens
+          filters:
+            branches:
+              ignore:
+                - <<pipeline.parameters.branch_deployment>>
 
       # build-and-deploy for sandbox dagster environment
       - dagster-pipelines-orb/build-and-deploy-sandbox:
