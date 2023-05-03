@@ -75,7 +75,7 @@ Once the update is complete, commit and push your changes to main.
 
 ### Set up Dockerhub repository for your service
 
-File a Request ticket in [ServiceDesk](https://nextail.atlassian.net/servicedesk/customer/portals) asking for a [new dockerhub repository](https://cloud.docker.com/u/nextail/repository/list) to host your Docker images. Remember to include the name of the DockerHub repository you want. This is a manual process, since appropriate permissions must be set for developers and bots.
+File a Request in Platform Squad Slack Channel [#squad-platform](https://nextail-labs.slack.com/archives/CLZJ97WCC) asking for a [new dockerhub repository](https://cloud.docker.com/u/nextail/repository/list) to host your Docker images. Remember to include the name of the DockerHub repository you want. This is a manual process, since appropriate permissions must be set for developers and bots.
 
 ### Set up your project in CI
 
