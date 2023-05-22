@@ -14,9 +14,10 @@ RUN set -ex \
     && apt-get install -y curl git \
     && rm -rf /var/lib/apt/lists/*
 
-# install PDM
-RUN pip install -U pip setuptools wheel
-RUN pip install pdm==2.5.3
+# Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
+# Ref: https://github.com/pdm-project/pdm/issues/1388
+ARG PDM_VERSION=2.5.6
+RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/${PDM_VERSION}/install-pdm.py | python3 - --version=${PDM_VERSION} --path /usr/local
 
 # set required environment vars from host
 ARG GITHUB_PIP_TOKEN
