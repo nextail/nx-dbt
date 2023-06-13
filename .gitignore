@@ -129,10 +129,16 @@ dmypy.json
 .pyre/
 caches/
 .idea/
-__pypackages__
-.pdm.toml
 temp.py
 .ruff_cache
+
+__pypackages__
+# pdm < 2.5
+.pdm.toml
+# pdm >= 2.5
+pdm.toml
+.pdm-python
+
 
 # dagster persistence
 dagster/.logs_queue
