@@ -323,15 +323,15 @@ To decouple functional pipelines from the underlying platform's runtime, the fun
 
 For general guidance about how to work with secrets in your pipeline project, check [this platform guide](https://engineering-portal.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers)
 
-In addition, we added a property to the service account policies that allows you to have the same permissions that are given by default in Dagster. In this way you can migrate to your custom service account without losing functionality. The property is `add_dagster_policy`. You can set this property in the repository [nextail/aws-infrastructure](https://github.com/nextail/aws-infrastructure).
+In addition, we added a property to the service account policies that allows you to have the same permissions that are given by default in Dagster. In this way you can migrate to your custom service account without losing functionality. The property is `enable_dagster`. You can set this property in the repository [nextail/aws-infrastructure](https://github.com/nextail/aws-infrastructure).
 
 An example:
 
 ``` yml
-name                       = "dagster-poc"
-add_secrets_manager_policy = true
-add_dagster_policy         = true
-custom_policies            = [ ]
+name                          = "dagster-poc"
+enable_secrets_manager_access = true
+enable_dagster                = true
+custom_policies               = [ ]
 ```
 
 ##### Step 1: Configure the creation of Service Account and Service Provider
