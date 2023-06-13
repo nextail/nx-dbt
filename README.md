@@ -262,7 +262,7 @@ The Circleci workflow lets you automatically update Dagster Cloud code locations
 
 #### 2.2.3 Default AWS permissions for Sandbox
 
-To help kickstart development, a new data pipeline project can run its jobs using a default application role with common permissions. The default application role is materialied through two artifacts
+To help kickstart development, a new data pipeline project can run its jobs using a default application role with common permissions. The default application role is materialized through two artifacts
 
 - an IAM role `{{env}}-dagster` holding permissions to interact with AWS services
 - a k8s service account `user-cloud-dagster-cloud-agent` which references the IAM role
