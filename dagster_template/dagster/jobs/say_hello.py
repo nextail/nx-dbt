@@ -9,7 +9,7 @@ from dagster_template.dagster.ops.hello import hello
         "tenant": "nextail-tenant",  # will be converted to MetadataValue.text
         "domain": "nextail-domain",  # will be converted to MetadataValue.text
         "repository": MetadataValue.url("https://github.com/nextail/my-repo/"),
-        "procedures": MetadataValue.url("https://engineering-portal-sandbox.nextail.co/"),
+        "procedures": MetadataValue.url("https://engineering-portal.nextail.co/"),
     },
     tags={"owner": "nextail-squad", "tenant": "nextail-tenant", "domain": "nextail-domain"},
 )

@@ -262,7 +262,7 @@ The Circleci workflow lets you automatically update Dagster Cloud code locations
 
 #### 2.2.3 Default AWS permissions for Sandbox
 
-To help kickstart development, a new data pipeline project can run its jobs using a default application role with common permissions. The default application role is materialied through two artifacts
+To help kickstart development, a new data pipeline project can run its jobs using a default application role with common permissions. The default application role is materialized through two artifacts
 
 - an IAM role `{{env}}-dagster` holding permissions to interact with AWS services
 - a k8s service account `user-cloud-dagster-cloud-agent` which references the IAM role
@@ -318,20 +318,20 @@ Once initial development has been kickstarted, the pipeline project should move 
 
 To decouple functional pipelines from the underlying platform's runtime, the functional pipelines must be granted specific permissions. To grant these permissions, you will need to have the following artifacts
 
-- an IAM role, which you can create following [this platform guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers/#step-1-setting-up-the-infrastructure-for-my-application). By default, the role will only grant your application permission to interact with AWS Secrets Manager. If the application needs additional permissions to access other AWS services like S3, follow [this platform guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/developer/create_a_new.service#applications-permissions) to grant them
+- an IAM role, which you can create following [this platform guide](https://engineering-portal.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers/#step-1-setting-up-the-infrastructure-for-my-application). By default, the role will only grant your application permission to interact with AWS Secrets Manager. If the application needs additional permissions to access other AWS services like S3, follow [this platform guide](https://engineering-portal.nextail.co/docs/platform-architecture/operations/developer/create_a_new.service#applications-permissions) to grant them
 - a service account referencing the IAM role, deployed as a platform resource of the data pipeline repository via helm, [as provided in this template repository](.platform/charts/dagster-template/templates/serviceaccount.yaml)
 
-For general guidance about how to work with secrets in your pipeline project, check [this platform guide](https://engineering-portal-sandbox.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers)
+For general guidance about how to work with secrets in your pipeline project, check [this platform guide](https://engineering-portal.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers)
 
-In addition, we added a property to the service account policies that allows you to have the same permissions that are given by default in Dagster. In this way you can migrate to your custom service account without losing functionality. The property is `add_dagster_policy`. You can set this property in the repository [nextail/aws-infrastructure](https://github.com/nextail/aws-infrastructure).
+In addition, we added a property to the service account policies that allows you to have the same permissions that are given by default in Dagster. In this way you can migrate to your custom service account without losing functionality. The property is `enable_dagster`. You can set this property in the repository [nextail/aws-infrastructure](https://github.com/nextail/aws-infrastructure).
 
 An example:
 
 ``` yml
-name                       = "dagster-poc"
-add_secrets_manager_policy = true
-add_dagster_policy         = true
-custom_policies            = [ ]
+name                          = "dagster-poc"
+enable_secrets_manager_access = true
+enable_dagster                = true
+custom_policies               = [ ]
 ```
 
 ##### Step 1: Configure the creation of Service Account and Service Provider
