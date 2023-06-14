@@ -1,6 +1,6 @@
 version: 2.1
 
-# cumtom orb for dagster pipelines
+# custom orb for dagster pipelines
 orbs:
   dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.4.0
 
