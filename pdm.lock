@@ -1313,7 +1313,7 @@ dependencies = [
 lock_version = "4.2"
 cross_platform = true
 groups = ["default", "dev", "test"]
-content_hash = "sha256:29b06f698835d63b0e3393c1eadc58f0fe04a1e68e09255b759c627650b3cf00"
+content_hash = "sha256:a4042d43e27c35c44be74803e99116dfb027099ecdaa5002440d7c9ec00b93cd"
 
 [metadata.files]
 "agate 1.7.0" = [
