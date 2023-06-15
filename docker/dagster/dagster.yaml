@@ -43,7 +43,7 @@ schedule_storage:
         env: POSTGRES_DB
       port: 5432
 
-# Configures how long Dagster waits for repositories
+# Configures how long Dagster waits for code locations
 # to load before timing out.
 code_servers:
   local_startup_timeout: 900
