@@ -8,10 +8,7 @@ authors = [
 ]
 dependencies = [
     "dagster==1.3.10",
-    "dagit==1.3.10",
-    "dagster-graphql==1.3.10",
-    "dagster-cloud==1.3.10",
-    "dagster-postgres",
+    "dagster-cloud",
     "dagster-aws",
     "dagster-docker",
     "dagster-dbt",
@@ -29,6 +26,8 @@ test = [
     "pytest>=7.3.1",
 ]
 dev = [
+    "dagit",
+    "dagster-postgres",
     "debugpy==1.6.7",
     # linter and formatter
     "pre-commit==3.2.2",
