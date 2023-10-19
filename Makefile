@@ -10,9 +10,12 @@ SHELL := $(shell which bash)
 # Get docker path or an empty string
 DOCKER := $(shell command -v docker)
 # Get docker-compose path or an empty string
-DOCKER_COMPOSE := $(shell command -v docker-compose)
-ifndef DOCKER_COMPOSE
+DOCKER_COMPOSE_V1 := $(shell command -v docker-compose)
+DOCKER_COMPOSE_V2 := $(shell ${DOCKER} compose version > /dev/null 2>&1; echo $$?)
+ifeq ($(DOCKER_COMPOSE_V2), 0)
 	DOCKER_COMPOSE := ${DOCKER} compose
+else
+	DOCKER_COMPOSE := ${DOCKER_COMPOSE_V1}
 endif
 # Get current path
 MKFILE_PATH := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
