@@ -2,7 +2,7 @@
 MAKEFLAGS += --warn-undefined-variables
 
 REPO_NAME := $(shell basename `git config --get remote.origin.url` .git)
-SERVICE_NAME := $(shell echo $(REPO_NAME) | tr '-' '_')
+PKG_NAME := $(shell echo $(REPO_NAME) | tr '-' '_')
 
 
 # Shell to use for running scripts
@@ -53,7 +53,7 @@ endif
 
 ## update            : This script updates all references.
 update: dev-deps
-	@${DOCKER} run -it --rm -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ -e REPO_NAME=${REPO_NAME} -e SERVICE_NAME=${SERVICE_NAME} bash:3.2 bash /opt/${REPO_NAME}/scripts/update-template.sh
+	@${DOCKER} run -it --rm -v ${MKFILE_PATH}/:/opt/${REPO_NAME}/ -e REPO_NAME=${REPO_NAME} -e PKG_NAME=${PKG_NAME} bash:3.2 bash /opt/${REPO_NAME}/scripts/update-template.sh
 
 ## test              : pytest
 test:
@@ -61,7 +61,7 @@ test:
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target test -t nextail/${REPO_NAME}_test \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
-		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg PKG_NAME=${PKG_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
@@ -70,7 +70,7 @@ test:
 
 ## create-env        : create .env file
 create-env:
-	@echo "SERVICE_NAME=${SERVICE_NAME}" > ${MKFILE_PATH}/docker/dagster/.env
+	@echo "PKG_NAME=${PKG_NAME}" > ${MKFILE_PATH}/docker/dagster/.env
 	@echo "REPO_NAME=${REPO_NAME}" >> ${MKFILE_PATH}/docker/dagster/.env
 
 ## start-dev         : start the docker environment in background
@@ -89,7 +89,7 @@ shell: start-dev
 		--build-arg USER_ID=${UID} \
 		--build-arg GROUP_ID=${GID} \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
-		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg PKG_NAME=${PKG_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
@@ -145,7 +145,7 @@ pdm-lock: dev-deps
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target pdm -t nextail/${REPO_NAME}_dev \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
-		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg PKG_NAME=${PKG_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
@@ -162,7 +162,7 @@ lint:
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target lint -t nextail/${REPO_NAME}_dev \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
-		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg PKG_NAME=${PKG_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
@@ -179,7 +179,7 @@ lint-check: dev-deps
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target lint -t nextail/${REPO_NAME}_dev \
 		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
-		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg PKG_NAME=${PKG_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
 	&& echo \
