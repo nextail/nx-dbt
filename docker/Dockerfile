@@ -1,4 +1,4 @@
-ARG PKG_NAME
+ARG PACKAGE_NAME
 ARG REPO_NAME
 ARG PYTHON_MAJOR_VERSION=3.9
 
@@ -62,13 +62,13 @@ WORKDIR $DAGSTER_HOME
 
 FROM stage AS cloud
 
-ARG PKG_NAME
+ARG PACKAGE_NAME
 ARG REPO_NAME
 ARG ENVIRONMENT
 ENV NX_ENVIRONMENT=$ENVIRONMENT
 
 # copy project
-COPY ./$PKG_NAME/ /opt/$REPO_NAME/$PKG_NAME/
+COPY ./$PACKAGE_NAME/ /opt/$REPO_NAME/$PACKAGE_NAME/
 
 ###############################################################################################
 ####################################    LOCAL IMAGE     #######################################
@@ -148,7 +148,7 @@ WORKDIR $PYPACKAGES
 RUN pdm install --dev
 
 # copy project
-COPY ./$PKG_NAME/ /opt/$REPO_NAME/$PKG_NAME/
+COPY ./$PACKAGE_NAME/ /opt/$REPO_NAME/$PACKAGE_NAME/
 COPY ./tests /opt/$REPO_NAME/tests
 COPY .pre-commit-config.yaml .yamllint /opt/$REPO_NAME/
 

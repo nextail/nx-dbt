@@ -23,7 +23,7 @@ services:
       target: srv
       args:
         - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
-        - PKG_NAME
+        - PACKAGE_NAME
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_dagit
     container_name: ${REPO_NAME}_dagit
@@ -52,7 +52,7 @@ services:
       - "5678:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../${PKG_NAME}:/opt/${REPO_NAME}/${PKG_NAME}
+      - ../../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
       - ~/.aws:/root/.aws
     depends_on:
       - postgres_db
@@ -68,7 +68,7 @@ services:
       target: srv
       args:
         - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
-        - PKG_NAME
+        - PACKAGE_NAME
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_daemon
     container_name: ${REPO_NAME}_daemon
@@ -91,7 +91,7 @@ services:
       - "5679:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../${PKG_NAME}:/opt/${REPO_NAME}/${PKG_NAME}
+      - ../../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
       - ~/.aws:/root/.aws
     depends_on:
       - postgres_db
