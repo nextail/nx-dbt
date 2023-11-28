@@ -10,7 +10,7 @@ echo
 echo "Renaming and Refactoring:"
 echo "Repository: $REPO_NAME"
 echo "Amazon Service Account: $REPO_NAME"
-echo "Python Package: $SERVICE_NAME"
+echo "Python Package: $PACKAGE_NAME"
 echo
 
 #workdir
@@ -18,11 +18,11 @@ cd ${SCRIPTPATH}/..
 
 #rename folders
 mv .platform/charts/$TEMPLATE_NAME .platform/charts/$REPO_NAME
-mv $TEMPLATE_SRV $SERVICE_NAME
+mv $TEMPLATE_SRV $PACKAGE_NAME
 
 #refactor files
 repo_files=(".platform/charts/$REPO_NAME/Chart.yaml" "docker/dagster/workspace.yaml" ".vscode/launch.json")
-service_files=(".circleci/config.yml" "$SERVICE_NAME/dagster/jobs/say_hello.py" "$SERVICE_NAME/dagster/jobs/say_hello.py" "$SERVICE_NAME/dagster/schedules/my_hourly_schedule.py" "$SERVICE_NAME/dagster/sensors/my_sensor.py" "$SERVICE_NAME/dagster/__init__.py" "docker/dagster/workspace.yaml" "tests/dagster/graphs/test_say_hello.py" "tests/dagster/ops/test_hello.py" "pyproject.toml")
+service_files=(".circleci/config.yml" "$PACKAGE_NAME/dagster/jobs/say_hello.py" "$PACKAGE_NAME/dagster/jobs/say_hello.py" "$PACKAGE_NAME/dagster/schedules/my_hourly_schedule.py" "$PACKAGE_NAME/dagster/sensors/my_sensor.py" "$PACKAGE_NAME/dagster/__init__.py" "docker/dagster/workspace.yaml" "tests/dagster/graphs/test_say_hello.py" "tests/dagster/ops/test_hello.py" "pyproject.toml")
 
 for i in "${repo_files[@]}"
 do
@@ -30,7 +30,7 @@ do
 done
 for i in "${service_files[@]}"
 do
-    sed -i "s|${TEMPLATE_SRV}|${SERVICE_NAME}|" $i
+    sed -i "s|${TEMPLATE_SRV}|${PACKAGE_NAME}|" $i
 done
 
 echo
