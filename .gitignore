@@ -138,6 +138,7 @@ __pypackages__
 # pdm >= 2.5
 pdm.toml
 .pdm-python
+.pdm-build
 
 
 # dagster persistence
