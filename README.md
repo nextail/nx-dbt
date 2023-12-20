@@ -252,7 +252,7 @@ CI/CD Integration with CircleCI Orb.
 - **Nextail Cloud**: [Link](https://nextail.dagster.cloud/)
   - Workspaces:
     - **Sandbox**: [Link](https://nextail.dagster.cloud/sandbox)
-    - **Prod**: [Link](https://nextail.dagster.cloud/prod)
+    - **Production**: [Link](https://nextail.dagster.cloud/production)
 
 #### 2.2.2 Orb
 
