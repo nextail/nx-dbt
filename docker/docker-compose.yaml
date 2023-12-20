@@ -18,8 +18,8 @@ services:
   # a queue and later dequeued and launched by dagster-daemon.
   dagit:
     build:
-      context: ../..
-      dockerfile: ./docker/Dockerfile
+      context: ./..
+      dockerfile: docker/Dockerfile
       target: srv
       args:
         - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
@@ -35,7 +35,7 @@ services:
       - "--listen"
       - "0.0.0.0:5678"
       - "-m"
-      - "dagit"
+      - "dagster_webserver"
       - "-h"
       - "0.0.0.0"
       - "-p"
@@ -52,7 +52,7 @@ services:
       - "5678:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
+      - ../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
       - ~/.aws:/root/.aws
     depends_on:
       - postgres_db
@@ -63,8 +63,8 @@ services:
   # off of the queue and launching them, as well as creating runs from schedules or sensors.
   daemon:
     build:
-      context: ../..
-      dockerfile: ./docker/Dockerfile
+      context: ./..
+      dockerfile: docker/Dockerfile
       target: srv
       args:
         - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
@@ -91,7 +91,7 @@ services:
       - "5679:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
+      - ../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
       - ~/.aws:/root/.aws
     depends_on:
       - postgres_db
