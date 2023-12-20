@@ -33,19 +33,12 @@ repos:
         args:
           - "--show-source"
           - "--fix"
-          - "--no-update-check"
-          - "--force-exclude"
-          - "--format"
-          - "grouped"
+
       - id: ruff
-        name: ruff-lint
+        name: ruff-only-check
         args:
           - "--show-source"
           - "--no-fix"
-          - "--no-update-check"
-          - "--force-exclude"
-          - "--format"
-          - "grouped"
         stages: [manual]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
