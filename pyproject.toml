@@ -7,13 +7,13 @@ authors = [
     {name = "nextail"},
 ]
 dependencies = [
-    "dagster==1.5.13",
-    "dagster-cloud==1.5.13",
-    "dagster-aws==0.21.13",
-    "dagster-docker==0.21.13",
-    "dagster-dbt==0.21.13",
-    "dagster-k8s==0.21.13",
-    "dagster-snowflake==0.21.13"
+    "dagster==1.6.3",
+    "dagster-cloud==1.6.3",
+    "dagster-aws==0.22.3",
+    "dagster-docker==0.22.3",
+    "dagster-dbt==0.22.3",
+    "dagster-k8s==0.22.3",
+    "dagster-snowflake==0.22.3"
 ]
 requires-python = ">=3.9, <3.10"
 
@@ -26,13 +26,13 @@ test = [
     "pytest>=7.3.1",
 ]
 dev = [
-    "dagster-webserver==1.5.13",
-    "dagster-postgres==0.21.13",
+    "dagster-webserver==1.6.3",
+    "dagster-postgres==0.22.3",
     "debugpy==1.8.0",
     # linter and formatter
     "pre-commit==3.6.0",
-    "black==23.12.0",                   # python formatter
-    "ruff==v0.1.8",                  # python linter (flake8 compatible)
+    "black==24.1.1",                   # python formatter
+    "ruff==v0.1.13",                  # python linter (flake8 compatible)
     "yamllint==1.33.0",                # yaml linter
 ]
 
