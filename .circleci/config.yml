@@ -2,7 +2,7 @@ version: 2.1
 
 # custom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@2.6.0
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@3.0.0
 
 parameters:
   custom_service_account:
