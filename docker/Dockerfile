@@ -62,13 +62,20 @@ WORKDIR $DAGSTER_HOME
 
 FROM stage AS cloud
 
-ARG PACKAGE_NAME
+ARG SERVICE_NAME
 ARG REPO_NAME
 ARG ENVIRONMENT
-ENV NX_ENVIRONMENT=$ENVIRONMENT
+ARG UNAME=worker
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
+ENV NX_ENVIRONMENT=$ENVIRONMENT
+RUN groupadd -g $GROUP_ID -o $UNAME
+RUN useradd -m -u $USER_ID -g $GROUP_ID -o -s /bin/bash $UNAME
 # copy project
-COPY ./$PACKAGE_NAME/ /opt/$REPO_NAME/$PACKAGE_NAME/
+COPY ./$SERVICE_NAME/ /opt/$REPO_NAME/$SERVICE_NAME/
+RUN chown -R $UNAME  /opt/
+USER $USER_ID
 
 ###############################################################################################
 ####################################    LOCAL IMAGE     #######################################
