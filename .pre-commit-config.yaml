@@ -15,7 +15,7 @@ exclude: |
 
 repos:
   - repo: https://github.com/psf/black
-    rev: 23.12.0
+    rev: 24.1.1
     hooks:
       - id: black
       - id: black
@@ -27,13 +27,12 @@ repos:
         stages: [manual]
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.1.8
+    rev: v0.1.13
     hooks:
       - id: ruff
         args:
           - "--show-source"
           - "--fix"
-
       - id: ruff
         name: ruff-only-check
         args:
@@ -52,7 +51,7 @@ repos:
           - commit
 
   - repo: https://github.com/pdm-project/pdm
-    rev: 2.11.1
+    rev: 2.12.3
     hooks:
       - id: pdm-lock-check
 
