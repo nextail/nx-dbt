@@ -186,7 +186,6 @@ WORKDIR $PYPACKAGES
 RUN pdm install --dev
 
 # copy project
-# copy project
 COPY --chown=$USER_ID:$GROUP_ID ./$PACKAGE_NAME/ /opt/$REPO_NAME/$PACKAGE_NAME/
 COPY --chown=$USER_ID:$GROUP_ID ./tests /opt/$REPO_NAME/tests
 COPY --chown=$USER_ID:$GROUP_ID .pre-commit-config.yaml .yamllint /opt/$REPO_NAME/
