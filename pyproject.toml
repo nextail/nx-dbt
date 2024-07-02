@@ -7,59 +7,59 @@ authors = [
     {name = "nextail"},
 ]
 dependencies = [
-    "dagster==1.6.3",
-    "dagster-cloud==1.6.3",
-    "dagster-aws==0.22.3",
-    "dagster-docker==0.22.3",
-    "dagster-dbt==0.22.3",
-    "dagster-k8s==0.22.3",
-    "dagster-snowflake==0.22.3"
+    "dagster==1.7.12",
+    "dagster-cloud==1.7.12",
+    "dagster-aws==0.23.1",
+    "dagster-docker==0.23.1",
+    "dagster-dbt==0.23.1",
+    "dagster-k8s==0.23.1",
+    "dagster-snowflake==0.23.1"
 ]
-requires-python = ">=3.9, <3.10"
+requires-python = ">=3.10, <3.11"
+
+[tool.pdm.dev-dependencies]
+test = [
+    "pytest>=8.2.2",
+]
+dev = [
+    "dagster-webserver==1.7.12",
+    "dagster-postgres==0.23.1",
+    "debugpy==1.8.2",
+    # linter and formatter
+    "pre-commit==3.7.1",
+    "black==24.4.2",                   # python formatter
+    "ruff==v0.5.0",                    # python linter (flake8 compatible)
+    "yamllint==1.35.1",                # yaml linter
+]
 
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
-
-[tool.pdm.dev-dependencies]
-test = [
-    "pytest>=7.3.1",
-]
-dev = [
-    "dagster-webserver==1.6.3",
-    "dagster-postgres==0.22.3",
-    "debugpy==1.8.0",
-    # linter and formatter
-    "pre-commit==3.6.0",
-    "black==24.1.1",                   # python formatter
-    "ruff==v0.1.13",                  # python linter (flake8 compatible)
-    "yamllint==1.33.0",                # yaml linter
-]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-ra --ignore-glob=__pypackages__/**"
 
 [tool.pyright]
-pythonVersion = "3.9"
+pythonVersion = "3.10"
 exclude = ["**/__pycache__", "**/__pypackages__"]
 ignore = ["**/__pypackages__"]
 reportGeneralTypeIssues = false                                      # to allow working with dagster resources retrieved from context
 
 [tool.black]
 line-length = 120
-target-version = ["py39"]
+target-version = ["py310"]
 preview = true
 
 [tool.isort]
 profile = "black"
-py_version = "39"
+py_version = "310"
 line_length = 120
 
 [tool.ruff]
 extend-exclude = ["__pypackages__"]
 line-length = 120
-target-version = "py39"
+target-version = "py310"
 select = [
     "A",   # flake8-builtins
     "B",   # flake8-bugbear
