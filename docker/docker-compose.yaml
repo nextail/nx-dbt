@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   # This service runs the postgres DB used by dagster for run storage, schedule storage,
   # and event log storage.
@@ -13,20 +11,20 @@ services:
     networks:
       - nxnet
 
-  # This service runs dagit, which loads your user code from the user code container.
-  # Since our instance uses the QueuedRunCoordinator, any runs submitted from dagit will be put on
-  # a queue and later dequeued and launched by dagster-daemon.
-  dagit:
+  # This service runs dagster-webserver, which loads your user code from the user code container.
+  # Since our instance uses the QueuedRunCoordinator, any runs submitted from dagster-webserver
+  # will be put on a queue and later dequeued and launched by dagster-daemon.
+  webserver:
     build:
       context: ./..
       dockerfile: docker/Dockerfile
       target: srv
       args:
-        - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
+        - GITHUB_PIP_TOKEN # This can be removed if is not planned to use Nextail libraries.
         - PACKAGE_NAME
     working_dir: /opt/dagster
-    image: nextail/${REPO_NAME}_dagit
-    container_name: ${REPO_NAME}_dagit
+    image: nextail/${REPO_NAME}_webserver
+    container_name: ${REPO_NAME}_webserver
     restart: on-failure
     entrypoint:
       - "python"
@@ -67,7 +65,7 @@ services:
       dockerfile: docker/Dockerfile
       target: srv
       args:
-        - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
+        - GITHUB_PIP_TOKEN # This can be removed if is not planned to use Nextail libraries.
         - PACKAGE_NAME
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_daemon

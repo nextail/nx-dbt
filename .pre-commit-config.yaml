@@ -1,5 +1,5 @@
 default_language_version:
-  python: python3.9
+  python: python3.10
 
 default_stages:
   - commit
@@ -15,7 +15,7 @@ exclude: |
 
 repos:
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.1.1
+    rev: 24.4.2
     hooks:
       - id: black
       - id: black
@@ -27,21 +27,23 @@ repos:
         stages: [manual]
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.1.13
+    rev: v0.5.0
     hooks:
       - id: ruff
         args:
-          - "--show-source"
+          - "--output-format"
+          - "full"
           - "--fix"
       - id: ruff
         name: ruff-only-check
         args:
-          - "--show-source"
+          - "--output-format"
+          - "full"
           - "--no-fix"
         stages: [manual]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: end-of-file-fixer
         stages:
@@ -51,12 +53,12 @@ repos:
           - commit
 
   - repo: https://github.com/pdm-project/pdm
-    rev: 2.12.3
+    rev: 2.16.1
     hooks:
       - id: pdm-lock-check
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.33.0
+    rev: v1.35.1
     hooks:
       - id: yamllint
         name: yaml-lint
@@ -65,6 +67,7 @@ repos:
           - manual
 
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.18.1
+    rev: v8.18.4
     hooks:
       - id: gitleaks-docker
+        entry: -u root:root zricethezav/gitleaks protect --verbose --redact --staged

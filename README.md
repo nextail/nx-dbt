@@ -104,9 +104,9 @@ Include:
 
 - Postgres 11
 - Dagster Daemon
-- Dagit
+- Dagster WebServer
 
-Dagster Daemon and Dagit have your package folder as a docker volume.
+Dagster Daemon and Dagster Webserver have your package folder as a docker volume.
 
 The `dagster_template.dagster` module contains the code for your Dagster Definitions, the object that contains all the definitions defined within a code location. Definitions include assets, jobs, resources, schedules, and sensors.
 
@@ -201,7 +201,7 @@ without needing to have done `pre-commit install` beforehand.
 
 #### 2.1.5 Debug with vscode
 
-One of the great things in Visual Studio Code is [debugging support](https://code.visualstudio.com/docs/editor/debugging). Set breakpoints, step-in, inspect variables and more. The template is prepared to use this utility. Within the run and debug menu you can select dagit:localhost or dagster-daemon:localhost to start your debug.
+One of the great things in Visual Studio Code is [debugging support](https://code.visualstudio.com/docs/editor/debugging). Set breakpoints, step-in, inspect variables and more. The template is prepared to use this utility. Within the run and debug menu you can select webserver:localhost or daemon:localhost to start your debug.
 
 ![debug-with-vscode](images/debug.png)
 
@@ -235,6 +235,12 @@ The triggers that generate the `Pull Request OPEN`, `Pull Request CLOSE` or `Pul
 :warning: **The ENVVAR "DAGSTER_CLOUD_DEPLOYMENT_NAME" will be the deployment ID. It's recommended to use the ENVVAR "NX_ENVIRONMENT" which will be sandbox.**
 
 Recommended reading: [Branch Deployments in Dagster Cloud](https://docs.dagster.io/dagster-cloud/managing-deployments/branch-deployments#branch-deployments-in-dagster-cloud)
+
+### 2.1.8 Deveoping with DevContainer or Github Codespace
+
+There is the possibility of developing the project from a [DevContainer](https://code.visualstudio.com/docs/devcontainers/containers) or [GitHub Codespace](https://docs.github.com/en/codespaces/overview).
+
+You can read more about how to configure and launch these projects in the [operations-workspace repository documentation](https://github.com/nextail/operations-workspace/tree/main/doc/10_get_started)
 
 ### 2.2. Cloud
 
