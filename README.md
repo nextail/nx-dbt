@@ -236,6 +236,12 @@ The triggers that generate the `Pull Request OPEN`, `Pull Request CLOSE` or `Pul
 
 Recommended reading: [Branch Deployments in Dagster Cloud](https://docs.dagster.io/dagster-cloud/managing-deployments/branch-deployments#branch-deployments-in-dagster-cloud)
 
+### 2.1.8 Deveoping with DevContainer or Github Codespace
+
+There is the possibility of developing the project from a [DevContainer](https://code.visualstudio.com/docs/devcontainers/containers) or [GitHub Codespace](https://docs.github.com/en/codespaces/overview).
+
+You can read more about how to configure and launch these projects in the [operations-workspace repository documentation](https://github.com/nextail/operations-workspace/tree/main/doc/10_get_started)
+
 ### 2.2. Cloud
 
 We have two operating environments: sandbox and production.
