@@ -6,7 +6,7 @@ services:
     build:
       context: ./..
       dockerfile: .devcontainer/Dockerfile
-    image: nextail/operations-workspace:dev
+    image: nextail/dagster-template:dev
     environment:
       GITHUB_TOKEN:
     volumes:
