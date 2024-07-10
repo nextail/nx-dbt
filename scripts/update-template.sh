@@ -21,7 +21,7 @@ mv .platform/charts/$TEMPLATE_NAME .platform/charts/$REPO_NAME
 mv $TEMPLATE_SRV $PACKAGE_NAME
 
 #refactor files
-repo_files=(".platform/charts/$REPO_NAME/Chart.yaml" "docker/dagster/workspace.yaml" ".vscode/launch.json")
+repo_files=(".devcontainer/devcontainer.json",".devcontainer/docker-compose.yml",".platform/charts/$REPO_NAME/Chart.yaml" "docker/dagster/workspace.yaml" ".vscode/launch.json")
 service_files=(".circleci/config.yml" "$PACKAGE_NAME/dagster/jobs/say_hello.py" "$PACKAGE_NAME/dagster/jobs/say_hello.py" "$PACKAGE_NAME/dagster/schedules/my_hourly_schedule.py" "$PACKAGE_NAME/dagster/sensors/my_sensor.py" "$PACKAGE_NAME/dagster/__init__.py" "docker/dagster/workspace.yaml" "tests/dagster/graphs/test_say_hello.py" "tests/dagster/ops/test_hello.py" "pyproject.toml")
 
 for i in "${repo_files[@]}"
