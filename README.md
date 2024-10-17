@@ -207,19 +207,12 @@ One of the great things in Visual Studio Code is [debugging support](https://cod
 
 #### 2.1.6 Access to Amazon S3 from local env
 
-- First of all you will have to add a new nextail profile to your ~/.aws/config file:
+- If you haven't set your AWS Profile yet, please follow [this guide](https://engineering-portal.nextail.co/docs/platform-architecture/for_developers/AWS_access/AWS_credentials#set-up-cli-profiles) to configure it for `developerProd`
+
+- Secondly, when you configure your access in the job to s3 remember to select as profile: developerProd
 
 ```yml
-[profile dagster-local]
-region         = eu-west-1
-role_arn       = arn:aws:iam::989535222017:role/dagster-local
-source_profile = default
-````
-
-- Secondly, when you configure your access in the job to s3 remember to select as profile: dagster-local
-
-```yml
-profile_name: dagster-local
+profile_name: developerProd
 region_name: eu-west-1
 ```
 
