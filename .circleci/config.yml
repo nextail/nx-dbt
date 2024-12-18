@@ -2,7 +2,7 @@ version: 2.1
 
 # custom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@3.3.0
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@3.3.1
 
 parameters:
   custom_service_account:
@@ -143,6 +143,7 @@ workflows:
 
       # pre-commit
       - dagster-pipelines-orb/pre-commit:
+          python-executor: dagster-pipelines-orb/py3-11-executor
           filters:
             branches:
               ignore:

@@ -1,6 +1,6 @@
 ARG PACKAGE_NAME
 ARG REPO_NAME
-ARG PYTHON_MAJOR_VERSION=3.10
+ARG PYTHON_MAJOR_VERSION=3.11
 
 ARG UNAME=worker
 ARG USER_ID=1000
@@ -28,7 +28,7 @@ RUN set -ex \
 
 # Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
 # Ref: https://github.com/pdm-project/pdm/issues/1388
-ARG PDM_VERSION=2.16.1
+ARG PDM_VERSION=2.22.0
 RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/${PDM_VERSION}/install-pdm.py | python3 - --version=${PDM_VERSION} --path /usr/local
 
 # create non-root user

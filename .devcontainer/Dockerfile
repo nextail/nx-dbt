@@ -1,4 +1,4 @@
-FROM python:3.10-bullseye
+FROM python:3.11-bullseye
 
 ARG TARGETARCH
 
@@ -9,7 +9,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # install PDM
 # Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
 # Ref: https://github.com/pdm-project/pdm/issues/1388
-ARG PDM_VERSION=2.16.1
+ARG PDM_VERSION=2.22.0
 RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/${PDM_VERSION}/install-pdm.py | python3 - --version=${PDM_VERSION} --path /usr/local
 
 # set python env
@@ -25,8 +25,8 @@ RUN pdm config python.use_venv false
 RUN mkdir __pypackages__ && pdm sync --no-editable
 
 # set python  env
-ENV PYTHONPATH=$PYPACKAGES/__pypackages__/3.10/lib
-ENV PATH=$PYPACKAGES/__pypackages__/3.10/bin/:$PATH
+ENV PYTHONPATH=$PYPACKAGES/__pypackages__/3.11/lib
+ENV PATH=$PYPACKAGES/__pypackages__/3.11/bin/:$PATH
 
 # utilities
 # add docker bash completion

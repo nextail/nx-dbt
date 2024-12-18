@@ -48,15 +48,15 @@
                     ".yamllint": "yaml",
                 },
                 "debug.showSubSessionsInToolBar": true, /* to be able to stop a dagster debug session with multiple subprocess */
-                "python.defaultInterpreterPath": "${workspaceFolder}/__pypackages__/3.10/lib",
+                "python.defaultInterpreterPath": "${workspaceFolder}/__pypackages__/3.11/lib",
                 /* python */
                 "python.autoComplete.extraPaths": [
                     "${workspaceFolder}/dagster_template",
-                    "/usr/python/__pypackages__/3.10/lib"
+                    "/usr/python/__pypackages__/3.11/lib"
                 ],
                 "python.analysis.extraPaths": [
                     "${workspaceFolder}/dagster_template",
-                    "/usr/python/__pypackages__/3.10/lib"
+                    "/usr/python/__pypackages__/3.11/lib"
                 ],
                 "python.testing.pytestEnabled": true,
                 "python.testing.pytestArgs": [
