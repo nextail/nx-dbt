@@ -1,0 +1,73 @@
+default_language_version:
+  python: python3.11
+
+default_stages:
+  - commit
+
+exclude: |
+  (?x)^(
+      .circleci/.*|
+      .platform/.*|
+      __pypackages__/.*|
+      .*/dbt_packages/.*|
+      .*/target/.*
+  )$
+
+repos:
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 24.10.0
+    hooks:
+      - id: black
+      - id: black
+        name: black-lint
+        args:
+          - "--check"
+          - "--diff"
+          - "--color"
+        stages: [manual]
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.8.3
+    hooks:
+      - id: ruff
+        args:
+          - "--output-format"
+          - "full"
+          - "--fix"
+      - id: ruff
+        name: ruff-only-check
+        args:
+          - "--output-format"
+          - "full"
+          - "--no-fix"
+        stages: [manual]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+        stages:
+          - commit
+      - id: trailing-whitespace
+        stages:
+          - commit
+
+  - repo: https://github.com/pdm-project/pdm
+    rev: 2.22.0
+    hooks:
+      - id: pdm-lock-check
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        name: yaml-lint
+        stages:
+          - commit
+          - manual
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks-docker
+        entry: -u root:root zricethezav/gitleaks protect --verbose --redact --staged

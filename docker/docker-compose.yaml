@@ -1,0 +1,102 @@
+services:
+  # This service runs the postgres DB used by dagster for run storage, schedule storage,
+  # and event log storage.
+  postgres_db:
+    image: postgres:17
+    container_name: ${REPO_NAME}_postgres
+    environment:
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+    networks:
+      - nxnet
+
+  # This service runs dagster-webserver, which loads your user code from the user code container.
+  # Since our instance uses the QueuedRunCoordinator, any runs submitted from dagster-webserver
+  # will be put on a queue and later dequeued and launched by dagster-daemon.
+  webserver:
+    build:
+      context: ./..
+      dockerfile: docker/Dockerfile
+      target: srv
+      args:
+        - GITHUB_PIP_TOKEN # This can be removed if is not planned to use Nextail libraries.
+        - PACKAGE_NAME
+    working_dir: /opt/dagster
+    image: nextail/${REPO_NAME}_webserver
+    container_name: ${REPO_NAME}_webserver
+    restart: on-failure
+    entrypoint:
+      - "python"
+      - "-m"
+      - "debugpy"
+      - "--listen"
+      - "0.0.0.0:5678"
+      - "-m"
+      - "dagster_webserver"
+      - "-h"
+      - "0.0.0.0"
+      - "-p"
+      - "3000"
+      - "-w"
+      - "workspace.yaml"
+    environment:
+      POSTGRES_HOST: ${REPO_NAME}_postgres
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "3000:3000"
+      - "5678:5678"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
+      - ~/.aws:/root/.aws
+    depends_on:
+      - postgres_db
+    networks:
+      - nxnet
+
+  # This service runs the dagster-daemon process, which is responsible for taking runs
+  # off of the queue and launching them, as well as creating runs from schedules or sensors.
+  daemon:
+    build:
+      context: ./..
+      dockerfile: docker/Dockerfile
+      target: srv
+      args:
+        - GITHUB_PIP_TOKEN # This can be removed if is not planned to use Nextail libraries.
+        - PACKAGE_NAME
+    working_dir: /opt/dagster
+    image: nextail/${REPO_NAME}_daemon
+    container_name: ${REPO_NAME}_daemon
+    restart: on-failure
+    entrypoint:
+      - "python"
+      - "-m"
+      - "debugpy"
+      - "--listen"
+      - "0.0.0.0:5678"
+      - "-m"
+      - "dagster._daemon"
+      - "run"
+    environment:
+      POSTGRES_HOST: ${REPO_NAME}_postgres
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "5679:5678"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
+      - ~/.aws:/root/.aws
+    depends_on:
+      - postgres_db
+    networks:
+      - nxnet
+
+networks:
+  nxnet:
+    driver: bridge
+    name: nxnet

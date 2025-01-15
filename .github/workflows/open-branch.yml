@@ -1,0 +1,21 @@
+name: Branch Deployment - Open
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  Trigger_PR_Open:
+    if: startsWith(github.head_ref, 'deploy/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: CircleCI Trigger
+        id: circle-trigger
+        uses: CircleCI-Public/trigger-circleci-pipeline-action@dd5d85644c1e65f107ecb7f34402c2825b2e418d
+        with:
+          GHA_Meta: "OPEN"
+        env:
+          CCI_TOKEN: ${{ secrets.CCI_TOKEN }}

@@ -1,0 +1,76 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "webserver: localhost",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/opt/dagster-template/",
+                }
+            ],
+            "subProcess": true,
+            "justMyCode": false
+        },
+        {
+            "name": "webserver: docker",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "webserver",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/opt/dagster-template/",
+                }
+            ],
+            "subProcess": true,
+            "justMyCode": false
+        },
+        {
+            "name": "dagster-daemon: localhost",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5679
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/opt/dagster-template/",
+                }
+            ],
+            "subProcess": true,
+            "justMyCode": false
+        },
+        {
+            "name": "daemon: docker",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "daemon",
+                "port": 5679
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/opt/dagster-template/",
+                }
+            ],
+            "subProcess": true,
+            "justMyCode": false
+        }
+    ]
+}

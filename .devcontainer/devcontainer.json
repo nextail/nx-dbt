@@ -1,0 +1,91 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/python-3-postgres
+// Update the VARIANT arg in docker-compose.yml to pick a Python version
+{
+    "workspaceFolder": "/opt/dagster-template",
+    "dockerComposeFile": "docker-compose.yml",
+    "remoteEnv": {
+        "LOCAL_WORKSPACE_FOLDER": "/opt/dagster-template"
+    },
+    "service": "dev",
+    "runServices": [
+        "dev"
+    ],
+    "postCreateCommand": [
+        ".devcontainer/postCreateCommand.sh"
+    ],
+    "updateRemoteUserUID": true,
+    "overrideCommand": false,
+    "shutdownAction": "stopCompose",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "forwardPorts": [
+        3000
+    ],
+    "portsAttributes": {
+        "3000": {
+            "label": "Dagit",
+            "onAutoForward": "notify"
+        }
+    },
+    "hostRequirements": {
+        "cpus": 4,
+        "memory": "8gb",
+        "storage": "32gb"
+    },
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            // Set *default* container specific settings.json values on container create.
+            "settings": {
+                /* editor base settings */
+                "editor.detectIndentation": false,
+                "editor.rulers": [
+                    120
+                ],
+                "files.associations": {
+                    ".yamllint": "yaml",
+                },
+                "debug.showSubSessionsInToolBar": true, /* to be able to stop a dagster debug session with multiple subprocess */
+                "python.defaultInterpreterPath": "${workspaceFolder}/__pypackages__/3.11/lib",
+                /* python */
+                "python.autoComplete.extraPaths": [
+                    "${workspaceFolder}/dagster_template",
+                    "/usr/python/__pypackages__/3.11/lib"
+                ],
+                "python.analysis.extraPaths": [
+                    "${workspaceFolder}/dagster_template",
+                    "/usr/python/__pypackages__/3.11/lib"
+                ],
+                "python.testing.pytestEnabled": true,
+                "python.testing.pytestArgs": [
+                    "dagster_template"
+                ]
+            },
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                /* core & python*/
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-azuretools.vscode-docker",
+                "PDM.task",
+                "editorconfig.editorconfig",
+                /* python lint and format */
+                "ms-python.black-formatter",
+                "charliermarsh.ruff",
+                /* git */
+                "eamodio.gitlens",
+                "mhutchie.git-graph",
+                /* aux utils */
+                "yzhang.markdown-all-in-one",
+                "shd101wyy.markdown-preview-enhanced",
+                "qcz.text-power-tools",
+                "tamasfe.even-better-toml",
+                "mohsen1.prettify-json",
+                "mechatroner.rainbow-csv",
+                "redhat.vscode-yaml"
+            ]
+        }
+    }
+}

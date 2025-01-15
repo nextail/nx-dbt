@@ -1,0 +1,19 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Chart.Name }}-role
+
+# Allow the Dagster service account to read and write Kubernetes jobs, deployments, and pods.
+rules:
+  - apiGroups: ["batch"]
+    resources: ["jobs", "jobs/status"]
+    verbs: ["*"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "deployments/status", "deployments/revision"]
+    verbs: ["*"]
+  # The empty arg "" corresponds to the core API group
+  - apiGroups: [""]
+    resources: ["pods", "pods/log", "pods/status", "services"]
+    verbs: ["*"]
+{{- end }}

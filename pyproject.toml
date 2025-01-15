@@ -1,0 +1,77 @@
+[project]
+name = "dagster_template"
+dynamic = ["version"]
+description = ""
+license = { text = "Nextail private use" }
+authors = [
+    {name = "nextail"},
+]
+dependencies = [
+    "dagster==1.9.5",
+    "dagster-cloud==1.9.5",
+    "dagster-aws==0.25.5",
+    "dagster-docker==0.25.5",
+    "dagster-dbt==0.25.5",
+    "dagster-k8s==0.25.5",
+    "dagster-snowflake==0.25.5"
+]
+requires-python = ">=3.11, <3.12"
+
+[tool.pdm.dev-dependencies]
+test = [
+    "pytest>=8.3.4",
+]
+dev = [
+    "dagster-webserver==1.9.5",
+    "dagster-postgres==0.25.5",
+    "debugpy==1.8.11",
+    # linter and formatter
+    "pre-commit==4.0.1",
+    "black==24.10.0",                   # python formatter
+    "ruff==v0.8.3",                    # python linter (flake8 compatible)
+    "yamllint==1.35.1",                # yaml linter
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra --ignore-glob=__pypackages__/**"
+
+[tool.pyright]
+pythonVersion = "3.11"
+exclude = ["**/__pycache__", "**/__pypackages__"]
+ignore = ["**/__pypackages__"]
+reportGeneralTypeIssues = false                                      # to allow working with dagster resources retrieved from context
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+preview = true
+
+[tool.isort]
+profile = "black"
+py_version = "311"
+line_length = 120
+
+[tool.ruff]
+extend-exclude = ["__pypackages__"]
+line-length = 120
+target-version = "py311"
+select = [
+    "A",   # flake8-builtins
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "Q",   # flake8-quotes
+    "N",   # pep8-naming
+    "E",   # Pycodestyle
+    "W",   # Pycodestyle
+    "F",   # Pyflakes
+    "I",   # isort
+    "RUF", # Ruff-specific rules
+]
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
