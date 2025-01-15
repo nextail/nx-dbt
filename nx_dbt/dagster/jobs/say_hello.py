@@ -1,6 +1,6 @@
 from dagster import MetadataValue, job
 
-from dagster_template.dagster.ops.hello import hello
+from nx_dbt.dagster.ops.hello import hello
 
 
 @job(

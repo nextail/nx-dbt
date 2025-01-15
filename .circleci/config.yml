@@ -11,7 +11,7 @@ parameters:
     description: "Define if our project uses its own service account (true) or by default (false)."
   module_name:
     type: string
-    default: dagster_template.dagster
+    default: nx_dbt.dagster
     description: "Python module containing the target Dagster Definitions"
   project_name:
     type: string
