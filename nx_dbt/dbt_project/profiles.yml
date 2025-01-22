@@ -1,0 +1,94 @@
+config:
+  send_anonymous_usage_stats: false
+  use_colors: true
+  # partial_parse: <true | false>
+  # printer_width: <integer>
+  # write_json: <true | false>
+  # warn_error: <true | false>
+  # warn_error_options: <include: all | include: [<error-name>] | include: all, exclude: [<error-name>]>
+  # log_format: <text | json | default>
+  debug: false
+  # version_check: <true | false>
+  # fail_fast: <true | false>
+  # use_experimental_parser: <true | false>
+  # static_parser: <true | false>
+
+default:
+  target: NEXTAIL_INTERNALS_SANDBOX
+  outputs:
+
+    client_session_keep_alive: False
+
+    # optional
+    connect_retries: 1 # default 0
+    connect_timeout: 3 # default: 10
+    retry_on_database_errors: False # default: false
+    retry_all: False  # default: false
+    reuse_connections: False # default: false (available v1.4+)
+
+    NEXTAIL_INTERNALS:
+      threads: 16
+      reuse_connections: True
+      
+      type: snowflake
+      account: "xo52081.eu-west-1"
+      user: DBT
+      # Keypair config
+      private_key: ""
+      role: DBT_SANDBOX_RL
+
+      # private_key_path: "{{ env_var('DBT_PRIVATE_KEY_PATH') }}"
+      # or private_key instead of private_key_path
+      # private_key_passphrase: XXXXXXXX
+      
+      database: FUTURU_PREPROD
+      schema: DBT
+      warehouse: COMPUTE_WH
+      query_tag: local_dbt_job_nx_internals
+
+    NEXTAIL_INTERNALS_SANDBOX:
+      threads: 16
+      reuse_connections: True
+      
+      # Keypair config
+      private_key_path: "/Users/pabloespeso/.snowflake/.ssh/dbt_user/rsa_key.p8"
+      # or private_key instead of private_key_path
+      private_key_passphrase: XXXXXXXXX
+
+      role: DBT_SANDBOX_RL
+      
+      database: NEXTAIL_INTERNALS_SANDBOX_DB
+      schema: DBT
+      warehouse: COMPUTE_WH
+      query_tag: local_dbt_job_nx_internals_sandbox
+
+default:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: xo52081.eu-west-1
+
+      user: DBT
+      role: PUBLIC
+
+      # Keypair config
+      # private_key_path: "/Users/pabloespeso/.snowflake/.ssh/dbt_user/rsa_key.p8"
+      private_key_path: ".env/dbt_rsa_key.p8"
+      # or private_key instead of private_key_path
+      private_key_passphrase: XXXXXXXX
+
+      role: DBT_SANDBOX_RL
+      database: NEXTAIL_INTERNALS_SANDBOX_DB
+      warehouse: COMPUTE_WH
+      schema: DBT
+      threads: 1
+      client_session_keep_alive: False
+      query_tag: '{"service": "data_platform", "module": "internal_reporting", "submodule": "dbt_execution", "operation": null, "tenant": "nextail", "environment": "sandbox", "correlation_id": null, "execution_id": null}'
+
+      # optional
+      connect_retries: 0 # default 0
+      connect_timeout: 10 # default: 10
+      retry_on_database_errors: False # default: false
+      retry_all: False  # default: false
+      reuse_connections: True # default: True if client_session_keep_alive is False, otherwise None
