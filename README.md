@@ -258,9 +258,10 @@ Once initial development has been kickstarted, the pipeline project should move 
 #### 2.2.4 Specific AWS permissions before deploy to Production
 
 Open a [Service Desk](https://nextail.atlassian.net/servicedesk/customer/portal/5/group/20/create/99) ticket to `Platform Squad` with the Scope and necessary Permissions:
-- Secrets
-- Parameters
+- Secrets (yes/no)
+- Parameters (yes/no)
 - Specific AWS Policies (for example: AWS S3 Read Access)
+- Environment (production/sandbox)
 
 
 ##### Step 1: Configure the creation of Service Account and Service Provider (Secrets and Cetralized Params)
