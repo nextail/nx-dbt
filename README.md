@@ -259,7 +259,7 @@ Once initial development has been kickstarted, the pipeline project should move 
 
 Open a [Service Desk](https://nextail.atlassian.net/servicedesk/customer/portal/5/group/20/create/99) ticket to `Platform Squad` with the Scope and necessary Permissions:
 - Secrets (yes/no)
-- Parameters (yes/no)
+- Centralized configuration Parameters (yes/no)
 - Specific AWS Policies (for example: AWS S3 Read Access)
 - Environment (production/sandbox)
 
