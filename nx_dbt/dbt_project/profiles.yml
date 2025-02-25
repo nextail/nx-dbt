@@ -1,9 +1,7 @@
-
-
-default:
-  target: dev
+nx_internal_profile:
+  target: nx_internal_reporting_target
   outputs:
-    dev:
+    nx_internal_reporting_target:
       type: snowflake
       account: xo52081.eu-west-1
 
@@ -19,8 +17,9 @@ default:
       role: DBT_SANDBOX_RL
       database: NEXTAIL_INTERNALS_SANDBOX_DB
       warehouse: COMPUTE_WH
-      schema: DBT
-      threads: 1
+      schema: dbt
+
+      threads: 8
       client_session_keep_alive: False
       # query_tag: '{"service": "data_platform", "module": "internal_reporting", "submodule": "dbt_execution", "operation": null, "tenant": "nextail", "environment": "sandbox", "correlation_id": null, "execution_id": null}'
 

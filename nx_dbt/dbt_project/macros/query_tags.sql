@@ -40,9 +40,7 @@
 
                 'model_created_at': model.created_at or None,
                 'model_root_path': model.root_path or None
-            }
-            
-            
+            }            
         }
     )) %}
 {% endmacro %}

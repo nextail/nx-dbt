@@ -1,13 +1,10 @@
 config-version: 2
 
-name: "nx_internal_reporting"
-version: "3.0.0"
-require-dbt-version: ">=1.9.0"
+name: nextail
+version: "0.0.1"
+require-dbt-version: ">=1.9.2"
 
-# dbt-cloud:
-#   project-id: 275557 # Put your project id here
-
-profile: default # Put your profile here
+profile: nx_internal_profile
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -23,7 +20,7 @@ clean-targets:
 
 vars:
   # "dbt_date:time_zone": "America/Los_Angeles"
-  "dbt_date:time_zone": "	Etc/UTC"
+  "dbt_date:time_zone": "Etc/UTC"
   "tenant": "nextail"
 
 flags:
@@ -42,21 +39,22 @@ flags:
   # static_parser: <true | false>
 
 models:
-  nx_internal_reporting:
-    +materialized: table
-    # staging:
-    #   +materialized: table
-    # marts:
-    #   +materialized: table
+  +materialized: table
+  +transient: true
+  +persist_docs:
+    relation: true
+    column: true
 
+  nextail:
+    staging:
+      +schema: nx_bronze
+
+    silver:
+      +schema: nx_silver
+      
 # dispatch:
-#  - macro_namespace: dbt
-#    search_order:
-#      - MY_DBT_PROJECT_NAME
-#      - dbt_snowflake_query_tags
-#      - dbt
-
-# query-comment:
-  # comment: '{{ dbt_snowflake_query_tags.get_query_comment(node) }}'
-  # comment: '{{ dbt_snowflake_query_tags.get_query_comment(node, extra={"run_started_at": builtins.run_started_at | string }) }}'
-  # append: true # Snowflake removes prefixed comments.
+#   - macro_namespace: dbt
+#     search_order:
+#       - nx_internal_reporting
+#       - dbt_snowflake_query_tags
+#       - dbt

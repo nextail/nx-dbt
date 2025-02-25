@@ -1,9 +1,0 @@
-models:
-  - name: stg_query_history
-    description: Customer data with basic cleaning and transformation applied, one row per customer.
-    columns:
-      - name: query_id
-        description: The unique key for each query.
-        data_tests:
-          - not_null
-          - unique
