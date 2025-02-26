@@ -5,9 +5,15 @@
 }}
 
 select
+    pod as pod_id,
+    
+    'SANDBOX' as k8s_environment,
+    
+    start_time_utc::DATE as start_date,
     start_time_utc,
     end_time_utc,
-    pod,
+    datediff('seconds', start_time_utc, end_time_utc) as pod_duration_seconds,
+    
     image,
     max_memory_usage_bytes,
     max_cpu_usage,
@@ -19,14 +25,14 @@ select
     duration_seconds,
 
     -- official labels
-    pod_labels_json:service::TEXT as label_service,
-    pod_labels_json:module::TEXT as label_module,
-    pod_labels_json:submodule::TEXT as label_submodule,
-    pod_labels_json:operation::TEXT as label_operation,
-    pod_labels_json:tenant::TEXT as label_tenant,
-    pod_labels_json:environment::TEXT as label_environment,
-    pod_labels_json:correlation_id::TEXT as label_correlation_id,
-    pod_labels_json:execution_id::TEXT as label_execution_id,
+    lower(pod_labels_json:service::TEXT) as label_service,
+    lower(pod_labels_json:module::TEXT) as label_module,
+    lower(pod_labels_json:submodule::TEXT) as label_submodule,
+    lower(pod_labels_json:operation::TEXT) as label_operation,
+    lower(pod_labels_json:tenant::TEXT) as label_tenant,
+    lower(pod_labels_json:environment::TEXT) as label_environment,
+    lower(pod_labels_json:correlation_id::TEXT) as label_correlation_id,
+    lower(pod_labels_json:execution_id::TEXT) as label_execution_id,
     
     -- deprecated labels
     pod_labels_json:controller_uid::TEXT as label_controller_uid,

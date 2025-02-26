@@ -51,6 +51,12 @@ models:
 
     silver:
       +schema: nx_silver
+
+    dt_silver:
+      +schema: nx_silver_dt
+
+    gold:
+      +schema: nx_gold
       
 # dispatch:
 #   - macro_namespace: dbt
