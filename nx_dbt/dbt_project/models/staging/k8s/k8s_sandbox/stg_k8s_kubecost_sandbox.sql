@@ -2,7 +2,9 @@
 {{
     config(
         materialized='incremental',
-        unique_key=['pod_id']
+        unique_key=['pod_id'],
+
+        post_hook="alter table {{ this }} set change_tracking = true",
     )
 }}
 

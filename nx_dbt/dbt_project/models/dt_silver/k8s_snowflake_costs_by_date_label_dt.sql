@@ -1,11 +1,14 @@
 {{
-    config(
-        materialized='incremental',
-        strategy='microbatch',
-        
+    config
+    (
+        materialized="dynamic_table",
+        on_configuration_change="apply",
+        target_lag="2 hours",
+        snowflake_warehouse="COMPUTE_WH",
+        refresh_mode="INCREMENTAL",
+        initialize="ON_CREATE",
+
         unique_key=['start_date', 'service', 'module', 'submodule', 'operation', 'tenant', 'environment', 'correlation_id', 'execution_id'],
-        
-        sort='start_date'
     )
 }}
 
@@ -24,7 +27,7 @@ with
             no_queries as snowflake_no_queries,
             sum_query_duration_ms as snowflake_total_query_duration_ms,
             sum_credits_attributed_compute as snowflake_total_credits,
-        from {{ ref('snowflake_grouped_labels_per_date') }} snowflake
+        from {{ ref('snowflake_grouped_labels_per_date_dt') }} snowflake
     ),
     k8s_costs as (
         select
@@ -46,6 +49,3 @@ with
 select * from sf_costs
 full outer join k8s_costs
     using (start_date, service, module, submodule, operation, tenant, environment, correlation_id, execution_id)
-{% if is_incremental() %}
-    where start_date > (select max(start_date) from {{ this }})
-{% endif %}

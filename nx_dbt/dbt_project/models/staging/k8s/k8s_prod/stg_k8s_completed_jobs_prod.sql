@@ -1,8 +1,13 @@
 {{
     config(
-        materialized='incremental'
+        materialized='incremental',
+        unique_key=["pod_id", "start_date"],
+
+        post_hook="alter table {{ this }} set change_tracking = true",
     )
 }}
+
+-- post-hook for enabling change_tracking, which is a requirement for the source dynamic tables
 
 select
     pod as pod_id,

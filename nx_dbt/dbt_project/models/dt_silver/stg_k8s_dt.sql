@@ -7,7 +7,7 @@
         refresh_mode="INCREMENTAL",
         initialize="ON_CREATE",
 
-        unique_key = 'pod'
+        unique_key = 'pod_id'
     )
 }}
 

@@ -2,6 +2,8 @@
     (
         materialized="incremental",
         unique_key=["pod_id", "start_date", "k8s_environment"],
+
+        post_hook="alter table {{ this }} set change_tracking = true",
     )
 }}
 

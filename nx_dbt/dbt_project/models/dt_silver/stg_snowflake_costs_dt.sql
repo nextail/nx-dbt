@@ -1,10 +1,14 @@
-{{
-    config(
-        materialized='incremental',
-        strategy='microbatch',
+{{ config
+    (
+        materialized="dynamic_table",
+        on_configuration_change="apply",
+        target_lag="2 hours",
+        snowflake_warehouse="COMPUTE_WH",
+        refresh_mode="INCREMENTAL",
+        initialize="ON_CREATE",
+
         unique_key=['query_id'],
-        
-        post_hook="alter table {{ this }} set change_tracking = true",
+
     )
 }}
 
@@ -42,7 +46,3 @@ with
 select
     * exclude parsed_query_tag
 from base
-{% if is_incremental() %}
-    where
-        start_time >= (select max(start_time) from {{ this }})
-{% endif %}

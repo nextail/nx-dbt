@@ -1,7 +1,10 @@
 {{
     config(
         materialized='incremental',
-        unique_key='query_id'
+        unique_key=['query_id'],
+
+        post_hook="alter table {{ this }} set change_tracking = true",
+
     )
 }}
 
