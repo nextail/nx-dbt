@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_query_attribution_history
+    description: "Mirror of the account_usage.query_attribution_history table in the Snowflake database."
+    # test at model level
+    data_tests:
+        # the start_time column must be at max 8 hours old
+        - dbt_utils.recency:
+            datepart: hour
+            field: start_time
+            interval: 8
+    
+    columns:
+        - name: query_id
+          data_tests:
+            - unique
+            - not_null
+        - name: start_time
+          data_tests:
+            - not_null
+        - name: credits_attributed_compute
+          data_tests:
+            - not_null
+
+

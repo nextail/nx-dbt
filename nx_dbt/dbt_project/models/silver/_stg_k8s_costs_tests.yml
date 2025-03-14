@@ -1,0 +1,51 @@
+version: 2
+
+models:
+    - name: stg_k8s_costs
+      description: "Kubernetes costs per pod"
+
+      # test at model level
+      data_tests:
+        # the start_time column must be at max 8 hours old
+        - dbt_utils.recency:
+            datepart: days
+            field: start_date
+            interval: 2
+
+      columns:
+        - name: pod_id
+          description: "Pod ID"
+          tests:
+            # - unique # not unique because some pods can exist through multiple days
+            - not_null
+        - name: k8s_environment
+          description: "K8s Environment"
+          tests:
+            - accepted_values:
+                values: ['PROD', 'SANDBOX']
+        - name: start_date
+          description: "Start Date of the pod"
+          tests:
+            - not_null
+        - name: start_time_utc
+          description: "Start timestamp of the pod"
+          tests:
+            - not_null
+        - name: end_time_utc
+          description: "End timestamp of the pod"
+          tests:
+            - not_null
+        - name: end_date
+          description: "End Date of the pod"
+        - name: pod_duration_seconds
+          description: "Duration of the pod"
+          tests:
+            - not_null
+        - name: image
+          description: "Image used for the pod"
+          tests:
+            - not_null
+        - name: sum_total_cost
+          description: "Total cost of the execution"
+          
+

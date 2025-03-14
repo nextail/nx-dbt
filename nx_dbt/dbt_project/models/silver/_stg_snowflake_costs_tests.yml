@@ -1,0 +1,48 @@
+version: 2
+
+models:
+    - name: stg_snowflake_costs
+      description: "ToDo"
+      columns:
+        - name: query_id
+          description: "Query ID from Snowflake"
+          tests:
+            - unique
+            - not_null
+            - relationships:
+                to: ref('stg_query_attribution_history')
+                field: query_id
+        - name: warehouse_name
+          description: "Warehouse Name used to compute the query"
+          tests:
+            - not_null
+        - name: user_name
+          description: "User Name who executed the query"
+          tests:
+            - not_null
+        - name: start_date
+          description: "Start Date of the query"
+          tests:
+            - not_null
+        - name: start_time
+          description: "Start timestamp of the query"
+          tests:
+            - not_null
+        - name: end_time
+          description: "End timestamp of the query"
+          tests:
+            - not_null
+        - name: query_duration_ms
+          description: "Duration of the query"
+          tests:
+            - not_null
+        - name: credits_attributed_compute
+          description: "Credits attributed to compute"
+          tests:
+            - not_null
+        - name: credits_used_query_acceleration
+          description: "Credits used for query acceleration"
+
+
+
+      description: "ToDo"
