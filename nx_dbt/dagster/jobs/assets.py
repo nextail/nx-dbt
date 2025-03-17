@@ -21,8 +21,7 @@ dbt_project = DbtProject(
 dbt_project.prepare_if_dev()
 
 @dbt_assets(manifest=dbt_project.manifest_path)
-def nextail_internal_reporting(context: AssetExecutionContext, dbt: DbtCliResource):
+def nx_internal_reporting_full(context: AssetExecutionContext, dbt: DbtCliResource):
     print('Hello!')
     print(context)
-    yield from dbt.cli(["build"], context=context).stream()
-
+    yield from dbt.cli(["run"], context=context).stream()

@@ -3,14 +3,21 @@ To add a daily schedule that materializes your dbt assets, uncomment the followi
 """
 from dagster_dbt import build_schedule_from_dbt_selection
 
-from .assets import nextail_internal_reporting
+from .assets import nx_internal_reporting_full
 
 schedules = [
     build_schedule_from_dbt_selection(
-        [nextail_internal_reporting],
-        job_name="materialize_dbt_models",
-        cron_schedule="0 0 * * *",
+        [nx_internal_reporting_full],
+        job_name="materialize_all",
+        cron_schedule="0 */4 * * *", # every 4 hours starting at 00:00
         # dbt_select="+context.selected_asset_keys+",
         dbt_select="fqn:*"
+    ),
+    build_schedule_from_dbt_selection(
+        [nx_internal_reporting_full],
+        job_name="materialize_snowflake",
+        cron_schedule="*/5 * * * *", # every 5 minutes
+        # dbt_select="+context.selected_asset_keys+",
+        dbt_select="fqn:+staging.snowflake+"
     ),
 ]
