@@ -58,6 +58,8 @@ ARG COMMIT
 ENV COMMIT=$COMMIT
 ARG GITHUB_REPOSITORY
 ENV GITHUB_REPOSITORY=$GITHUB_REPOSITORY
+ARG DBT_RSA_PASSPHRASE
+ENV DBT_RSA_PASSPHRASE=$DBT_RSA_PASSPHRASE
 
 # from now on use local user
 USER $USER_ID
@@ -105,7 +107,7 @@ WORKDIR /opt/$REPO_NAME
 # copy project
 COPY --chown=$USER_ID:$GROUP_ID ./$PACKAGE_NAME/ /opt/$REPO_NAME/$PACKAGE_NAME/
 COPY --chown=$USER_ID:$GROUP_ID ./scripts /opt/$REPO_NAME/scripts/
-
+COPY --chown=$USER_ID:$GROUP_ID ./dbt_project /opt/$REPO_NAME/dbt_project
 ###############################################################################################
 ####################################    LOCAL IMAGE     #######################################
 ###############################################################################################

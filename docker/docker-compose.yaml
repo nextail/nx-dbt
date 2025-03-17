@@ -22,6 +22,7 @@ services:
       args:
         - GITHUB_PIP_TOKEN # This can be removed if is not planned to use Nextail libraries.
         - PACKAGE_NAME
+        - DBT_RSA_PASSPHRASE
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_webserver
     container_name: ${REPO_NAME}_webserver
@@ -52,6 +53,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
       - ~/.aws:/root/.aws
+      - ../dbt_project:/opt/${REPO_NAME}/${PACKAGE_NAME}/dbt_project
     depends_on:
       - postgres_db
     networks:

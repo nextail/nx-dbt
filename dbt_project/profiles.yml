@@ -12,7 +12,7 @@ nx_internal_profile:
       # private_key_path: "/Users/pabloespeso/.snowflake/.ssh/dbt_user/rsa_key.p8"
       private_key_path: ".env/dbt_rsa_key.p8"
       # or private_key instead of private_key_path
-      private_key_passphrase: XXXXXXXX
+      private_key_passphrase: "{{ env_var('DBT_RSA_PASSPHRASE') }}"
 
       role: DBT_SANDBOX_RL
       database: NEXTAIL_INTERNALS_SANDBOX_DB

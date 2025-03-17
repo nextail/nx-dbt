@@ -1,5 +1,5 @@
 # dbt specific
-nx_dbt/dbt_project/dbt_packages/*
+dbt_project/dbt_packages/*
 logs/
 target/
 .user.yml
