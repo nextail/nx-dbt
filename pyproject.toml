@@ -30,8 +30,8 @@ dev = [
     "black==24.10.0",                   # python formatter
     "ruff==v0.9.2",                    # python linter (flake8 compatible)
     "yamllint==1.35.1",                # yaml linter
-    "dbt-core==1.9.1",
-    "dbt-snowflake==1.9.0"
+    "dbt-core==1.9.3",
+    "dbt-snowflake==1.9.2"
 ]
 
 [build-system]
