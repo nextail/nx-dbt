@@ -87,12 +87,14 @@ services:
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
+      DBT_RSA_PASSPHRASE: ${DBT_RSA_PASSPHRASE}
     ports:
       - "5679:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
       - ~/.aws:/root/.aws
+      - ../dbt_project:/opt/${REPO_NAME}/${PACKAGE_NAME}/dbt_project
     depends_on:
       - postgres_db
     networks:
