@@ -21,14 +21,14 @@ ARG GROUP_ID
 
 #git can be removed if is not planned to use Nextail libraries
 RUN set -ex \
-  && apt-get update \
-  && apt-get install -y curl git libssl-dev gcc g++ libgomp1 wget zip \
-  && rm -rf /var/lib/apt/lists/* \
-  && pip --no-cache-dir install --upgrade pip
+&& apt-get update \
+&& apt-get install -y curl git libssl-dev gcc g++ libgomp1 wget zip \
+&& rm -rf /var/lib/apt/lists/* \
+&& pip --no-cache-dir install --upgrade pip
 
 # Avoid pdm installation though pip in order to avoid conflicts when installing packages globally
 # Ref: https://github.com/pdm-project/pdm/issues/1388
-ARG PDM_VERSION=2.22.0
+ARG PDM_VERSION=2.22.4
 RUN curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/${PDM_VERSION}/install-pdm.py | python3 - --version=${PDM_VERSION} --path /usr/local
 
 # create non-root user

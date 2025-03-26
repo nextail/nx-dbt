@@ -2,7 +2,7 @@ version: 2.1
 
 # custom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@4.0.0
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@4.1.0
 
 parameters:
   custom_service_account:
@@ -33,6 +33,10 @@ parameters:
     type: string
     description: Kubernetes Limits - the container can never consume more than the CPU amount indicated.
     default: 256Mi
+  code_location_grpc_max_workers:
+    type: integer
+    description: Maximum number of workers available on the code server.
+    default: 8
   job_run_resource_limit_cpu:
     type: string
     description: Kubernetes Limits - the container can never consume more than the memory amount indicated.
@@ -84,6 +88,7 @@ workflows:
           module_name: <<pipeline.parameters.module_name>>
           project_name: <<pipeline.parameters.project_name>>
           code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
           job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
           job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
           requires:
@@ -111,6 +116,7 @@ workflows:
           module_name: <<pipeline.parameters.module_name>>
           project_name: <<pipeline.parameters.project_name>>
           code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
           job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
           job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
           context:
@@ -179,6 +185,7 @@ workflows:
           module_name: <<pipeline.parameters.module_name>>
           project_name: <<pipeline.parameters.project_name>>
           code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
           job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
           job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
           requires:
@@ -202,6 +209,7 @@ workflows:
       #     module_name: <<pipeline.parameters.module_name>>
       #     project_name: <<pipeline.parameters.project_name>>
       #     code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+      #     code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
       #     job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
       #     job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
       #     requires:
