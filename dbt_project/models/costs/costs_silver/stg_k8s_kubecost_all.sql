@@ -2,7 +2,7 @@
     (
         materialized="dynamic_table",
         on_configuration_change="apply",
-        target_lag="8 hours",
+        target_lag='downstream',
         snowflake_warehouse="COMPUTE_WH",
         refresh_mode="INCREMENTAL",
         initialize="ON_CREATE",
@@ -13,10 +13,10 @@
 
 with
     completed_jobs_prod as (
-        select * from {{ ref('stg_k8s_completed_jobs_prod') }}
+        select * from {{ ref('stg_k8s_kubecost_prod') }}
     ),
     completed_jobs_sandbox as (
-        select * from {{ ref('stg_k8s_completed_jobs_sandbox') }}
+        select * from {{ ref('stg_k8s_kubecost_sandbox') }}
     )
 
 select * from completed_jobs_prod

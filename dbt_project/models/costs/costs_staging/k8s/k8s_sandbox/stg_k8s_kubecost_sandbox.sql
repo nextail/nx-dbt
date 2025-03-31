@@ -9,7 +9,7 @@
 }}
 
 select
-    'PROD' as k8s_environment,
+    'SANDBOX' as k8s_environment,
     name as pod_id,
     avg(cpu) as avg_cpu,
     avg(gpu) as avg_gpu,
@@ -23,7 +23,7 @@ select
     sum(total) as sum_total_cost,
     min(date) as start_date,
     max(date) as end_date,
-from {{ source('kubecost', 'kubecost_cumulative_cost_by_pod_pro')}}
+from {{ source('kubecost', 'kubecost_cumulative_cost_by_pod_sandbox')}}
 
 -- configure the incremental model.
 -- If it's a regular execution, we only want to pull the data that has been updated since the last run.
@@ -32,8 +32,9 @@ from {{ source('kubecost', 'kubecost_cumulative_cost_by_pod_pro')}}
 {% if is_incremental() %}
     where date > (select max(start_date) from {{ this }})
 {% endif %}
-{% if should_full_refresh() %}
-    where date >= '2025-02-01'
-{% endif %}
+-- uncomment this to limit the full refresh to a certain date
+-- {% if should_full_refresh() %}
+--     where date >= '2025-02-01'
+-- {% endif %}
 
 group by k8s_environment, pod_id

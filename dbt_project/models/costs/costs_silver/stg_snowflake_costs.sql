@@ -2,7 +2,7 @@
     (
         materialized="dynamic_table",
         on_configuration_change="apply",
-        target_lag="2 hours",
+        target_lag='downstream',
         snowflake_warehouse="COMPUTE_WH",
         refresh_mode="INCREMENTAL",
         initialize="ON_CREATE",

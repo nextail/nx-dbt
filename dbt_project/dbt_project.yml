@@ -22,6 +22,51 @@ vars:
   # "dbt_date:time_zone": "America/Los_Angeles"
   "dbt_date:time_zone": "Etc/UTC"
   "tenant": "nextail"
+  "all_tenants": [
+    "ARISTOCRAZY",
+    # "BASE",
+    "BZB",
+    "CALLIOPE",
+    "DCK",
+    "DUB",
+    "ECIBOLSOSMMEE",
+    "ECICAMISERIACABALLEROMMEE",
+    "ECIEASYWEARELLA",
+    "ECIGAP",
+    "ECIKIDS",
+    "ECILLOYDSMEN",
+    "ECIZAPATERIASENORAS",
+    "ECRU",
+    "ETHNICITY",
+    "FLYINGTIGER",
+    "FOOTGEAR",
+    "FOREVERNEW",
+    "GINATRICOT",
+    "GSTARRETAIL",
+    "GSTAR",
+    "GUESSEMEA",
+    "GUESSUS",
+    "HACKETT",
+    "JOTT",
+    "JULES",
+    "MAAG",
+    "MERKAL",
+    "METROBRANDS",
+    "MFG",
+    "MOUNTAINWAREHOUSE",
+    "PEPE",
+    "RIVERISLAND",
+    "SFERABASICMAN",
+    # "SISIFO",
+    "SPORTSTREET",
+    "SUAREZ",
+    "TERRANOVA",
+    "TVOE",
+    "VALEXTRA",
+    "VILET",
+    "WHITESTUFF",
+    "WOOLRICH"
+  ]
 
 flags:
   send_anonymous_usage_stats: false
@@ -46,18 +91,30 @@ models:
     column: true
 
   nextail:
-    staging:
-      +schema: nx_bronze
+    costs:
+      +database: NEXTAIL_INTERNALS_SANDBOX_DB
+      costs_staging:
+        +schema: nx_bronze
 
-    silver:
-      +schema: nx_silver
+      costs_silver:
+        +schema: nx_silver
 
-    dt_silver:
-      +schema: nx_silver_dt
+      costs_dt_silver:
+        +schema: nx_silver_dt
 
-    gold:
-      +schema: nx_gold
+      costs_gold:
+        +schema: nx_gold
+
+      ## DEPRECATED FOLDERS
+      DEPRECATED:
+        +enabled: false
       
+    internal:
+      first_allocation:
+        +database: NEXTAIL_INTERNALS_SANDBOX_DB
+        +schema: nx_internals_bronze
+
+
 # dispatch:
 #   - macro_namespace: dbt
 #     search_order:

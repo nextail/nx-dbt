@@ -1,16 +1,18 @@
 {{
     config(
         materialized='incremental',
-        unique_key=["pod_id", "start_date"],
+        
 
         post_hook="alter table {{ this }} set change_tracking = true",
     )
 }}
 
+-- post-hook for enabling change_tracking, which is a requirement for the source dynamic tables
+
 select
     pod as pod_id,
     
-    'SANDBOX' as k8s_environment,
+    'PROD' as k8s_environment,
     
     start_time_utc::DATE as start_date,
     start_time_utc,
@@ -61,14 +63,15 @@ select
     pod_labels_json:release::TEXT as label_release,
     pod_labels_json:app_kubernetes_io_managed_by::TEXT as label_app_kubernetes_io_managed_by,
     pod_labels_json:helm_sh_chart::TEXT as label_helm_sh_chart,
-from {{ source('completed_jobs', 'completed_jobs_sandbox')}}
+from {{ source('completed_jobs', 'completed_jobs_prod')}}
 -- configure the incremental model.
 -- If it's a regular execution, we only want to pull the data that has been updated since the last run.
 -- If it's a full refresh, we want to pull all the data from a certain date.
 
 {% if is_incremental() %}
-    where start_time_utc > (select max(start_time_utc) from {{ this }})
+    where start_time_utc >= (select max(start_time_utc) from {{ this }})
 {% endif %}
-{% if should_full_refresh() %}
-    where start_time_utc >= '2025-02-01'
-{% endif %}
+-- uncomment this to limit the full refresh to a certain date
+-- {% if should_full_refresh() %}
+--     where start_time_utc >= '2025-02-01'
+-- {% endif %}

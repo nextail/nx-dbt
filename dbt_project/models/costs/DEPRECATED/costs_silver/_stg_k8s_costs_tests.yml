@@ -11,6 +11,9 @@ models:
             datepart: days
             field: start_date
             interval: 2
+            config:
+              severity: warn
+              error_if: ">10"
 
       columns:
         - name: pod_id
@@ -34,13 +37,19 @@ models:
         - name: end_time_utc
           description: "End timestamp of the pod"
           tests:
-            - not_null
+            - not_null:
+                config:
+                  severity: warn
+                  error_if: ">10"
         - name: end_date
-          description: "End Date of the pod"
+          description: "End Date of the pod according to the kubecost table"
         - name: pod_duration_seconds
           description: "Duration of the pod"
           tests:
-            - not_null
+            - not_null:
+                config:
+                  severity: warn
+                  error_if: ">10"
         - name: image
           description: "Image used for the pod"
           tests:
