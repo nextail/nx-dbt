@@ -27,7 +27,7 @@ with
             no_queries as snowflake_no_queries,
             sum_query_duration_ms as snowflake_total_query_duration_ms,
             sum_credits_attributed_compute as snowflake_total_credits,
-        from {{ ref('snowflake_grouped_labels_per_date_dt') }} snowflake
+        from {{ ref('snowflake_grouped_labels_per_date') }} snowflake
     ),
     k8s_costs as (
         select

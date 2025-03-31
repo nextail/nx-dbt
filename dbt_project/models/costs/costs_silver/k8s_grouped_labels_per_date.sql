@@ -1,7 +1,13 @@
-{{ config
+{{
+    config
     (
-        materialized="incremental",
-        strategy="microbatch",
+        materialized="dynamic_table",
+        on_configuration_change="apply",
+        target_lag='downstream',
+        snowflake_warehouse="COMPUTE_WH",
+        refresh_mode="INCREMENTAL",
+        initialize="ON_CREATE",
+        
         unique_key=["k8s_environment", "start_date", "service", "module", "submodule", "operation", "tenant", "environment", "correlation_id", "execution_id"],
     )
 }}
