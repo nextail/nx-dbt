@@ -341,3 +341,30 @@ To use a centralize configuration parameter:
 
 2. (Optional) define a directory to mount the parameters inside the pod by overriding the `sharedParametersPath` value.
 By default the path will be `/mnt/parameter-store`.
+
+#### 2.2.6 Generating datadog APM traces
+
+If your project needs to send datadog apm traces, do not use any custom hostname, port or url. Instead set the following parameter to `true`
+
+```yaml
+parameters:
+  use_datadog_tracer:
+      type: boolean
+      default: true
+      description: Provides access to host's datadog socket, so apm traces can be sent through using default configuration.
+```
+
+Then you may pdm-add the `ddtrace` library and generate spans like this:
+
+```python
+from ddtrace import tracer
+
+@op
+def hello(context):
+    with tracer.trace('hello_world', service="dagster-poc", resource='hello') as span:
+        span.set_tag("hello_world", "hello")
+        func_with_sub_traces(span)
+        return "Hello, Dagster !"
+```
+
+More information Datadog application instrumentation is available [here](https://docs.datadoghq.com/tracing/trace_collection/custom_instrumentation/python/dd-api).
