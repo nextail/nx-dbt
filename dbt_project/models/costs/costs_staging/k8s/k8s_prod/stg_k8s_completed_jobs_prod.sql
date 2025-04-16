@@ -69,7 +69,7 @@ from {{ source('completed_jobs', 'completed_jobs_prod')}}
 -- If it's a full refresh, we want to pull all the data from a certain date.
 
 {% if is_incremental() %}
-    where start_time_utc >= (select max(start_time_utc) from {{ this }})
+    where start_time_utc > (select max(start_time_utc) from {{ this }})
 {% endif %}
 -- uncomment this to limit the full refresh to a certain date
 -- {% if should_full_refresh() %}

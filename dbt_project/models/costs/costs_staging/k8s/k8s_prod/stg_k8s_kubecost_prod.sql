@@ -30,7 +30,7 @@ from {{ source('kubecost', 'kubecost_cumulative_cost_by_pod_pro')}}
 -- If it's a full refresh, we want to pull all the data from a certain date.
 
 {% if is_incremental() %}
-    where date >= (select max(start_date) from {{ this }})
+    where date > (select max(start_date) from {{ this }})
 {% endif %}
 -- uncomment this to limit the full refresh to a certain date
 -- {% if should_full_refresh() %}

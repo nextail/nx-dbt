@@ -48,7 +48,7 @@ models:
       - name: label_service
         data_tests:
           - accepted_values:
-              values: ['dagster-poc-default', 'data-integration', 'replenishment', 'storetransfer', 'storetransfers']
+              values: ['dagster-poc-default', 'data-integration', 'replenishment', 'storetransfer', 'storetransfers', 'optimization', 'first-allocation', 'store-transfers']
       - name: label_module
         data_tests:
           - accepted_values:
@@ -56,7 +56,7 @@ models:
       - name: label_submodule
         data_tests:
           - accepted_values:
-              values: ['dio-daily','my_submodule','replenishment-data-pipelines','replenishment-data-pieplines','replenishment', 'storetransfers-data-pipelines']
+              values: ['dio-daily','my_submodule','replenishment-data-pipelines','replenishment-data-pieplines','replenishment', 'storetransfers-data-pipelines', 'optimization-pipelines']
       - name: label_operation
       - name: label_tenant
         # data_tests:
@@ -65,7 +65,7 @@ models:
       - name: label_environment
         data_tests:
           - accepted_values:
-              values: ['env.sbx','sandbox']
+              values: ['env.sbx','sandbox', 'production']
       - name: label_correlation_id
       - name: label_execution_id
       - name: label_controller_uid
