@@ -91,16 +91,13 @@ models:
     column: true
 
   nextail:
+    +database: NEXTAIL_INTERNALS_SANDBOX_DB
     costs:
-      +database: NEXTAIL_INTERNALS_SANDBOX_DB
       costs_staging:
-        +schema: nx_bronze
+        +schema: nx_costs_bronze
 
       costs_silver:
-        +schema: nx_silver
-
-      costs_dt_silver:
-        +schema: nx_silver_dt
+        +schema: nx_costs_silver
 
       costs_gold:
         +schema: nx_gold
@@ -110,8 +107,8 @@ models:
         +enabled: false
       
     internal:
-      first_allocation:
-        +database: NEXTAIL_INTERNALS_SANDBOX_DB
+      internal_staging:
+        # +database: NEXTAIL_INTERNALS_SANDBOX_DB
         +schema: nx_internals_bronze
 
 
