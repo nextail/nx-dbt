@@ -1,0 +1,71 @@
+version: 2
+
+models:
+  - name: snowflake_warehouse_idle_costs
+    description: "Daily metrics for Snowflake warehouse usage including running, idle, and turned off states"
+    columns:
+      - name: warehouse_name
+        description: "Name of the Snowflake warehouse"
+        tests:
+          - not_null
+          - unique:
+              where: "query_date = current_date()"
+              config:
+                severity: warn
+      - name: query_date
+        description: "Date for which the metrics are calculated"
+        tests:
+          - not_null
+          - dbt_utils.is_timestamp
+      - name: running_seconds
+        description: "Number of seconds the warehouse was running queries"
+        tests:
+          - not_null
+          - dbt_utils.positive_value
+      - name: idle_seconds
+        description: "Number of seconds the warehouse was idle"
+        tests:
+          - not_null
+          - dbt_utils.positive_value
+      - name: turned_on_seconds
+        description: "Total seconds the warehouse was turned on (running + idle)"
+        tests:
+          - not_null
+          - dbt_utils.positive_value
+      - name: turned_off_seconds
+        description: "Number of seconds the warehouse was turned off"
+        tests:
+          - not_null
+          - dbt_utils.positive_value
+      - name: total_time_hours
+        description: "Total time in hours (should be 24 hours per day)"
+        tests:
+          - not_null
+          - dbt_utils.positive_value
+          - dbt_utils.accepted_range:
+              min_value: 23.9
+              max_value: 24.1
+      - name: running_ratio
+        description: "Percentage of time the warehouse was running queries"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 100
+
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('snowflake_warehouse_idle_costs')
+          where: "query_date = current_date()"
+          config:
+            severity: warn
+      - dbt_utils.recency:
+          field: query_date
+          datepart: day
+          interval: 2
+      - dbt_utils.relationships:
+          field: warehouse_name
+          to: ref('snowflake_warehouse_metering_history')
+          field: warehouse_name
+          config:
+            severity: warn 
