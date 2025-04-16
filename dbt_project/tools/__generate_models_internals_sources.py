@@ -17,6 +17,9 @@ The generated YAML file is saved to models/internal/__sources.yml and follows db
 To modify the source configuration, edit the SOURCE_CONFIG dictionary directly. Future versions will use an external json file.
 
 It must be executed manually from the root of the dbt project.
+
+Execute this script by running:
+python3 tools/__generate_models_internals_sources.py
 """
 
 import yaml
@@ -42,7 +45,52 @@ SOURCE_CONFIG = {
                 },
                 "cron": {
                     "description": "cron table"
-                }
+                },
+                "buy_execution": {
+                    "description": "buy execution table"
+                },
+                "dio_execution_selected": {
+                    "description": "dio execution selected table"
+                },
+                "engine_executions": {
+                    "description": "engine executions table"
+                },
+                "first_allocation_execution": {
+                    "description": "first allocation execution table"
+                },
+                "preconfigured_execution": {
+                    "description": "preconfigured execution table"
+                },
+                "reorder_execution": {
+                    "description": "reorder execution table"
+                },
+                "replenishment_executions": {
+                    "description": "replenishment executions table"
+                },
+                "store_transfers_executions": {
+                    "description": "store transfers executions table"
+                },
+                "store_transfers_execution_aggregates": {
+                    "description": "store transfers execution aggregates table"
+                },
+                "scenario": {
+                    "description": "scenarios table"
+                },
+                "warehouses": {
+                    "description": "warehouses table"
+                },
+                "skus": {
+                    "description": "skus table"
+                },
+                "seasons": {
+                    "description": "seasons table"
+                },
+                "sales": {
+                    "description": "sales table"
+                },
+                
+                
+
             }
         }
     }
