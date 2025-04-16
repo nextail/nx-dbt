@@ -27,6 +27,22 @@ query_executions AS (
     {% endif %}
 ),
 
+-- Split queries that span across midnight
+split_queries AS (
+    SELECT 
+        WAREHOUSE_NAME,
+        START_TIME,
+        END_TIME,
+        TOTAL_ELAPSED_TIME,
+        query_date,
+        -- If query spans across midnight, create a record for the next day
+        CASE 
+            WHEN END_TIME::DATE > START_TIME::DATE THEN 1
+            ELSE 0
+        END as spans_midnight
+    FROM query_executions
+),
+
 -- Get initial "turned off" state for all warehouses
 initial_states AS (
     SELECT 
@@ -34,7 +50,7 @@ initial_states AS (
         query_date,
         query_date as time_point,
         'turn_off' AS state_change
-    FROM (SELECT DISTINCT WAREHOUSE_NAME, query_date FROM query_executions)
+    FROM (SELECT DISTINCT WAREHOUSE_NAME, query_date FROM split_queries)
 ),
 
 -- Get query start points (warehouse starts running)
@@ -44,7 +60,18 @@ start_running_states AS (
         query_date,
         START_TIME AS time_point,
         'start_running' AS state_change
-    FROM query_executions
+    FROM split_queries
+    
+    UNION ALL
+    
+    -- Add midnight points for queries that span across days
+    SELECT 
+        WAREHOUSE_NAME,
+        END_TIME::DATE as query_date,
+        DATE_TRUNC('day', END_TIME) as time_point,
+        'start_running' as state_change
+    FROM split_queries
+    WHERE spans_midnight = 1
 ),
 
 -- Get query end points (warehouse becomes idle)
@@ -52,9 +79,20 @@ start_idle_states AS (
     SELECT 
         WAREHOUSE_NAME,
         query_date,
-        END_TIME AS time_point,
+        LEAST(END_TIME, DATEADD(day, 1, query_date)) AS time_point,
         'start_idle' AS state_change
-    FROM query_executions
+    FROM split_queries
+    
+    UNION ALL
+    
+    -- Add midnight points for queries that span across days
+    SELECT 
+        WAREHOUSE_NAME,
+        END_TIME::DATE as query_date,
+        DATE_TRUNC('day', END_TIME) as time_point,
+        'start_idle' as state_change
+    FROM split_queries
+    WHERE spans_midnight = 1
 ),
 
 -- Get idle end points (warehouse turns off)
@@ -62,9 +100,20 @@ turn_off_states AS (
     SELECT 
         WAREHOUSE_NAME,
         query_date,
-        DATEADD(seconds, 60, END_TIME) AS time_point,
+        DATEADD(seconds, 60, LEAST(END_TIME, DATEADD(day, 1, query_date))) AS time_point,
         'turn_off' AS state_change
-    FROM query_executions
+    FROM split_queries
+    
+    UNION ALL
+    
+    -- Add midnight points for queries that span across days
+    SELECT 
+        WAREHOUSE_NAME,
+        END_TIME::DATE as query_date,
+        DATEADD(seconds, 60, DATE_TRUNC('day', END_TIME)) as time_point,
+        'turn_off' as state_change
+    FROM split_queries
+    WHERE spans_midnight = 1
 ),
 
 -- Combine all state changes
