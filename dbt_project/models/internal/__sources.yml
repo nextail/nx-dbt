@@ -6,7 +6,7 @@ sources:
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -15,13 +15,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: BZB_globaldomain_public
   description: Raw data sources from our data warehouse
   database: BZB_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -30,13 +56,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: CALLIOPE_globaldomain_public
   description: Raw data sources from our data warehouse
   database: CALLIOPE_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -45,13 +97,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: DCK_globaldomain_public
   description: Raw data sources from our data warehouse
   database: DCK_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -60,13 +138,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: DUB_globaldomain_public
   description: Raw data sources from our data warehouse
   database: DUB_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -75,13 +179,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ECIBOLSOSMMEE_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ECIBOLSOSMMEE_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -90,13 +220,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ECICAMISERIACABALLEROMMEE_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ECICAMISERIACABALLEROMMEE_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -105,13 +261,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ECIEASYWEARELLA_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ECIEASYWEARELLA_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -120,13 +302,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ECIGAP_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ECIGAP_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -135,13 +343,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ECIKIDS_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ECIKIDS_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -150,13 +384,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ECILLOYDSMEN_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ECILLOYDSMEN_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -165,13 +425,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ECIZAPATERIASENORAS_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ECIZAPATERIASENORAS_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -180,13 +466,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ECRU_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ECRU_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -195,13 +507,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: ETHNICITY_globaldomain_public
   description: Raw data sources from our data warehouse
   database: ETHNICITY_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -210,13 +548,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: FLYINGTIGER_globaldomain_public
   description: Raw data sources from our data warehouse
   database: FLYINGTIGER_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -225,13 +589,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: FOOTGEAR_globaldomain_public
   description: Raw data sources from our data warehouse
   database: FOOTGEAR_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -240,13 +630,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: FOREVERNEW_globaldomain_public
   description: Raw data sources from our data warehouse
   database: FOREVERNEW_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -255,13 +671,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: GINATRICOT_globaldomain_public
   description: Raw data sources from our data warehouse
   database: GINATRICOT_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -270,13 +712,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: GSTARRETAIL_globaldomain_public
   description: Raw data sources from our data warehouse
   database: GSTARRETAIL_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -285,13 +753,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: GSTAR_globaldomain_public
   description: Raw data sources from our data warehouse
   database: GSTAR_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -300,13 +794,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: GUESSEMEA_globaldomain_public
   description: Raw data sources from our data warehouse
   database: GUESSEMEA_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -315,13 +835,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: GUESSUS_globaldomain_public
   description: Raw data sources from our data warehouse
   database: GUESSUS_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -330,13 +876,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: HACKETT_globaldomain_public
   description: Raw data sources from our data warehouse
   database: HACKETT_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -345,13 +917,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: JOTT_globaldomain_public
   description: Raw data sources from our data warehouse
   database: JOTT_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -360,13 +958,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: JULES_globaldomain_public
   description: Raw data sources from our data warehouse
   database: JULES_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -375,13 +999,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: MAAG_globaldomain_public
   description: Raw data sources from our data warehouse
   database: MAAG_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -390,13 +1040,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: MERKAL_globaldomain_public
   description: Raw data sources from our data warehouse
   database: MERKAL_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -405,13 +1081,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: METROBRANDS_globaldomain_public
   description: Raw data sources from our data warehouse
   database: METROBRANDS_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -420,13 +1122,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: MFG_globaldomain_public
   description: Raw data sources from our data warehouse
   database: MFG_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -435,13 +1163,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: MOUNTAINWAREHOUSE_globaldomain_public
   description: Raw data sources from our data warehouse
   database: MOUNTAINWAREHOUSE_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -450,13 +1204,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: PEPE_globaldomain_public
   description: Raw data sources from our data warehouse
   database: PEPE_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -465,13 +1245,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: RIVERISLAND_globaldomain_public
   description: Raw data sources from our data warehouse
   database: RIVERISLAND_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -480,13 +1286,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: SFERABASICMAN_globaldomain_public
   description: Raw data sources from our data warehouse
   database: SFERABASICMAN_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -495,13 +1327,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: SPORTSTREET_globaldomain_public
   description: Raw data sources from our data warehouse
   database: SPORTSTREET_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -510,13 +1368,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: SUAREZ_globaldomain_public
   description: Raw data sources from our data warehouse
   database: SUAREZ_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -525,13 +1409,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: TERRANOVA_globaldomain_public
   description: Raw data sources from our data warehouse
   database: TERRANOVA_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -540,13 +1450,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: TVOE_globaldomain_public
   description: Raw data sources from our data warehouse
   database: TVOE_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -555,13 +1491,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: VALEXTRA_globaldomain_public
   description: Raw data sources from our data warehouse
   database: VALEXTRA_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -570,13 +1532,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: VILET_globaldomain_public
   description: Raw data sources from our data warehouse
   database: VILET_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -585,13 +1573,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: WHITESTUFF_globaldomain_public
   description: Raw data sources from our data warehouse
   database: WHITESTUFF_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -600,13 +1614,39 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
 - name: WOOLRICH_globaldomain_public
   description: Raw data sources from our data warehouse
   database: WOOLRICH_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
-    description: first allocation execution
+    description: first allocation execution table
   - name: category
     description: category table
   - name: products
@@ -615,3 +1655,29 @@ sources:
     description: stores table
   - name: cron
     description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
