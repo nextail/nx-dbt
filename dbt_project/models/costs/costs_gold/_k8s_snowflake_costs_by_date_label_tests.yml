@@ -12,7 +12,7 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['replenishment','NA','data-integration','dagster-poc-default','data_platform', 'storetransfer', 'storetransfers']
+              values: ['replenishment','NA','data-integration','dagster-poc-default','data_platform', 'storetransfer', 'storetransfers', 'optimization', 'first-allocation', 'store-transfers']
       - name: module
         tests:
           - not_null
