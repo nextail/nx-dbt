@@ -1,8 +1,7 @@
 version: 2.1
 
-# custom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@4.2.0
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@5.0.1
 
 parameters:
   custom_service_account:
@@ -79,8 +78,7 @@ workflows:
 
       # run make test
       - dagster-pipelines-orb/tests:
-          context:
-            - github-tokens
+          context: org-global
 
       # build-and-deploy for branch deployment environment
       - dagster-pipelines-orb/build-and-deploy-branch:
@@ -99,17 +97,19 @@ workflows:
           requires:
             - dagster-pipelines-orb/check-secrets
             - dagster-pipelines-orb/tests
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
+          context: org-global
+
   # This workflow is set to be conditionally triggered, only when
   # the GitHub Action is triggered.
   external-trigger-close-or-merge:
     when:
       or:
         - equal: [CLOSED, <<pipeline.parameters.GHA_Meta>>]
-        - matches: {pattern: <<pipeline.parameters.branch_deployment>>, value: <<pipeline.parameters.GHA_Meta>>}
+        - matches:
+            {
+              pattern: <<pipeline.parameters.branch_deployment>>,
+              value: <<pipeline.parameters.GHA_Meta>>,
+            }
     jobs:
       # build-and-deploy for branch deployment environment
       - dagster-pipelines-orb/build-and-deploy-branch:
@@ -125,10 +125,7 @@ workflows:
           code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
           job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
           job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
+          context: org-global
 
   infrastructure:
     when:
@@ -137,8 +134,7 @@ workflows:
     jobs:
       # internal tool to deploy our Helm chart
       - dagster-pipelines-orb/service-account-sandbox:
-          context:
-            - org-global
+          context: org-global
           filters:
             branches:
               only:
@@ -146,8 +142,7 @@ workflows:
 
       # internal tool to deploy our Helm chart
       - dagster-pipelines-orb/service-account-production:
-          context:
-            - org-global
+          context: org-global
           filters:
             branches:
               only:
@@ -176,8 +171,7 @@ workflows:
 
       # run make test
       - dagster-pipelines-orb/tests:
-          context:
-            - github-tokens
+          context: org-global
           filters:
             branches:
               ignore:
@@ -198,17 +192,14 @@ workflows:
           requires:
             - dagster-pipelines-orb/check-secrets
             - dagster-pipelines-orb/tests
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
+          context: org-global
           filters:
             branches:
               only:
                 - sandbox
 
-      # build-and-deploy for prod dagster environment
-      # uncomment to deploy to production
+      # # build-and-deploy for prod dagster environment
+      # # uncomment to deploy to production
       # - dagster-pipelines-orb/build-and-deploy-production:
       #     custom_service_account: <<pipeline.parameters.custom_service_account>>
       #     use_secrets: <<pipeline.parameters.use_secrets>>
@@ -224,10 +215,7 @@ workflows:
       #       - dagster-pipelines-orb/pre-commit
       #       - dagster-pipelines-orb/check-secrets
       #       - dagster-pipelines-orb/tests
-      #     context:
-      #       - org-global
-      #       - github-tokens
-      #       - dagster-tokens
+      #     context: org-global
       #     filters:
       #       branches:
       #         only:
