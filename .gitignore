@@ -153,3 +153,10 @@ scripts/.DS_Store
 
 #vscode
 .vscode/settings.json
+dbt_project/dbt_packages/
+dbt_project/dbt_internal_packages/
+dbt_project/logs/
+dbt_project/.user.yml
+dbt_project/customers.yml
+dbt_project/package-lock.yml
+logs/query_log.sql
