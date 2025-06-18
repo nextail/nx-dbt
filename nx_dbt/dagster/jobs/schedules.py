@@ -18,16 +18,28 @@ schedules = [
     #   execution_timezone (Optional[str]) – Timezone in which the schedule should run. Supported strings for timezones are the ones provided by the IANA time zone database <https://www.iana.org/time-zones> - e.g. “America/Los_Angeles”.
     build_schedule_from_dbt_selection(
         [nx_internal_reporting_full],
-        job_name="costs_materialization",
-        cron_schedule="0 */1 * * *", # every 1 hour starting at 00:00
+        job_name="costs_materialization_job",
+        # cron_schedule="0 */12 * * *", # every 12 hours starting at 00:00
+        cron_schedule="10 * * * *", # every hour at minute 10
+        execution_timezone="UTC",
         dbt_select="fqn:costs.*",
-        schedule_name="costs_materialization",
+        schedule_name="costs_materialization_schedule",
     ),
     build_schedule_from_dbt_selection(
         [nx_internal_reporting_full],
-        job_name="materialize_snowflake",
-        cron_schedule="*/30 * * * *", # every 30 minutes starting at 00:00
-        dbt_select="fqn:staging.snowflake.stg_query_attribution_history+",
-        schedule_name="materialize_snowflake",
+        job_name="internal_materialization_job",
+        # cron_schedule="0 5 * * *", # daily at 05:00 UTC
+        cron_schedule="*/10 * * * *", # every 10 minutes for testing
+        execution_timezone="UTC",
+        dbt_select="fqn:internal.*",
+        schedule_name="internal_materialization_schedule",
+    ),
+    build_schedule_from_dbt_selection(
+        [nx_internal_reporting_full],
+        job_name="snowflake_query_attribution_job",
+        cron_schedule="0 */1 * * *", # each hour starting at 00:00
+        execution_timezone="UTC",
+        dbt_select="fqn:stg_query_attribution_history",
+        schedule_name="snowflake_query_attribution_schedule",
     ),
 ]
