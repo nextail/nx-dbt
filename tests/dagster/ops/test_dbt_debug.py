@@ -1,4 +1,4 @@
-from nx_dbt.dagster.ops.hello import hello
+# from nx_dbt.dagster.jobs.constants import dbt
 
 
 def test_hello():
@@ -7,7 +7,9 @@ def test_hello():
 
     This test should run "dbt debug" and assert that the output is successful.
 
-    To be completed.
+    To be
     """
+
+    # dbt.cli(["debug"]).wait()
 
     assert True
