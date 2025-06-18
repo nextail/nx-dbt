@@ -2,7 +2,6 @@ apiVersion: v2
 # The name of the Chart must be the name of the repository, the same as the directory ".platform/charts/{{repo-name}}"
 name: nx-dbt
 description: A Helm chart for Kubernetes
-team: data-platform
 
 # A chart can be either an 'application' or a 'library' chart.
 #
