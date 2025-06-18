@@ -10,7 +10,7 @@ parameters:
     description: "Define if our project uses its own service account (true) or by default (false)."
   use_secrets:
     type: boolean
-    default: false
+    default: true
     description: "Whether our project uses secrets (a secret provider class must exist)"
   use_parameters:
     type: boolean
