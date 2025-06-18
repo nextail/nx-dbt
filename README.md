@@ -1,53 +1,11 @@
 # Dagster Nextail Template [![CircleCI](https://dl.circleci.com/status-badge/img/gh/nextail/dagster-template/tree/main.svg?style=svg&circle-token=241de0bca0173d04a9463346e1224051a0d90e53)](https://dl.circleci.com/status-badge/redirect/gh/nextail/dagster-template/tree/main)
 ![dagster-in-nextail](images/dagster-in-nextail.png)
 
-In order to make it easier to start the development in Dagster this template is provided.
-
-This template will give us:
+In order to make it easier to start the development in Dagster this template is provides:
 
 - A local development environment based on docker and docker-compose
 - CI/CD integration with Dagster Cloud
 - Examples of simple and test pipelines
-
-## Contents
-
-| **Name**            | **Description**                                                                       |
-|---------------------|---------------------------------------------------------------------------------------|
-| `.circleci/`        | CircleCI workflows                                                                    |
-| `.github/`          | issue and pull request templates                                                      |
-| `.platform/`        | Helm chart configuration for the project's Service Account and Secret Provider Class  |
-| `.vscode/`          | Visual Studio Code custom configurations for debugging                                |
-| `dagster_template/` | python package of your repository (it will change its name once you launch the update |
-| `docker/`           | definition of containers on which we will develop                                     |
-| `images/`           | images for the documentation                                                          |
-| `scripts/`          | Utils for makefile                                                                    |
-| `tests/`            | python tests for your package                                                         |
-| `Makefile`          | Automating software building procedure                                                |
-| `pyproject.toml`    | This file contains requirements, which are used by pdm to build the package           |
-| `pdm.lock`          | Dependencies and sub-dependencies resolved properly by pdm from pyproject.toml        |
-| `README.md`         | A description and guide for this code repository                                      |
-
-## Makefile
-
-| **Action**            | **Description**                                                       |
-|-----------------------|-----------------------------------------------------------------------|
-| **help**              | show this help                                                        |
-| **dev-deps**          | test if the dependencies needed to run this Makefile are installed    |
-| **update**            | This script updates all references to dagster-template                |
-| **test**              | pytest                                                                |
-| **create-env**        | create .env file                                                      |
-| **start-dev**         | start the docker environment in the background                        |
-| **shell**             | start the docker environment in the background with shell             |
-| **start-dev-nocache** | start the docker environment in the background without cache on build |
-| **stop-dev**          | stop the docker environment                                           |
-| **dev-clean**         | clean all the project containers                                      |
-| **dev-clean-full**    | clean all the project containers and their data                       |
-| **clean**             | remove all build, test, coverage and Python artifacts                 |
-| **clean-packages**    | remove build packages                                                 |
-| **clean-pyc**         | remove Python pyc files                                               |
-| **clean-test**        | remove test and coverage artifacts                                    |
-| **pdm-lock**          | rebuild the pdm lock file                                             |
-| **lint-check**        | test linter without making changes                                    |
 
 ## 0. Template
 
@@ -227,7 +185,7 @@ The triggers that generate the `Pull Request OPEN`, `Pull Request CLOSE` or `Pul
 
 :warning: **The ENVVAR "DAGSTER_CLOUD_DEPLOYMENT_NAME" will be the deployment ID. It's recommended to use the ENVVAR "NX_ENVIRONMENT" which will be sandbox.**
 
-Recommended reading: [Branch Deployments in Dagster Cloud](https://docs.dagster.io/dagster-cloud/managing-deployments/branch-deployments#branch-deployments-in-dagster-cloud)
+Recommended reading: [Branch Deployments in Dagster Cloud](https://docs.dagster.io/dagster-plus/features/ci-cd/branch-deployments/#branch-deployments-in-dagster-cloud)
 
 ### 2.1.8 Deveoping with DevContainer or Github Codespace
 
@@ -271,35 +229,19 @@ Through these two artifacts, the default application role brings the following p
 - **Amazon S3** (granted through the IAM role)
 
   The IAM role has read/write access to the following buckets and paths
-  - **evo** pipelines
-    - SANDBOX
+  - SANDBOX
 
-        ``` yml
-        s3_bucket: nextail-dev-evo
-        s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
-        ```
+      ``` yml
+      s3_bucket: nextail-dev
+      s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
+      ```
 
-    - PRODUCTION
+  - PRODUCTION
 
-        ``` yml
-        s3_bucket: nextail-{{tenant}}-evo
-        s3_prefix: dagster/{{your_path}}
-        ```
-
-  - **non-evo** pipelines
-    - SANDBOX
-
-        ``` yml
-        s3_bucket: nextail-dev
-        s3_prefix: env-sandbox/{{tenant}}/dagster/{{your_path}}
-        ```
-
-    - PRODUCTION
-
-        ```yml
-        s3_bucket: nextail-{{tenant}}
-        s3_prefix: dagster/{{your_path}}
-        ```
+      ```yml
+      s3_bucket: nextail-{{tenant}}
+      s3_prefix: dagster/{{your_path}}
+      ```
 
 - **Amazon Secrets Manager** (granted through the IAM role)
 
@@ -313,34 +255,24 @@ Through these two artifacts, the default application role brings the following p
 
 Once initial development has been kickstarted, the pipeline project should move on to configuring specific permissions before being promoted to production, as explained in the next section.
 
-#### 2.2.4 Specific AWS permissions for Production
+#### 2.2.4 Specific AWS permissions before deploy to Production
 
-To decouple functional pipelines from the underlying platform's runtime, the functional pipelines must be granted specific permissions. To grant these permissions, you will need to have the following artifacts
+Open a [Service Desk](https://nextail.atlassian.net/servicedesk/customer/portal/5/group/20/create/99) ticket to `Platform Squad` with the Scope and necessary Permissions:
+- Secrets (yes/no)
+- Centralized configuration Parameters (yes/no)
+- Specific AWS Policies (for example: AWS S3 Read Access)
+- Environment (production/sandbox)
 
-- an IAM role, which you can create following [this platform guide](https://engineering-portal.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers/#step-1-setting-up-the-infrastructure-for-my-application). By default, the role will only grant your application permission to interact with AWS Secrets Manager. If the application needs additional permissions to access other AWS services like S3, follow [this platform guide](https://engineering-portal.nextail.co/docs/platform-architecture/operations/developer/create_a_new.service#applications-permissions) to grant them
-- a service account referencing the IAM role, deployed as a platform resource of the data pipeline repository via helm, [as provided in this template repository](.platform/charts/dagster-template/templates/serviceaccount.yaml)
 
-For general guidance about how to work with secrets in your pipeline project, check [this platform guide](https://engineering-portal.nextail.co/docs/platform-architecture/operations/secrets/Howto_for_developers)
+##### Step 1: Configure the creation of Service Account and Service Provider (Secrets and Cetralized Params)
 
-In addition, we added a property to the service account policies that allows you to have the same permissions that are given by default in Dagster. In this way you can migrate to your custom service account without losing functionality. The property is `enable_dagster`. You can set this property in the repository [nextail/aws-infrastructure](https://github.com/nextail/aws-infrastructure).
-
-An example:
-
-``` yml
-name                          = "dagster-poc"
-enable_secrets_manager_access = true
-enable_dagster                = true
-custom_policies               = [ ]
-```
-
-##### Step 1: Configure the creation of Service Account and Service Provider
+> Remember: Once the permissions are assigned you can continue
 
 Configure the file `.platform/charts/{{your_repository}}/values.yaml`:
 
 1. Change `serviceAccount.create` to `true`
-2. Set your envVars and AWS keys to map your secrets into app environment ()
-
-> It is mandatory to have at least one secret mapped so that the deployment does not fail!!!
+2. (Optional) Set your envVars and AWS keys to map your secrets into app environment
+3. (Optional) Setup access to Centralized Configuration Parameters
 
 ```yaml
 # Kubernetes Service Account
@@ -354,11 +286,22 @@ serviceAccount:
 envFromSecretsManager:
   - envVar: ENV_NAME
     key: secret_key
+
+# Centralized parameters to be accessed from the pod.
+# Format is [domain]/[filename]. They get mounted with the name _environment_domain_filename unless an alias is defined.
+sharedParameters:
+  - Name: "global/clients.yaml"
+    Alias: "clients.yaml"
+  - Name: "customdomain/custom.json"
 ```
 
-##### Step 2: Set our Custom Service Account into our Dagster Project
+##### Step 2: Set our Custom Service Account, Secrets and Parameters into our Dagster Project
 
-The last step will be to modify in the file `.circleci/config.yml` the parameter **custom_service_account** in the line 9 `default: false` to `default: true`.
+The last step will be to modify in the file `.circleci/config.yml` the parameters (if used) to true:
+
+- **custom_service_account**: `default: true`.
+- **use_secrets** (Optional): `default: true`.
+- **use_parameters** (Optional): `default: true`.
 
 ```yaml
 version: 2.1
@@ -371,4 +314,57 @@ parameters:
     type: boolean
     default: true
     description: "We use this parameter to define if our project uses its own service account (true) or by default (false)."
+  use_secrets:
+    type: boolean
+    default: false
+    description: "Whether our project uses secrets (a secret provider class must exist)"
+  use_parameters:
+    type: boolean
+    default: false
+    description: "Whether our project uses parameters (a parameter secret provider class must exist)"
 ```
+
+#### 2.2.5 Centralized configuration
+
+It is possible to mount shared configuration parameters as files. Parameters can contain up to 10KB of text
+(they can hold multiple settings) and are provisioned in [centralized-config](https://github.com/nextail/centralized-config).
+
+To use a centralize configuration parameter:
+
+1. Define the parameter name (`domain`/`filename`) and, optionally, its alias in the `sharedParameters` value:
+
+```yaml
+   sharedParameters:
+    - Name: "global/clients.yaml"
+      Alias: "clients.yaml"
+```
+
+2. (Optional) define a directory to mount the parameters inside the pod by overriding the `sharedParametersPath` value.
+By default the path will be `/mnt/parameter-store`.
+
+#### 2.2.6 Generating datadog APM traces
+
+If your project needs to send datadog apm traces, do not use any custom hostname, port or url. Instead set the following parameter to `true`
+
+```yaml
+parameters:
+  use_datadog_tracer:
+      type: boolean
+      default: true
+      description: Provides access to host's datadog socket, so apm traces can be sent through using default configuration.
+```
+
+Then you may pdm-add the `ddtrace` library and generate spans like this:
+
+```python
+from ddtrace import tracer
+
+@op
+def hello(context):
+    with tracer.trace('hello_world', service="dagster-poc", resource='hello') as span:
+        span.set_tag("hello_world", "hello")
+        func_with_sub_traces(span)
+        return "Hello, Dagster !"
+```
+
+More information Datadog application instrumentation is available [here](https://docs.datadoghq.com/tracing/trace_collection/custom_instrumentation/python/dd-api).

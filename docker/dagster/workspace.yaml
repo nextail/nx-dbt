@@ -3,8 +3,3 @@ load_from:
       location_name: nx-dbt-default
       module_name: nx_dbt.dagster
       working_directory: /opt/nx-dbt/
-
-  # - dbt_project:
-  #     location_name: dbt_project
-  #     module_name: dbt_project
-  #     working_directory: /opt/dbt_project/

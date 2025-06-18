@@ -13,3 +13,10 @@ serviceAccount:
 # envFromSecretsManager:
 #   - envVar: ENV_NAME
 #     key: secret_key
+
+# Centralized parameters to be accessed from the pod.
+# Format is [domain]/[filename]. They get mounted with the name _environment_domain_filename unless an alias is defined.
+# sharedParameters:
+#   - Name: "global/clients.yaml"
+#     Alias: "clients.yaml"
+#   - Name: "customdomain/custom.json"

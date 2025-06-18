@@ -1,14 +1,25 @@
 version: 2.1
 
-# custom orb for dagster pipelines
 orbs:
-  dagster-pipelines-orb: nextail/dagster-pipelines-orb@3.3.2
+  dagster-pipelines-orb: nextail/dagster-pipelines-orb@5.0.1
 
 parameters:
   custom_service_account:
     type: boolean
     default: false
     description: "Define if our project uses its own service account (true) or by default (false)."
+  use_secrets:
+    type: boolean
+    default: false
+    description: "Whether our project uses secrets (a secret provider class must exist)"
+  use_parameters:
+    type: boolean
+    default: false
+    description: "Whether our project uses parameters (a parameter secret provider class must exist)"
+  use_datadog_tracer:
+      type: boolean
+      default: false
+      description: Provides access to host's datadog socket, so apm traces can be sent through using default configuration.
   module_name:
     type: string
     default: nx_dbt.dagster
@@ -25,6 +36,10 @@ parameters:
     type: string
     description: Kubernetes Limits - the container can never consume more than the CPU amount indicated.
     default: 256Mi
+  code_location_grpc_max_workers:
+    type: integer
+    description: Maximum number of workers available on the code server.
+    default: 8
   job_run_resource_limit_cpu:
     type: string
     description: Kubernetes Limits - the container can never consume more than the memory amount indicated.
@@ -63,48 +78,54 @@ workflows:
 
       # run make test
       - dagster-pipelines-orb/tests:
-          context:
-            - github-tokens
+          context: org-global
 
       # build-and-deploy for branch deployment environment
       - dagster-pipelines-orb/build-and-deploy-branch:
           actor_op: <<pipeline.parameters.GHA_Actor>>
           trigger_op: <<pipeline.parameters.GHA_Meta>>
           custom_service_account: <<pipeline.parameters.custom_service_account>>
+          use_secrets: <<pipeline.parameters.use_secrets>>
+          use_parameters: <<pipeline.parameters.use_parameters>>
+          use_datadog_tracer: <<pipeline.parameters.use_datadog_tracer>>
           module_name: <<pipeline.parameters.module_name>>
           project_name: <<pipeline.parameters.project_name>>
           code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
           job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
           job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
           requires:
             - dagster-pipelines-orb/check-secrets
             - dagster-pipelines-orb/tests
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
+          context: org-global
+
   # This workflow is set to be conditionally triggered, only when
   # the GitHub Action is triggered.
   external-trigger-close-or-merge:
     when:
       or:
         - equal: [CLOSED, <<pipeline.parameters.GHA_Meta>>]
-        - matches: {pattern: <<pipeline.parameters.branch_deployment>>, value: <<pipeline.parameters.GHA_Meta>>}
+        - matches:
+            {
+              pattern: <<pipeline.parameters.branch_deployment>>,
+              value: <<pipeline.parameters.GHA_Meta>>,
+            }
     jobs:
       # build-and-deploy for branch deployment environment
       - dagster-pipelines-orb/build-and-deploy-branch:
           actor_op: <<pipeline.parameters.GHA_Actor>>
           trigger_op: <<pipeline.parameters.GHA_Meta>>
           custom_service_account: <<pipeline.parameters.custom_service_account>>
+          use_secrets: <<pipeline.parameters.use_secrets>>
+          use_parameters: <<pipeline.parameters.use_parameters>>
+          use_datadog_tracer: <<pipeline.parameters.use_datadog_tracer>>
           module_name: <<pipeline.parameters.module_name>>
           project_name: <<pipeline.parameters.project_name>>
           code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
           job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
           job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
+          context: org-global
 
   infrastructure:
     when:
@@ -113,8 +134,7 @@ workflows:
     jobs:
       # internal tool to deploy our Helm chart
       - dagster-pipelines-orb/service-account-sandbox:
-          context:
-            - org-global
+          context: org-global
           filters:
             branches:
               only:
@@ -122,8 +142,7 @@ workflows:
 
       # internal tool to deploy our Helm chart
       - dagster-pipelines-orb/service-account-production:
-          context:
-            - org-global
+          context: org-global
           filters:
             branches:
               only:
@@ -152,8 +171,7 @@ workflows:
 
       # run make test
       - dagster-pipelines-orb/tests:
-          context:
-            - github-tokens
+          context: org-global
           filters:
             branches:
               ignore:
@@ -162,40 +180,42 @@ workflows:
       # build-and-deploy for sandbox dagster environment
       - dagster-pipelines-orb/build-and-deploy-sandbox:
           custom_service_account: <<pipeline.parameters.custom_service_account>>
+          use_secrets: <<pipeline.parameters.use_secrets>>
+          use_parameters: <<pipeline.parameters.use_parameters>>
+          use_datadog_tracer: <<pipeline.parameters.use_datadog_tracer>>
           module_name: <<pipeline.parameters.module_name>>
           project_name: <<pipeline.parameters.project_name>>
           code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
           job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
           job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
           requires:
             - dagster-pipelines-orb/check-secrets
             - dagster-pipelines-orb/tests
-          context:
-            - org-global
-            - github-tokens
-            - dagster-tokens
+          context: org-global
           filters:
             branches:
               only:
                 - sandbox
 
-      # build-and-deploy for prod dagster environment
-      # uncomment to deploy to production
+      # # build-and-deploy for prod dagster environment
+      # # uncomment to deploy to production
       # - dagster-pipelines-orb/build-and-deploy-production:
       #     custom_service_account: <<pipeline.parameters.custom_service_account>>
+      #     use_secrets: <<pipeline.parameters.use_secrets>>
+      #     use_parameters: <<pipeline.parameters.use_parameters>>
+      #     use_datadog_tracer: <<pipeline.parameters.use_datadog_tracer>>
       #     module_name: <<pipeline.parameters.module_name>>
       #     project_name: <<pipeline.parameters.project_name>>
       #     code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+      #     code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
       #     job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
       #     job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
       #     requires:
       #       - dagster-pipelines-orb/pre-commit
       #       - dagster-pipelines-orb/check-secrets
       #       - dagster-pipelines-orb/tests
-      #     context:
-      #       - org-global
-      #       - github-tokens
-      #       - dagster-tokens
+      #     context: org-global
       #     filters:
       #       branches:
       #         only:

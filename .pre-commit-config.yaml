@@ -15,7 +15,7 @@ exclude: |
 
 repos:
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.10.0
+    rev: 25.1.0
     hooks:
       - id: black
       - id: black
@@ -27,7 +27,7 @@ repos:
         stages: [manual]
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.8.3
+    rev: v0.11.10
     hooks:
       - id: ruff
         args:
@@ -53,12 +53,12 @@ repos:
           - commit
 
   - repo: https://github.com/pdm-project/pdm
-    rev: 2.22.0
+    rev: 2.24.1
     hooks:
       - id: pdm-lock-check
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.35.1
+    rev: v1.37.1
     hooks:
       - id: yamllint
         name: yaml-lint
@@ -67,7 +67,7 @@ repos:
           - manual
 
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.21.2
+    rev: v8.26.0
     hooks:
       - id: gitleaks-docker
         entry: -u root:root zricethezav/gitleaks protect --verbose --redact --staged
