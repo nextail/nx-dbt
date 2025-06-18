@@ -1,5 +1,5 @@
 load_from:
   - python_module:
-      location_name: dagster-template-default
-      module_name: dagster_template.dagster
-      working_directory: /opt/dagster-template/
+      location_name: nx-dbt-default
+      module_name: nx_dbt.dagster
+      working_directory: /opt/nx-dbt/

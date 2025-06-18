@@ -22,7 +22,7 @@ parameters:
       description: Provides access to host's datadog socket, so apm traces can be sent through using default configuration.
   module_name:
     type: string
-    default: dagster_template.dagster
+    default: nx_dbt.dagster
     description: "Python module containing the target Dagster Definitions"
   project_name:
     type: string

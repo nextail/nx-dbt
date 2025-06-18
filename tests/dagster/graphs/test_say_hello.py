@@ -1,4 +1,4 @@
-from dagster_template.dagster.jobs.say_hello import say_hello_job
+from nx_dbt.dagster.jobs.say_hello import say_hello_job
 
 
 def test_say_hello():

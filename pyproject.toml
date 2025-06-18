@@ -1,5 +1,5 @@
 [project]
-name = "dagster_template"
+name = "nx_dbt"
 dynamic = ["version"]
 description = ""
 license = { text = "Nextail private use" }
