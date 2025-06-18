@@ -9,13 +9,14 @@ nx_internal_profile:
 
       # Keypair config
       # private_key_path: "/Users/pabloespeso/.snowflake/.ssh/dbt_user/rsa_key.p8"
-      private_key_path: ".env/dbt_rsa_key.p8"
+      # private_key_path: ".env/dbt_rsa_key.p8"
+      private_key: "{{ env_var('DBT_RSA_KEY') }}"
       # or private_key instead of private_key_path
       private_key_passphrase: "{{ env_var('DBT_RSA_PASSPHRASE') }}"
 
-      role: DBT_SANDBOX_RL
-      database: NEXTAIL_INTERNALS_SANDBOX_DB
-      warehouse: COMPUTE_WH
+      role: "{{ env_var('DBT_ROLE')}}"
+      database: "{{ env_var('DBT_DATABASE') }}"
+      warehouse: "{{ env_var('DBT_WAREHOUSE') }}"
       schema: dbt
 
       threads: 8
