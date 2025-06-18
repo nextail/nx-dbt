@@ -52,8 +52,8 @@ RUN mkdir -p /var/logs
 RUN chown -R $USER_ID:$GROUP_ID /var/logs
 
 # set required environment vars from host
-ARG GITHUB_PIP_TOKEN
-ENV GITHUB_PIP_TOKEN=$GITHUB_PIP_TOKEN
+# ARG GITHUB_PIP_TOKEN
+# ENV GITHUB_PIP_TOKEN=$GITHUB_PIP_TOKEN
 ARG COMMIT
 ENV COMMIT=$COMMIT
 ARG GITHUB_REPOSITORY
@@ -107,7 +107,7 @@ WORKDIR /opt/$REPO_NAME
 # copy project
 COPY --chown=$USER_ID:$GROUP_ID ./$PACKAGE_NAME/ /opt/$REPO_NAME/$PACKAGE_NAME/
 COPY --chown=$USER_ID:$GROUP_ID ./scripts /opt/$REPO_NAME/scripts/
-COPY --chown=$USER_ID:$GROUP_ID ./dbt_project /opt/$REPO_NAME/dbt_project
+COPY --chown=$USER_ID:$GROUP_ID ./dbt_project /opt/$REPO_NAME/$PACKAGE_NAME/dbt_project
 ###############################################################################################
 ####################################    LOCAL IMAGE     #######################################
 ###############################################################################################
