@@ -13,10 +13,10 @@
 select
     *,
     '{{ tenant }}' as tenant,
-from {{ source(tenant + '_globaldomain_public', 'sales') }}
+from {{ source(tenant + '_globaldomain_public', 'store_stock_items') }}
 
     {% if is_incremental() %}
-        where date >= (select max(date) from {{ this }}) and tenant = '{{ tenant }}'
+        where date > (select max(date) from {{ this }}) and tenant = '{{ tenant }}'
     {% endif %}
     {% if should_full_refresh() %}
         -- uncomment this to remove the limit of the full refresh to a certain date
@@ -28,4 +28,4 @@ from {{ source(tenant + '_globaldomain_public', 'sales') }}
     union all
     {% endif %}
 
-{% endfor %} 
+{% endfor %}

@@ -1,7 +1,7 @@
 {{
     config(
         materialized = 'incremental',
-        unique_key = ['store_id', 'sku_id', 'date', 'tenant'],
+        unique_key = ['warehouse_id', 'sku_id', 'date', 'tenant'],
         incremental_strategy = 'merge',
         on_schema_change = 'sync_all_columns',
         cluster_by = ['tenant'],
@@ -13,10 +13,10 @@
 select
     *,
     '{{ tenant }}' as tenant,
-from {{ source(tenant + '_globaldomain_public', 'sales') }}
+from {{ source(tenant + '_globaldomain_public', 'warehouse_stock_items') }}
 
     {% if is_incremental() %}
-        where date >= (select max(date) from {{ this }}) and tenant = '{{ tenant }}'
+        where date > (select max(date) from {{ this }}) and tenant = '{{ tenant }}'
     {% endif %}
     {% if should_full_refresh() %}
         -- uncomment this to remove the limit of the full refresh to a certain date

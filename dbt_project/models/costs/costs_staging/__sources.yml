@@ -5,10 +5,10 @@ sources:
     database: snowflake
     schema: account_usage
     description: Snowflake's system tables
-    freshness:
-      warn_after:
-        count: 24
-        period: hour
+    # freshness:
+    #  warn_after:
+    #    count: 24
+    #    period: hour
     tables:
       - name: query_history
         description: Snowflake's system query table

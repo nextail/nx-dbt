@@ -6,7 +6,6 @@ nx_internal_profile:
       account: xo52081.eu-west-1
 
       user: DBT
-      role: PUBLIC
 
       # Keypair config
       # private_key_path: "/Users/pabloespeso/.snowflake/.ssh/dbt_user/rsa_key.p8"

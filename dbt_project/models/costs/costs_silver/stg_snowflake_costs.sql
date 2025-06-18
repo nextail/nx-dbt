@@ -19,11 +19,11 @@ with
             try_parse_json(query_tag) as parsed_query_tag,
 
 
-            lower(parsed_query_tag:service::TEXT) as service,
-            lower(parsed_query_tag:module::TEXT) as module,
-            lower(parsed_query_tag:submodule::TEXT) as submodule,
-            lower(parsed_query_tag:operation::TEXT) as operation,
-            lower(parsed_query_tag:tenant::TEXT) as tenant,
+            replace(replace(lower(parsed_query_tag:service::TEXT), ' ', '_'), '-', '_') as service,
+            replace(replace(lower(parsed_query_tag:module::TEXT), ' ', '_'), '-', '_') as module,
+            replace(replace(lower(parsed_query_tag:submodule::TEXT), ' ', '_'), '-', '_') as submodule,
+            replace(replace(lower(parsed_query_tag:operation::TEXT), ' ', '_'), '-', '_') as operation,
+            replace(replace(lower(parsed_query_tag:tenant::TEXT), ' ', '_'), '-', '_') as tenant,
             case
                 when parsed_query_tag:environment::TEXT ilike 'prod' then 'production'
                 else lower(parsed_query_tag:environment::TEXT)

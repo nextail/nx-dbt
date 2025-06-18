@@ -28,14 +28,14 @@ select
     duration_seconds,
 
     -- official labels
-    lower(pod_labels_json:service::TEXT) as label_service,
-    lower(pod_labels_json:module::TEXT) as label_module,
-    lower(pod_labels_json:submodule::TEXT) as label_submodule,
-    lower(pod_labels_json:operation::TEXT) as label_operation,
-    lower(pod_labels_json:tenant::TEXT) as label_tenant,
-    lower(pod_labels_json:environment::TEXT) as label_environment,
-    lower(pod_labels_json:correlation_id::TEXT) as label_correlation_id,
-    lower(pod_labels_json:execution_id::TEXT) as label_execution_id,
+    replace(lower(pod_labels_json:service::TEXT), '-', '_') as label_service,
+    replace(lower(pod_labels_json:module::TEXT), '-', '_') as label_module,
+    replace(lower(pod_labels_json:submodule::TEXT), '-', '_') as label_submodule,
+    replace(lower(pod_labels_json:operation::TEXT), '-', '_') as label_operation,
+    replace(lower(pod_labels_json:tenant::TEXT), '-', '_') as label_tenant,
+    replace(lower(pod_labels_json:environment::TEXT), '-', '_') as label_environment,
+    replace(lower(pod_labels_json:correlation_id::TEXT), '-', '_') as label_correlation_id,
+    replace(lower(pod_labels_json:execution_id::TEXT), '-', '_') as label_execution_id,
     
     -- deprecated labels
     pod_labels_json:controller_uid::TEXT as label_controller_uid,

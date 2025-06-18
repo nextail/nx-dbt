@@ -43,20 +43,54 @@ models:
         data_tests:
           - not_null
           - accepted_values:
-              values: ['Completed', 'OOMKilled', 'Error', 'StartError']
+              values: [
+                'Completed', 'OOMKilled', 'Error', 'StartError'
+                ]
       - name: duration_seconds
       - name: label_service
         data_tests:
           - accepted_values:
-              values: ['dagster-poc-default', 'data-integration', 'replenishment', 'storetransfer', 'storetransfers', 'optimization', 'first-allocation', 'store-transfers']
+              values: [
+                'NA',
+                'advanced_analytics',
+                'dagster_poc_default',
+                'data_integration',
+                'data_platform',
+                'first_allocation',
+                'internal',
+                'optimization',
+                'platform',
+                'replenishment',
+                'store_transfers',
+                'storetransfer',
+                'storetransfers',
+                'forecast',
+                'monitoring',
+                'size_curves',
+                'explainability'
+              ]
       - name: label_module
         data_tests:
           - accepted_values:
-              values: ['storetransfer', 'forecast-store-product', 'optimization', 'size-curves', 'integrations', 'replenishment', 'my_module', 'module-name', 'storetransfers']
+              values: [
+                'storetransfer', 'optimization', 'integrations', 'replenishment', 'my_module', 'storetransfers',
+                'forecast_store_product', 'okta', 'module_name', 'nxops', 'k8s_usage_reports', 'kron', 'engineering_portal',
+                'size_curves', 'internal_tools',
+                'forecast_validation', 'forecast',
+                'backend',
+              ]
       - name: label_submodule
         data_tests:
           - accepted_values:
-              values: ['dio-daily','my_submodule','replenishment-data-pipelines','replenishment-data-pieplines','replenishment', 'storetransfers-data-pipelines', 'optimization-pipelines']
+              values: [
+                'my_submodule','replenishment', 'engine', 'dio_daily', 'optimization_pipelines', 'scheduled_tools',
+                'replenishment_data_pieplines', 'storetransfers_data_pipelines', 'kron', 'reports', 'replenishment_data_pipelines',
+                'auth_updater', 'docusaurus', 'export_job', 'customization',
+                'backtests', 'model_train', 'store_product_inference', 'training', 'traning',
+                'pylarms', 'features', 'others', 'fact_table', 'inferece', 'validation', 'size_curves',
+                'nx_job_orchestraptor', 'nx_job_orchestrator',
+                'inference'
+              ]
       - name: label_operation
       - name: label_tenant
         # data_tests:

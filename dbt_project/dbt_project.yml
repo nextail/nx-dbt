@@ -25,6 +25,7 @@ vars:
   "all_tenants": [
     "ARISTOCRAZY",
     # "BASE",
+    # "BIMANI", remove after adding bimani production database
     "BZB",
     "CALLIOPE",
     "DCK",
@@ -88,7 +89,9 @@ models:
   +transient: true
   +persist_docs:
     relation: true
-    column: true
+    # column: true
+  +grants:  # Grant access to the BI_READER_SANDBOX_RL role to all models in this dbt project
+    select: ['BI_READER_SANDBOX_RL']
 
   nextail:
     +database: NEXTAIL_INTERNALS_SANDBOX_DB
@@ -110,6 +113,10 @@ models:
       internal_staging:
         # +database: NEXTAIL_INTERNALS_SANDBOX_DB
         +schema: nx_internals_bronze
+
+    sales_engineering:
+      # +database: NEXTAIL_INTERNALS_SANDBOX_DB
+      +schema: nx_sales_engineering_playground
 
 
 # dispatch:

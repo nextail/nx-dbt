@@ -12,7 +12,33 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['replenishment','NA','data-integration','dagster-poc-default','data_platform', 'storetransfer', 'storetransfers', 'optimization', 'first-allocation', 'store-transfers']
+              values: [
+                'advanced_analytics',
+                'advance_analytics',
+                'dagster_poc_default',
+                'data_integration',
+                'data_platform',
+                'first_allocation',
+                'internal',
+                'NA',
+                'optimization',
+                'platform',
+                'replenishment',
+                'store_transfers',
+                'storetransfer',
+                'storetransfers',
+                'forecast',
+                'monitoring',
+                'size_curves',
+                'mobileapp',
+                'replenishments',
+                'desktopapp',
+                'app',
+                'data_services',
+                'textil',
+                'explainability',
+                'dbt'
+              ]
       - name: module
         tests:
           - not_null
@@ -29,7 +55,7 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['sandbox','NA','production','test','env.sbx']
+              values: ['sandbox','NA','production','test','env.sbx', 'dev']
       - name: correlation_id
         tests:
           - not_null

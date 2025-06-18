@@ -1,26 +1,23 @@
 {{
     config(
         materialized = 'incremental',
-        unique_key = ['store_id', 'sku_id', 'date', 'tenant'],
+        unique_key = ['id', 'tenant'],
         incremental_strategy = 'merge',
         on_schema_change = 'sync_all_columns',
-        cluster_by = ['tenant'],
+        cluster_by = ['tenant']
     )
 }}
+-- database names: aristocrazy_main_prod_db, suarez_main_prod_db
 
 {% for tenant in var('all_tenants') %}
 
 select
     *,
     '{{ tenant }}' as tenant,
-from {{ source(tenant + '_globaldomain_public', 'sales') }}
+from {{ source(tenant + '_globaldomain_public', 'families') }}
 
     {% if is_incremental() %}
-        where date >= (select max(date) from {{ this }}) and tenant = '{{ tenant }}'
-    {% endif %}
-    {% if should_full_refresh() %}
-        -- uncomment this to remove the limit of the full refresh to a certain date
-        where date >= '2025-01-01'
+        where updated_at > (select max(updated_at) from {{ this }}) and tenant = '{{ tenant }}'
     {% endif %}
 
     {% if not loop.last and var('all_tenants') | length > 1 %}

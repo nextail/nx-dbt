@@ -42,7 +42,5 @@ models:
             - not_null
         - name: credits_used_query_acceleration
           description: "Credits used for query acceleration"
-
-
-
+          
       description: "ToDo"

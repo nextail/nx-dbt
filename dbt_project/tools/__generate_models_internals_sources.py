@@ -37,11 +37,20 @@ SOURCE_CONFIG = {
                 "category": {
                     "description": "category table"
                 },
+                "category_item_included": {
+                    "description": "category item included table"
+                },
                 "products": {
                     "description": "products table"
                 },
+                "product_history": {
+                    "description": "product history table"
+                },
                 "stores": {
                     "description": "stores table"
+                },
+                "families": {
+                    "description": "families table"
                 },
                 "cron": {
                     "description": "cron table"
@@ -73,6 +82,9 @@ SOURCE_CONFIG = {
                 "store_transfers_execution_aggregates": {
                     "description": "store transfers execution aggregates table"
                 },
+                "store_stock_items": {
+                    "description": "store stock items table"
+                },
                 "scenario": {
                     "description": "scenarios table"
                 },
@@ -88,9 +100,12 @@ SOURCE_CONFIG = {
                 "sales": {
                     "description": "sales table"
                 },
-                
-                
-
+                "warehouse_stock_items": {
+                    "description": "warehouse stock items table"
+                },
+                "databasechangelog": {
+                    "description": "liquibase database changelog table"
+                }
             }
         }
     }
