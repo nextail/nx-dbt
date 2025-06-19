@@ -88,6 +88,10 @@ services:
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
       DBT_RSA_PASSPHRASE: ${DBT_RSA_PASSPHRASE}
+      DBT_RSA_KEY: ${DBT_RSA_KEY}
+      DBT_ROLE: ${DBT_ROLE}
+      DBT_DATABASE: ${DBT_DATABASE}
+      DBT_WAREHOUSE: ${DBT_WAREHOUSE}
     ports:
       - "5679:5678"
     volumes:
