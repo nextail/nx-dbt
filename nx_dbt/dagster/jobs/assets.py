@@ -22,6 +22,6 @@ dbt_project.prepare_if_dev()
 
 @dbt_assets(manifest=dbt_project.manifest_path)
 def nx_internal_reporting_full(context: AssetExecutionContext, dbt: DbtCliResource):
-    print('Hello!')
-    print(context)
+    dbt_parse_invocation = dbt.cli(["parse"], context=context)
+    print(dbt_parse_invocation)
     yield from dbt.cli(["run"], context=context).stream()
