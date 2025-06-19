@@ -26,7 +26,8 @@ dbt = DbtCliResource(project_dir=dbt_project_dir)
 # Always generate a manifest at run time
 dbt_manifest_path = (
     dbt.cli(
-        ["--quiet", "parse"],
+        # ["--quiet", "parse"],
+        ["parse"],
         target_path=Path("target"),
     )
     .wait()
