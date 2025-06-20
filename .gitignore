@@ -1,7 +1,9 @@
 # dbt specific
-dbt_project/dbt_packages/*
+nx_dbt/dbt_project/dbt_packages/*
+nx_dbt/dbt_project/dbt_internal_packages/*
 logs/
-target/
+nx_dbt/dbt_project/target/*
+!nx_dbt/dbt_project/target/manifest.json
 .user.yml
 customers.yml
 package-lock.yml
@@ -81,7 +83,7 @@ instance/
 docs/_build/
 
 # PyBuilder
-target/
+/target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
