@@ -6,7 +6,7 @@
 # By default it will be false and a default dagster service account will be used.
 # In case of create: true, the circleci pipeline must also be configured setting the property custom_service_account: true.
 serviceAccount:
-  create: false
+  create: true
 
 # envVar: is the name of the environment variable that will be exposed in your application container.
 # key: refers to the key inside your AWS Secrets Manager secret.

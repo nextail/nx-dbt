@@ -6,7 +6,7 @@ orbs:
 parameters:
   custom_service_account:
     type: boolean
-    default: false
+    default: true
     description: "Define if our project uses its own service account (true) or by default (false)."
   use_secrets:
     type: boolean
