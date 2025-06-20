@@ -3,7 +3,7 @@ nx_dbt/dbt_project/dbt_packages/*
 nx_dbt/dbt_project/dbt_internal_packages/*
 logs/
 nx_dbt/dbt_project/target/*
-!nx_dbt/dbt_project/target/manifest.json
+# !nx_dbt/dbt_project/target/manifest.json
 .user.yml
 customers.yml
 package-lock.yml
