@@ -19,6 +19,7 @@ clean-targets:
   - "dbt_packages"
 
 vars:
+  "full_refresh_start_date": "2025-01-01"
   # "dbt_date:time_zone": "America/Los_Angeles"
   "dbt_date:time_zone": "Etc/UTC"
   "tenant": "nextail"
