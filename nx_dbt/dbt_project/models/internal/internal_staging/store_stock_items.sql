@@ -20,7 +20,7 @@ from {{ source(tenant + '_globaldomain_public', 'store_stock_items') }}
     {% endif %}
     {% if should_full_refresh() %}
         -- uncomment this to remove the limit of the full refresh to a certain date
-        where date >= '2025-01-01'
+        where date >= '{{ var("full_refresh_start_date") }}'
     {% endif %}
 
     {% if not loop.last and var('all_tenants') | length > 1 %}

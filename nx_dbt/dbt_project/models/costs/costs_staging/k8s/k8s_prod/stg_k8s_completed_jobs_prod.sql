@@ -73,5 +73,5 @@ from {{ source('completed_jobs', 'completed_jobs_prod')}}
 {% endif %}
 -- uncomment this to limit the full refresh to a certain date
 -- {% if should_full_refresh() %}
---     where start_time_utc >= '2025-02-01'
+--     where start_time_utc >= '{{ var("full_refresh_start_date") }}'
 -- {% endif %}

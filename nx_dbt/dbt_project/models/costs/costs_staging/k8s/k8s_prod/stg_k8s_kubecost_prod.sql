@@ -34,7 +34,7 @@ from {{ source('kubecost', 'kubecost_cumulative_cost_by_pod_pro')}}
 {% endif %}
 -- uncomment this to limit the full refresh to a certain date
 -- {% if should_full_refresh() %}
---     where date >= '2025-02-01'
+--     where date >= '{{ var("full_refresh_start_date") }}'
 -- {% endif %}
 
 group by k8s_environment, pod_id

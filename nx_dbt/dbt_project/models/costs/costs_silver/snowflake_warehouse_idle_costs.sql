@@ -19,7 +19,7 @@ query_executions AS (
         START_TIME::DATE as query_date
     FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY
     {% if should_full_refresh() %}
-        where START_TIME >= '2025-04-10'
+        where START_TIME >= '{{ var("full_refresh_start_date") }}'
     {% endif %}
     {% if is_incremental() %}
         -- Only get new data since the last run

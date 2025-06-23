@@ -136,5 +136,5 @@ from source
     where start_time > (select max(start_time) from {{ this }})
 {% endif %}
 {% if should_full_refresh() %}
-    where start_time >= '2025-01-01'
+    where start_time >= '{{ var("full_refresh_start_date") }}'
 {% endif %}
