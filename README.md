@@ -1,5 +1,7 @@
 # Nextail Costs Data Pipeline
 
+![Costs Data Pipeline by Picasso (Gemini AI)](images/costs_pipeline_cover_gemini.jpg)
+
 Welcome to the Nextail Costs Data Pipeline documentation. This project implements a **modern data architecture for ingesting and processing costs related to our cloud infrastructure**; more specifically, it's used to track and analyze the costs associated to our Kubernetes and Snowflake resources.
 
 This project is a _Proof of Concept (PoC)_ that demonstrates:
@@ -106,9 +108,9 @@ In this Proof of Concept (PoC), we have set up a few jobs and schedules to run t
 | Component | File Location | Description | Schedule |
 |-----------|---------------|-------------|----------|
 | `nx_internal_reporting_full` asset | `nx_dbt/dagster/jobs/assets.py` | Includes the whole dbt project with all the models | - |
-| `costs_materialization_schedule` | `nx_dbt/dagster/jobs/schedules.py` | Runs the costs models (`fqn:costs.*`) | Every 12 hours |
-| `internal_materialization_schedule` | `nx_dbt/dagster/jobs/schedules.py` | Runs the internal models (`fqn:internal.*`) | Daily at 05:00 UTC |
-| `snowflake_query_attribution_schedule` | `nx_dbt/dagster/jobs/schedules.py` | Runs the snowflake query attribution models (`fqn:stg_query_attribution_history`) | Every 4 hours |
+| `dbt_costs_materialization_schedule` | `nx_dbt/dagster/jobs/schedules.py` | Runs the costs models (`fqn:costs.*`) | Every 12 hours |
+| `dbt_internal_materialization_schedule` | `nx_dbt/dagster/jobs/schedules.py` | Runs the internal models (`fqn:internal.*`) | Daily at 05:00 UTC |
+| `dbt_snowflake_query_attribution_schedule` | `nx_dbt/dagster/jobs/schedules.py` | Runs the snowflake query attribution models (`fqn:stg_query_attribution_history`) | Every 4 hours |
 
 To add a new job and schedule, you can follow the examples in the `nx_dbt/dagster/jobs/assets.py` and `nx_dbt/dagster/jobs/schedules.py` files, bearing in mind the following:
 - The `nx_internal_reporting_full` asset is the main asset that includes the whole dbt project with all the models.
@@ -120,7 +122,7 @@ To add a new job and schedule, you can follow the examples in the `nx_dbt/dagste
 ### **Check Pipeline Health**
 - **Dagster UI**: http://127.0.0.1:3000 (local) or https://nextail.dagster.cloud/sandbox/locations/nx-dbt-default/ (Cloud-Sandbox)
 - **Catalog Tab > Assets**: See which data is fresh (last updated) in https://nextail.dagster.cloud/sandbox/selection/all-assets/assets?asset-selection=kind%3A%22dbt%22
-- **Runs Tab**: Check for failed jobs ([direct link for costs materialization](https://nextail.dagster.cloud/sandbox/runs?q%5B0%5D=job:costs_materialization_job); there are a few more materialization jobs for the other models)
+- **Runs Tab**: Check for failed jobs ([direct link for costs materialization](https://nextail.dagster.cloud/sandbox/runs?q%5B0%5D=job:dbt_costs_materialization_job); there are a few more materialization jobs for the other models)
 - **Automation Tab** ([link](https://nextail.dagster.cloud/sandbox/automation)): for verifying schedules are running
 
 > **Note**: Slack notifications on dbt tests errors are not developed yet. Furthermore, the Dagster pipelines are executing only `run` commands, not `build` commands, hence the tests are not included at this moment.
