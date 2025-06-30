@@ -67,7 +67,8 @@ models:
                 'forecast',
                 'monitoring',
                 'size_curves',
-                'explainability'
+                'explainability',
+                'firstallocation',
               ]
       - name: label_module
         data_tests:
@@ -78,6 +79,8 @@ models:
                 'size_curves', 'internal_tools',
                 'forecast_validation', 'forecast',
                 'backend',
+                'firstallocation',
+                'internal_reporting',
               ]
       - name: label_submodule
         data_tests:
@@ -89,7 +92,10 @@ models:
                 'backtests', 'model_train', 'store_product_inference', 'training', 'traning',
                 'pylarms', 'features', 'others', 'fact_table', 'inferece', 'validation', 'size_curves',
                 'nx_job_orchestraptor', 'nx_job_orchestrator',
-                'inference'
+                'inference',
+                'firstallocation_data_pipelines',
+                'firstallocation',
+                'dbt_execution',
               ]
       - name: label_operation
       - name: label_tenant

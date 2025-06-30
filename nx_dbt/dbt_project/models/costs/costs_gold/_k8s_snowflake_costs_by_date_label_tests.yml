@@ -37,7 +37,9 @@ models:
                 'data_services',
                 'textil',
                 'explainability',
-                'dbt'
+                'dbt',
+                'firstallocation',
+                'service1',
               ]
       - name: module
         tests:
