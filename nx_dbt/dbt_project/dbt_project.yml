@@ -101,10 +101,10 @@ models:
       # we want to use BI_READER_PROD_RL for production and BI_READER_SANDBOX_RL for sandbox, but the
       # NX_ENVIRONMENT envvar is either PRODUCTION or SANDBOX.
       # The following code resolves this
-      - "BI_READER_{{ 
-          'PROD' if env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') | upper == 'PRODUCTION' 
-          else 'SANDBOX' if env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') | upper == 'SANDBOX' 
-          else 'NX_ENVIRONMENT_NOT_SET' 
+      - "BI_READER_{{
+          'PROD' if env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') | upper == 'PRODUCTION'
+          else 'SANDBOX' if env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') | upper == 'SANDBOX'
+          else 'NX_ENVIRONMENT_NOT_SET'
         }}_RL"
   nextail:
     # must be NEXTAIL_INTERNALS_<ENVIRONMENT>_DB
@@ -117,10 +117,10 @@ models:
         +schema: nx_costs_silver
       costs_gold:
         +schema: nx_gold
-    
+
     internal:
       internal_staging:
         +schema: nx_internals_bronze
-    
+
     sales_engineering:
       +schema: nx_sales_engineering_playground
