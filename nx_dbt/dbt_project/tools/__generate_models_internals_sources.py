@@ -149,7 +149,7 @@ def generate_source_yaml(
     }
     
     with open(output_file, 'w') as f:
-        yaml.dump(yaml_content, f, sort_keys=False, default_flow_style=False)
+        yaml.dump(yaml_content, f, sort_keys=False, default_flow_style=False, indent=4)
 
 def add_schema(
     config: Dict[str, Any],
