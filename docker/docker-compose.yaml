@@ -20,7 +20,7 @@ services:
       dockerfile: docker/Dockerfile
       target: srv
       args:
-        - GITHUB_PIP_TOKEN # This can be removed if is not planned to use Nextail libraries.
+        - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
         - PACKAGE_NAME
         - DBT_RSA_PASSPHRASE
         - DBT_RSA_KEY
@@ -76,7 +76,7 @@ services:
       dockerfile: docker/Dockerfile
       target: srv
       args:
-        - GITHUB_PIP_TOKEN # This can be removed if is not planned to use Nextail libraries.
+        - GITHUB_PIP_TOKEN  # This can be removed if is not planned to use Nextail libraries.
         - PACKAGE_NAME
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_daemon
