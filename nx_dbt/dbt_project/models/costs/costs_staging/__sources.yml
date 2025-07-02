@@ -14,7 +14,7 @@ sources:
         description: Snowflake's system query table
       - name: query_attribution_history
         description: Snowflake's system query history with credits attribution column.
-  
+
   - name: completed_jobs
     database: alltenants_costmonitor_allenvs_db
     schema: k8s_private
@@ -34,3 +34,4 @@ sources:
         description: kubecost's cost table for production k8s
       - name: kubecost_cumulative_cost_by_pod_sandbox
         description: kubecost's cost table for sandbox k8s
+

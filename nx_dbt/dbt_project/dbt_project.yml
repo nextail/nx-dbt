@@ -25,6 +25,7 @@ vars:
   # "dbt_date:time_zone": "America/Los_Angeles"
   "dbt_date:time_zone": "Etc/UTC"
   "tenant": "nextail"
+  # to be modified to include the centralized configuration of tenants
   "all_tenants": [
     "ARISTOCRAZY",
     # "BASE",
@@ -112,23 +113,13 @@ models:
       costs_gold:
         +schema: nx_gold
 
-      ## DEPRECATED FOLDERS
+      # DEPRECATED FOLDERS
       DEPRECATED:
         +enabled: false
       
     internal:
       internal_staging:
-        # +database: NEXTAIL_INTERNALS_SANDBOX_DB
         +schema: nx_internals_bronze
 
     sales_engineering:
-      # +database: NEXTAIL_INTERNALS_SANDBOX_DB
       +schema: nx_sales_engineering_playground
-
-
-# dispatch:
-#   - macro_namespace: dbt
-#     search_order:
-#       - nx_internal_reporting
-#       - dbt_snowflake_query_tags
-#       - dbt

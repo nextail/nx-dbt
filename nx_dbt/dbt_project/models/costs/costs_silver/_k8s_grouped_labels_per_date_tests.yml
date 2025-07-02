@@ -1,5 +1,5 @@
 version: 2
 
 models:
-    - name: k8s_grouped_labels_per_date
-      description: "ToDo"
+  - name: k8s_grouped_labels_per_date
+    description: "ToDo"

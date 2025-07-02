@@ -1,9 +1,11 @@
+version: 2
+
 models:
   - name: k8s_snowflake_costs_by_date_label
-    #tests:
-    #  - unique:
-    #      column_name: [start_date, service, module, submodule, operation, tenant, environment, correlation_id, execution_id]
-          
+    # tests:
+    #   - unique:
+    #       column_name: [start_date, service, module, submodule, operation, tenant, environment, correlation_id, execution_id]
+
     columns:
       - name: start_date
         tests:
@@ -57,13 +59,13 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['sandbox','NA','production','test','env.sbx', 'dev']
+              values: ['sandbox', 'NA', 'production', 'test', 'env.sbx', 'dev']
       - name: correlation_id
         tests:
           - not_null
       - name: execution_id
         # tests:
-        #  - not_null
+        #   - not_null
       - name: snowflake_no_queries
         tests:
           - dbt_utils.expression_is_true:
