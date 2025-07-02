@@ -25,6 +25,10 @@ python3 tools/__generate_models_internals_sources.py
 import yaml
 from typing import List, Dict, Any
 
+class IndentDumper(yaml.SafeDumper):
+    def increase_indent(self, flow=False, indentless=False):
+        return super(IndentDumper, self).increase_indent(flow, False)
+
 # Define the source configuration structure
 SOURCE_CONFIG = {
     "schemas": {
@@ -149,7 +153,7 @@ def generate_source_yaml(
     }
     
     with open(output_file, 'w') as f:
-        yaml.dump(yaml_content, f, sort_keys=False, default_flow_style=False, indent=4)
+        yaml.dump(yaml_content, f, sort_keys=False, default_flow_style=False, indent=2, Dumper=IndentDumper)
 
 def add_schema(
     config: Dict[str, Any],

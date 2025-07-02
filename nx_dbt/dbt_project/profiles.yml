@@ -21,7 +21,7 @@ nx_internal_profile:
 
       threads: 8
       client_session_keep_alive: False
-      # query_tag: '{"service": "data_platform", "module": "internal_reporting", "submodule": "dbt_execution", "operation": null, "tenant": "nextail", "environment": "sandbox", "correlation_id": null, "execution_id": null}'
+      # query_tag: for setting the query tag, check the macros/query_tags.sql
 
       # optional
       connect_retries: 0 # default 0
