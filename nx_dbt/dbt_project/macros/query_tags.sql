@@ -5,9 +5,9 @@
             'service': 'data_platform',
             'module': 'internal_reporting',
             'submodule': 'dbt_execution',
-            'operation': None,
+            'operation': invocation_args_dict['invocation_command'],
             'tenant': var('tenant', 'default_tenant'),
-            'environment': 'sandbox',
+            'environment': env_var('NX_ENVIRONMENT', 'development'),
             'correlation_id': None,
             'execution_id': None,
 
