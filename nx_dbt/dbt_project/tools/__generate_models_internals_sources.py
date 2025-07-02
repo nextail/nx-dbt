@@ -14,7 +14,8 @@ For each tenant in dbt_project.yml, it generates a source definition that includ
 
 The generated YAML file is saved to models/internal/__sources.yml and follows dbt's source specification format.
 
-To modify the source configuration, edit the SOURCE_CONFIG dictionary directly. Future versions will use an external json file.
+To modify the source configuration, edit the SOURCE_CONFIG dictionary directly. Future versions will use an external
+json file.
 
 It must be executed manually from the root of the dbt project.
 
@@ -22,8 +23,10 @@ Execute this script by running:
 python3 tools/__generate_models_internals_sources.py
 """
 
+from typing import Any, Dict, List
+
 import yaml
-from typing import List, Dict, Any
+
 
 class IndentDumper(yaml.SafeDumper):
     def increase_indent(self, flow=False, indentless=False):
@@ -67,9 +70,6 @@ SOURCE_CONFIG = {
                 },
                 "engine_executions": {
                     "description": "engine executions table"
-                },
-                "first_allocation_execution": {
-                    "description": "first allocation execution table"
                 },
                 "preconfigured_execution": {
                     "description": "preconfigured execution table"
@@ -122,14 +122,14 @@ def generate_source_yaml(
 ) -> None:
     """
     Generate a dbt source YAML file based on a configuration structure.
-    
+
     Args:
         database_names: List of database names to generate sources for
         source_config: Dictionary containing the source configuration structure
         output_file: Path to the output YAML file
     """
     sources = []
-    
+
     for db_name in database_names:
         for schema_name, schema_config in source_config["schemas"].items():
             source = {
@@ -146,13 +146,13 @@ def generate_source_yaml(
                 ]
             }
             sources.append(source)
-    
+
     yaml_content = {
         "version": 2,
         "sources": sources
     }
-    
-    with open(output_file, 'w') as f:
+
+    with open(output_file, "w") as f:
         yaml.dump(yaml_content, f, sort_keys=False, default_flow_style=False, indent=2, Dumper=IndentDumper)
 
 def add_schema(
@@ -163,7 +163,7 @@ def add_schema(
 ) -> None:
     """
     Add a new schema configuration to the source config.
-    
+
     Args:
         config: The source configuration dictionary
         schema_name: Name of the schema to add
@@ -183,7 +183,7 @@ def add_table(
 ) -> None:
     """
     Add a new table to an existing schema configuration.
-    
+
     Args:
         config: The source configuration dictionary
         schema_name: Name of the schema to add the table to
@@ -192,7 +192,7 @@ def add_table(
     """
     if schema_name not in config["schemas"]:
         raise ValueError(f"Schema {schema_name} does not exist in configuration")
-    
+
     config["schemas"][schema_name]["tables"][table_name] = {
         "description": description
     }
@@ -202,12 +202,11 @@ if __name__ == "__main__":
     with open("dbt_project.yml", "r") as f:
         dbt_project = yaml.safe_load(f)
     databases = dbt_project["vars"]["all_tenants"]
-    
-    
+
     # Example of how to modify the configuration
     # Create a new configuration
     new_config = {"schemas": {}}
-    
+
     # apply the source config to the new config
     for schema_name, schema_config in SOURCE_CONFIG["schemas"].items():
         add_schema(new_config, schema_name, schema_config["description"], schema_config["tables"])
@@ -216,7 +215,7 @@ if __name__ == "__main__":
     for schema_name, schema_config in SOURCE_CONFIG["schemas"].items():
         for table_name, table_config in schema_config["tables"].items():
             add_table(new_config, schema_name, table_name, table_config["description"])
-    
+
     output_path = "models/internal/__sources.yml"
     generate_source_yaml(databases, new_config, output_path)
     print(f"Generated source YAML file at: {output_path}")

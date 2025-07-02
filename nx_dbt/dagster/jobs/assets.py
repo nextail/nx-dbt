@@ -1,15 +1,7 @@
 from pathlib import Path
 
 from dagster import AssetExecutionContext
-
-from dagster_dbt import (
-    DbtCliResource,
-    DbtProject,
-    build_schedule_from_dbt_selection,
-    dbt_assets,
-)
-
-from .constants import dbt_manifest_path
+from dagster_dbt import DbtCliResource, DbtProject, dbt_assets
 
 RELATIVE_PATH_TO_MY_DBT_PROJECT = "./../../dbt_project"
 
