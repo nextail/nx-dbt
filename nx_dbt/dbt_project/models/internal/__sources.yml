@@ -1749,9 +1749,168 @@ sources:
     description: warehouse stock items table
   - name: databasechangelog
     description: liquibase database changelog table
+- name: SCOTTA_globaldomain_public
+  description: Raw data sources from our data warehouse
+  database: SCOTTA_main_prod_db
+  schema: globaldomain_public
+  tables:
+  - name: first_allocation_execution
+    description: first allocation execution table
+  - name: category
+    description: category table
+  - name: category_item_included
+    description: category item included table
+  - name: products
+    description: products table
+  - name: product_history
+    description: product history table
+  - name: stores
+    description: stores table
+  - name: families
+    description: families table
+  - name: cron
+    description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: store_stock_items
+    description: store stock items table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
+  - name: warehouse_stock_items
+    description: warehouse stock items table
+  - name: databasechangelog
+    description: liquibase database changelog table
+- name: SILBON_globaldomain_public
+  description: Raw data sources from our data warehouse
+  database: SILBON_main_prod_db
+  schema: globaldomain_public
+  tables:
+  - name: first_allocation_execution
+    description: first allocation execution table
+  - name: category
+    description: category table
+  - name: category_item_included
+    description: category item included table
+  - name: products
+    description: products table
+  - name: product_history
+    description: product history table
+  - name: stores
+    description: stores table
+  - name: families
+    description: families table
+  - name: cron
+    description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: store_stock_items
+    description: store stock items table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
+  - name: warehouse_stock_items
+    description: warehouse stock items table
+  - name: databasechangelog
+    description: liquibase database changelog table
 - name: SFERABASICMAN_globaldomain_public
   description: Raw data sources from our data warehouse
   database: SFERABASICMAN_main_prod_db
+  schema: globaldomain_public
+  tables:
+  - name: first_allocation_execution
+    description: first allocation execution table
+  - name: category
+    description: category table
+  - name: category_item_included
+    description: category item included table
+  - name: products
+    description: products table
+  - name: product_history
+    description: product history table
+  - name: stores
+    description: stores table
+  - name: families
+    description: families table
+  - name: cron
+    description: cron table
+  - name: buy_execution
+    description: buy execution table
+  - name: dio_execution_selected
+    description: dio execution selected table
+  - name: engine_executions
+    description: engine executions table
+  - name: preconfigured_execution
+    description: preconfigured execution table
+  - name: reorder_execution
+    description: reorder execution table
+  - name: replenishment_executions
+    description: replenishment executions table
+  - name: store_transfers_executions
+    description: store transfers executions table
+  - name: store_transfers_execution_aggregates
+    description: store transfers execution aggregates table
+  - name: store_stock_items
+    description: store stock items table
+  - name: scenario
+    description: scenarios table
+  - name: warehouses
+    description: warehouses table
+  - name: skus
+    description: skus table
+  - name: seasons
+    description: seasons table
+  - name: sales
+    description: sales table
+  - name: warehouse_stock_items
+    description: warehouse stock items table
+  - name: databasechangelog
+    description: liquibase database changelog table
+- name: SPORTSEMOTION_globaldomain_public
+  description: Raw data sources from our data warehouse
+  database: SPORTSEMOTION_main_prod_db
   schema: globaldomain_public
   tables:
   - name: first_allocation_execution
