@@ -1,0 +1,141 @@
+version: 2
+
+models:
+  - name: stg_k8s_completed_jobs_all
+    description: "Staging table for completed Kubernetes jobs in the sandbox environment."
+    columns:
+      - name: pod_id
+        data_tests:
+          - not_null
+      - name: k8s_environment
+        data_tests:
+          # must be a value from SANDBOX, STAGING, PRODUCTION
+          - accepted_values:
+              values: ['SANDBOX', 'PROD']
+      - name: start_date
+        data_tests:
+          - not_null
+      - name: start_time_utc
+        data_tests:
+          - not_null
+      - name: end_time_utc
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+                error_if: ">10"
+      - name: pod_duration_seconds
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+                error_if: ">10"
+      - name: image
+        data_tests:
+          - not_null
+      - name: max_memory_usage_bytes
+      - name: max_cpu_usage
+      - name: configured_memory_limit_bytes
+      - name: configured_cpu_limit
+      - name: configured_memory_request_bytes
+      - name: configured_cpu_request
+      - name: termination_reason
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [
+                'Completed', 'OOMKilled', 'Error', 'StartError'
+                ]
+      - name: duration_seconds
+      - name: label_service
+        data_tests:
+          - accepted_values:
+              values: [
+                'NA',
+                'advanced_analytics',
+                'dagster_poc_default',
+                'data_integration',
+                'data_platform',
+                'first_allocation',
+                'internal',
+                'optimization',
+                'platform',
+                'replenishment',
+                'store_transfers',
+                'storetransfer',
+                'storetransfers',
+                'forecast',
+                'monitoring',
+                'size_curves',
+                'explainability',
+                'firstallocation',
+              ]
+      - name: label_module
+        data_tests:
+          - accepted_values:
+              values: [
+                'storetransfer', 'optimization', 'integrations', 'replenishment', 'my_module', 'storetransfers',
+                'forecast_store_product', 'okta', 'module_name', 'nxops', 'k8s_usage_reports', 'kron', 'engineering_portal',
+                'size_curves', 'internal_tools',
+                'forecast_validation', 'forecast',
+                'backend',
+                'firstallocation',
+                'internal_reporting',
+              ]
+      - name: label_submodule
+        data_tests:
+          - accepted_values:
+              values: [
+                'my_submodule','replenishment', 'engine', 'dio_daily', 'optimization_pipelines', 'scheduled_tools',
+                'replenishment_data_pieplines', 'storetransfers_data_pipelines', 'kron', 'reports', 'replenishment_data_pipelines',
+                'auth_updater', 'docusaurus', 'export_job', 'customization',
+                'backtests', 'model_train', 'store_product_inference', 'training', 'traning',
+                'pylarms', 'features', 'others', 'fact_table', 'inferece', 'validation', 'size_curves',
+                'nx_job_orchestraptor', 'nx_job_orchestrator',
+                'inference',
+                'firstallocation_data_pipelines',
+                'firstallocation',
+                'dbt_execution',
+              ]
+      - name: label_operation
+      - name: label_tenant
+        # data_tests:
+        #   - accepted_values:
+        #       values: ['sportstreet','calliope','ethnicity','valextra','bar','foo','ginatricot','guessemea','flyingtiger','metrobrands','base','tenant2','riverisland','guessus','tenant1','pepe']
+      - name: label_environment
+        data_tests:
+          - accepted_values:
+              values: ['env.sbx','sandbox', 'production']
+      - name: label_correlation_id
+      - name: label_execution_id
+      - name: label_controller_uid
+        data_tests:
+          - not_null
+      - name: label_batch_kubernetes_io_job_name
+        data_tests:
+          - not_null
+      - name: label_job_name
+        data_tests:
+          - not_null
+      - name: label_batch_kubernetes_io_controller_uid
+        data_tests:
+          - not_null
+      - name: label_client
+      - name: label_scheduled_by_phoenix
+      - name: label_phoenix_queue
+      - name: label_phoenix_id
+      - name: label_app_kubernetes_io_instance
+      - name: label_app_kubernetes_io_name
+      - name: label_app_kubernetes_io_version
+      - name: label_dagster_job
+      - name: label_app_kubernetes_io_component
+      - name: label_app_kubernetes_io_part_of
+      - name: label_dagster_run_id
+      - name: label_dagster_code_location
+      - name: label_cron
+      - name: label_app
+      - name: label_dagster_op
+      - name: label_kind
+      - name: label_release
+      - name: label_app_kubernetes_io_managed_by
+      - name: label_helm_sh_chart

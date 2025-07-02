@@ -1,3 +1,13 @@
+# dbt specific
+nx_dbt/dbt_project/dbt_internal_packages/* # only dbt 1.10
+logs/
+nx_dbt/dbt_project/target/*
+# !nx_dbt/dbt_project/target/manifest.json
+.user.yml
+customers.yml
+package-lock.yml
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -72,7 +82,7 @@ instance/
 docs/_build/
 
 # PyBuilder
-target/
+/target/
 
 # Jupyter Notebook
 .ipynb_checkpoints

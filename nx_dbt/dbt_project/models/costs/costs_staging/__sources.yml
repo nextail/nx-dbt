@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: snowflake
+    database: snowflake
+    schema: account_usage
+    description: Snowflake's system tables
+    # freshness:
+    #  warn_after:
+    #    count: 24
+    #    period: hour
+    tables:
+      - name: query_history
+        description: Snowflake's system query table
+      - name: query_attribution_history
+        description: Snowflake's system query history with credits attribution column.
+  
+  - name: completed_jobs
+    database: alltenants_costmonitor_allenvs_db
+    schema: k8s_private
+    description: kubecost-related tables
+    tables:
+      - name: completed_jobs_prod
+        description: kubecost's cost table for production k8s
+      - name: completed_jobs_sandbox
+        description: kubecost's cost table for sandbox k8s
+
+  - name: kubecost
+    database: alltenants_costmonitor_allenvs_db
+    schema: public
+    description: kubecost-related tables
+    tables:
+      - name: kubecost_cumulative_cost_by_pod_pro
+        description: kubecost's cost table for production k8s
+      - name: kubecost_cumulative_cost_by_pod_sandbox
+        description: kubecost's cost table for sandbox k8s

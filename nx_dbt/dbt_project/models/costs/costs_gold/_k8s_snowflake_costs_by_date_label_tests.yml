@@ -1,0 +1,99 @@
+models:
+  - name: k8s_snowflake_costs_by_date_label
+    #tests:
+    #  - unique:
+    #      column_name: [start_date, service, module, submodule, operation, tenant, environment, correlation_id, execution_id]
+          
+    columns:
+      - name: start_date
+        tests:
+          - not_null
+      - name: service
+        tests:
+          - not_null
+          - accepted_values:
+              values: [
+                'advanced_analytics',
+                'advance_analytics',
+                'dagster_poc_default',
+                'data_integration',
+                'data_platform',
+                'first_allocation',
+                'internal',
+                'NA',
+                'optimization',
+                'platform',
+                'replenishment',
+                'store_transfers',
+                'storetransfer',
+                'storetransfers',
+                'forecast',
+                'monitoring',
+                'size_curves',
+                'mobileapp',
+                'replenishments',
+                'desktopapp',
+                'app',
+                'data_services',
+                'textil',
+                'explainability',
+                'dbt',
+                'firstallocation',
+                'service1',
+              ]
+      - name: module
+        tests:
+          - not_null
+      - name: submodule
+        tests:
+          - not_null
+      - name: operation
+        tests:
+          - not_null
+      - name: tenant
+        tests:
+          - not_null
+      - name: environment
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['sandbox','NA','production','test','env.sbx', 'dev']
+      - name: correlation_id
+        tests:
+          - not_null
+      - name: execution_id
+        # tests:
+        #  - not_null
+      - name: snowflake_no_queries
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: snowflake_total_query_duration_ms
+        tests:
+          # - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: snowflake_total_credits
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1000  # Adjust based on your expected maximum credits per day
+      - name: k8s_no_pod_ids
+        tests:
+          # - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: k8s_total_pods_duration_s
+        tests:
+          # - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: k8s_total_cost
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 10000  # Adjust based on your expected maximum K8s cost per day

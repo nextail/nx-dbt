@@ -22,6 +22,11 @@ services:
       args:
         - GITHUB_PIP_TOKEN # This can be removed if is not planned to use Nextail libraries.
         - PACKAGE_NAME
+        - DBT_RSA_PASSPHRASE
+        - DBT_RSA_KEY
+        - DBT_ROLE
+        - DBT_DATABASE
+        - DBT_WAREHOUSE
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_webserver
     container_name: ${REPO_NAME}_webserver
@@ -45,6 +50,11 @@ services:
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
+      DBT_RSA_PASSPHRASE: ${DBT_RSA_PASSPHRASE}
+      DBT_RSA_KEY: ${DBT_RSA_KEY}
+      DBT_ROLE: ${DBT_ROLE}
+      DBT_DATABASE: ${DBT_DATABASE}
+      DBT_WAREHOUSE: ${DBT_WAREHOUSE}
     ports:
       - "3000:3000"
       - "5678:5678"
@@ -52,6 +62,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
       - ~/.aws:/root/.aws
+      - ../dbt_project:/opt/${REPO_NAME}/${PACKAGE_NAME}/dbt_project
     depends_on:
       - postgres_db
     networks:
@@ -85,12 +96,18 @@ services:
       POSTGRES_DB: postgres_db
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: postgres_password
+      DBT_RSA_PASSPHRASE: ${DBT_RSA_PASSPHRASE}
+      DBT_RSA_KEY: ${DBT_RSA_KEY}
+      DBT_ROLE: ${DBT_ROLE}
+      DBT_DATABASE: ${DBT_DATABASE}
+      DBT_WAREHOUSE: ${DBT_WAREHOUSE}
     ports:
       - "5679:5678"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../${PACKAGE_NAME}:/opt/${REPO_NAME}/${PACKAGE_NAME}
       - ~/.aws:/root/.aws
+      - ../dbt_project:/opt/${REPO_NAME}/${PACKAGE_NAME}/dbt_project
     depends_on:
       - postgres_db
     networks:

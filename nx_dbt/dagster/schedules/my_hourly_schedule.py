@@ -6,7 +6,7 @@ from nx_dbt.dagster.jobs.say_hello import say_hello_job
 @schedule(
     cron_schedule="0 * * * *",
     job=say_hello_job,
-    execution_timezone="US/Central",
+    execution_timezone="UTC",
     description="""
     A schedule definition. This example schedule runs once each hour.
 

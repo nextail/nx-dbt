@@ -6,10 +6,25 @@
 # By default it will be false and a default dagster service account will be used.
 # In case of create: true, the circleci pipeline must also be configured setting the property custom_service_account: true.
 serviceAccount:
-  create: false
+  create: true
 
 # envVar: is the name of the environment variable that will be exposed in your application container.
 # key: refers to the key inside your AWS Secrets Manager secret.
-# envFromSecretsManager:
-#   - envVar: ENV_NAME
-#     key: secret_key
+envFromSecretsManager:
+  - envVar: DBT_RSA_PASSPHRASE
+    key: RSA_PASSPHRASE_2
+  - envVar: DBT_RSA_KEY
+    key: RSA_PRIVATE_KEY_2
+  - envVar: DBT_ROLE
+    key: DBT_ROLE
+  - envVar: DBT_DATABASE
+    key: DBT_DATABASE
+  - envVar: DBT_WAREHOUSE
+    key: DBT_WAREHOUSE
+
+# Centralized parameters to be accessed from the pod.
+# Format is [domain]/[filename]. They get mounted with the name _environment_domain_filename unless an alias is defined.
+# sharedParameters:
+#   - Name: "global/clients.yaml"
+#     Alias: "clients.yaml"
+#   - Name: "customdomain/custom.json"

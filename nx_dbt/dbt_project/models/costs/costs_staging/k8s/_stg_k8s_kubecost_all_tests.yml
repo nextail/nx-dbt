@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: stg_k8s_kubecost_all
+    description: "Staging table for Kubernetes cost data in the sandbox environment."
+    columns:
+      - name: k8s_environment
+        data_tests:
+          # must be a value from a list
+          - accepted_values:
+              values: ['SANDBOX', 'PROD']
+      - name: pod_id
+        data_tests:
+          - not_null
+      - name: avg_cpu
+        data_tests:
+          - not_null
+      - name: avg_gpu
+        data_tests:
+          - not_null
+      - name: avg_ram
+        data_tests:
+          - not_null
+      - name: avg_pv
+        data_tests:
+          - not_null
+      - name: avg_network
+        data_tests:
+          - not_null
+      - name: avg_loadbalancer
+        data_tests:
+          - not_null
+      - name: avg_external
+        data_tests:
+          - not_null
+      - name: avg_shared
+        data_tests:
+          - not_null
+      - name: avg_efficiency
+        data_tests:
+          - not_null
+      - name: sum_total_cost
+        data_tests:
+          - not_null
+      - name: start_date
+        data_tests:
+          - not_null
+      - name: end_date
+        data_tests:
+          - not_null
+      

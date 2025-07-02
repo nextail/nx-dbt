@@ -1,0 +1,31 @@
+nx_internal_profile:
+  target: nx_internal_reporting_target
+  outputs:
+    nx_internal_reporting_target:
+      type: snowflake
+      account: xo52081.eu-west-1
+
+      user: DBT
+
+      # Keypair config
+      # private_key_path: "/Users/pabloespeso/.snowflake/.ssh/dbt_user/rsa_key.p8"
+      # private_key_path: ".env/dbt_rsa_key.p8"
+      private_key: "{{ env_var('DBT_RSA_KEY') }}"
+      # or private_key instead of private_key_path
+      private_key_passphrase: "{{ env_var('DBT_RSA_PASSPHRASE') }}"
+
+      role: "{{ env_var('DBT_ROLE')}}"
+      database: "{{ env_var('DBT_DATABASE') }}"
+      warehouse: "{{ env_var('DBT_WAREHOUSE') }}"
+      schema: dbt
+
+      threads: 8
+      client_session_keep_alive: False
+      # query_tag: '{"service": "data_platform", "module": "internal_reporting", "submodule": "dbt_execution", "operation": null, "tenant": "nextail", "environment": "sandbox", "correlation_id": null, "execution_id": null}'
+
+      # optional
+      connect_retries: 0 # default 0
+      connect_timeout: 10 # default: 10
+      retry_on_database_errors: False # default: false
+      retry_all: False  # default: false
+      reuse_connections: True # default: True if client_session_keep_alive is False, otherwise None
