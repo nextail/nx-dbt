@@ -1,12 +1,9 @@
-"""
-To add a daily schedule that materializes your dbt assets, uncomment the following lines.
-"""
-from dagster_dbt import build_schedule_from_dbt_selection
+import os
+
 from dagster import DefaultScheduleStatus
+from dagster_dbt import build_schedule_from_dbt_selection
 
 from .assets import nx_internal_reporting_full
-
-import os
 
 # Base tags configuration
 base_tags = {
