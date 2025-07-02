@@ -63,8 +63,3 @@ models:
           field: query_date
           datepart: day
           interval: 2
-      - dbt_utils.relationships:
-          field: warehouse_name
-          to: ref('snowflake_warehouse_metering_history')
-          config:
-            severity: warn

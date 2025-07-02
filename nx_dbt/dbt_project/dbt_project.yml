@@ -109,6 +109,7 @@ models:
   nextail:
     # must be NEXTAIL_INTERNALS_<ENVIRONMENT>_DB
     +database: "{{ env_var('DBT_DATABASE') }}"
+
     costs:
       costs_staging:
         +schema: nx_costs_bronze
@@ -116,11 +117,10 @@ models:
         +schema: nx_costs_silver
       costs_gold:
         +schema: nx_gold
-      # DEPRECATED FOLDERS
-      DEPRECATED:
-        +enabled: false
+    
     internal:
       internal_staging:
         +schema: nx_internals_bronze
+    
     sales_engineering:
       +schema: nx_sales_engineering_playground
