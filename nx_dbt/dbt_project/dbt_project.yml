@@ -19,6 +19,8 @@ clean-targets:
   - "dbt_packages"
 
 vars:
+  # variable environment is set to "development" or os.environ.get("ENVIRONMENT")
+  "DBT_WAREHOUSE": "{{ env_var('DBT_WAREHOUSE') }}" # required to set the config in the dynamic tables; we need to set a dbt var because the config block cannot use env_var
   "full_refresh_start_date": "2025-01-01"
   # "dbt_date:time_zone": "America/Los_Angeles"
   "dbt_date:time_zone": "Etc/UTC"
@@ -26,7 +28,7 @@ vars:
   "all_tenants": [
     "ARISTOCRAZY",
     # "BASE",
-    # "BIMANI", remove after adding bimani production database
+    "BIMANI",
     "BZB",
     "CALLIOPE",
     "DCK",
@@ -58,8 +60,11 @@ vars:
     "MOUNTAINWAREHOUSE",
     "PEPE",
     "RIVERISLAND",
+    "SCOTTA",
+    "SILBON",
     "SFERABASICMAN",
     # "SISIFO",
+    "SPORTSEMOTION",
     "SPORTSTREET",
     "SUAREZ",
     "TERRANOVA",
@@ -91,11 +96,12 @@ models:
   +persist_docs:
     relation: true
     # column: true
-  +grants:  # Grant access to the BI_READER_SANDBOX_RL role to all models in this dbt project
-    select: ['BI_READER_SANDBOX_RL']
+  +grants:
+    select: ['BI_READER_{{ env_var("NX_ENVIRONMENT", "NX_ENVIRONMENT_NOT_SET") }}_RL']
 
   nextail:
-    +database: NEXTAIL_INTERNALS_SANDBOX_DB
+    # must be NEXTAIL_INTERNALS_<ENVIRONMENT>_DB
+    +database: NEXTAIL_INTERNALS_{{ env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') }}_DB
     costs:
       costs_staging:
         +schema: nx_costs_bronze
