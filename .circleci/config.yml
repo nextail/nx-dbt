@@ -166,7 +166,6 @@ workflows:
           filters:
             branches:
               ignore:
-                - sandbox
                 - <<pipeline.parameters.branch_deployment>>
 
       # run make test
@@ -199,24 +198,23 @@ workflows:
                 - sandbox
 
       # # build-and-deploy for prod dagster environment
-      # # uncomment to deploy to production
-      # - dagster-pipelines-orb/build-and-deploy-production:
-      #     custom_service_account: <<pipeline.parameters.custom_service_account>>
-      #     use_secrets: <<pipeline.parameters.use_secrets>>
-      #     use_parameters: <<pipeline.parameters.use_parameters>>
-      #     use_datadog_tracer: <<pipeline.parameters.use_datadog_tracer>>
-      #     module_name: <<pipeline.parameters.module_name>>
-      #     project_name: <<pipeline.parameters.project_name>>
-      #     code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
-      #     code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
-      #     job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
-      #     job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
-      #     requires:
-      #       - dagster-pipelines-orb/pre-commit
-      #       - dagster-pipelines-orb/check-secrets
-      #       - dagster-pipelines-orb/tests
-      #     context: org-global
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
+      - dagster-pipelines-orb/build-and-deploy-production:
+          custom_service_account: <<pipeline.parameters.custom_service_account>>
+          use_secrets: <<pipeline.parameters.use_secrets>>
+          use_parameters: <<pipeline.parameters.use_parameters>>
+          use_datadog_tracer: <<pipeline.parameters.use_datadog_tracer>>
+          module_name: <<pipeline.parameters.module_name>>
+          project_name: <<pipeline.parameters.project_name>>
+          code_location_resource_limit_memory: <<pipeline.parameters.code_location_resource_limit_memory>>
+          code_location_grpc_max_workers: <<pipeline.parameters.code_location_grpc_max_workers>>
+          job_run_resource_limit_cpu: <<pipeline.parameters.job_run_resource_limit_cpu>>
+          job_run_resource_limit_memory: <<pipeline.parameters.job_run_resource_limit_memory>>
+          requires:
+            - dagster-pipelines-orb/pre-commit
+            - dagster-pipelines-orb/check-secrets
+            - dagster-pipelines-orb/tests
+          context: org-global
+          filters:
+            branches:
+              only:
+                - main
