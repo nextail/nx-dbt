@@ -2,10 +2,6 @@ version: 2
 
 models:
   - name: k8s_snowflake_costs_by_date_label
-    # tests:
-    #   - unique:
-    #       column_name: [start_date, service, module, submodule, operation, tenant, environment, correlation_id, execution_id]
-
     columns:
       - name: start_date
         tests:
@@ -64,15 +60,12 @@ models:
         tests:
           - not_null
       - name: execution_id
-        # tests:
-        #   - not_null
       - name: snowflake_no_queries
         tests:
           - dbt_utils.expression_is_true:
               expression: ">= 0"
       - name: snowflake_total_query_duration_ms
         tests:
-          # - not_null
           - dbt_utils.expression_is_true:
               expression: ">= 0"
       - name: snowflake_total_credits
@@ -84,12 +77,10 @@ models:
               max_value: 1000  # Adjust based on your expected maximum credits per day
       - name: k8s_no_pod_ids
         tests:
-          # - not_null
           - dbt_utils.expression_is_true:
               expression: ">= 0"
       - name: k8s_total_pods_duration_s
         tests:
-          # - not_null
           - dbt_utils.expression_is_true:
               expression: ">= 0"
       - name: k8s_total_cost

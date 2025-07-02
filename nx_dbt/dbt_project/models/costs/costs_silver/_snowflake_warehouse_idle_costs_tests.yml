@@ -67,4 +67,4 @@ models:
           field: warehouse_name
           to: ref('snowflake_warehouse_metering_history')
           config:
-            severity: warn 
+            severity: warn

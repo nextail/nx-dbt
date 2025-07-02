@@ -48,4 +48,4 @@ models:
       - name: end_date
         data_tests:
           - not_null
-      
+
