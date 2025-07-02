@@ -5,7 +5,7 @@
             'service': 'data_platform',
             'module': 'internal_reporting',
             'submodule': 'dbt_execution',
-            'operation': invocation_args_dict['invocation_command'],
+            'operation': ' '.join(invocation_args_dict['invocation_command'].split()[:2]) if invocation_args_dict['invocation_command'] else None,
             'tenant': var('tenant', 'default_tenant'),
             'environment': env_var('NX_ENVIRONMENT', 'development'),
             'correlation_id': None,
