@@ -5,6 +5,7 @@
         incremental_strategy = 'merge',
         on_schema_change = 'sync_all_columns',
         cluster_by = ['tenant'],
+        enabled = false
     )
 }}
 

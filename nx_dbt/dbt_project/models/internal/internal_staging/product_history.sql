@@ -4,7 +4,8 @@
         unique_key = ['date', 'product_id', 'tenant'],
         incremental_strategy = 'merge',
         on_schema_change = 'sync_all_columns',
-        cluster_by = ['tenant', 'product_id']
+        cluster_by = ['tenant', 'product_id'],
+        enabled = false
     )
 }}
 -- database names: aristocrazy_main_prod_db, suarez_main_prod_db
