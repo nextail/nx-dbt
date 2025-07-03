@@ -11,7 +11,18 @@
 with
     source as (
         select
-            *,
+            * exclude credits_attributed_compute,
+            -- Since 2025-06-30, Snowflake is reporting null credits_attributed_compute values for short-running queries (< 100ms)
+            -- https://docs.snowflake.com/en/sql-reference/account-usage/query_attribution_history#usage-notes
+            -- we can use the workaround of calculating the number of credits used based on the query duration
+            -- This approach does not use the warehouse size and (incorrectly) assumes all queries are
+            -- executed in xsmall warehouses
+            -- to improve this, we may need to join the warehouse size and use it to calculate the real credits usage
+            case
+                when credits_attributed_compute is not null then credits_attributed_compute
+                when credits_attributed_compute is null then datediff('milliseconds', end_time, start_time) / 3600000
+            end as credits_attributed_compute,
+            
             -- for the old tags, extract the tenant value
             -- old queries have a structure like "app=mso-app;env=production;tenant=forevernew"
             SPLIT_PART(SPLIT_PART(query_tag, 'tenant=', 2), ';', 1) as tenant,
