@@ -86,14 +86,17 @@ For updating the codebase without having to execute the `make start-dev`, you ca
 Please, note you will need your own python virtual environment with the dependencies (depicted in the `pyproject.toml` file) installed, and the following environment variables set in your computer:
 
 ```bash
-DBT_ROLE=DBT_SANDBOX_RL
-DBT_DATABASE=NEXTAIL_INTERNALS_SANDBOX_DB
-DBT_WAREHOUSE=COMPUTE_WH
-DBT_RSA_PASSPHRASE=XXXXXXXXXXXX
-DBT_RSA_KEY=XXXXXXXXXXXX
+export DBT_RSA_PASSPHRASE="XXXXX" # it's available in LastPass
+export DBT_RSA_KEY=$(cat <path_to_your_key>/dbt_rsa_key.p8) # contents available in LastPass
+export DBT_ROLE="DBT_SANDBOX_RL"
+export DBT_DATABASE="NEXTAIL_INTERNALS_SANDBOX_DB"
+export DBT_WAREHOUSE="dataplatform_internal_wh"
+export NX_ENVIRONMENT="SANDBOX"
 ```
 
-Yoy should be using the specific key and passphrase for the dbt user we've created for this PoC. For further details, please contact the Data Platform Team.
+It is recommended to set these environment variables in your `.zshrc` file, so you don't have to set them every time you open a new terminal.
+
+You should be using the specific key and passphrase for the dbt user we've created for this PoC. For further details, please contact the Data Platform Team (hint: they are in LastPass).
 
 Bear in mind these variables are specific to the sandbox environment and they might change in the future. To ensure you have the correct configuration, you can run `dbt debug` to check the connection to Snowflake is working.
 
