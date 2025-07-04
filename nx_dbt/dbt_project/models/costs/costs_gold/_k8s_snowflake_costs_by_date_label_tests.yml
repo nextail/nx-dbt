@@ -55,7 +55,7 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['sandbox', 'NA', 'production', 'test', 'env.sbx', 'dev']
+              values: ['sandbox', 'NA', 'production', 'test', 'env.sbx', 'dev', 'development']
       - name: correlation_id
         tests:
           - not_null
