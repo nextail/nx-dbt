@@ -88,9 +88,7 @@ Please, note you will need your own python virtual environment with the dependen
 ```bash
 export DBT_RSA_PASSPHRASE="XXXXX" # it's available in LastPass
 export DBT_RSA_KEY=$(cat <path_to_your_key>/dbt_rsa_key.p8) # contents available in LastPass
-export DBT_ROLE="DBT_SANDBOX_RL"
-export DBT_DATABASE="NEXTAIL_INTERNALS_SANDBOX_DB"
-export DBT_WAREHOUSE="dataplatform_internal_wh"
+export DBT_TARGET="nx_internal_sandbox"
 export NX_ENVIRONMENT="SANDBOX"
 ```
 
