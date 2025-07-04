@@ -19,7 +19,9 @@ clean-targets:
   - "dbt_packages"
 
 vars:
-  "DBT_WAREHOUSE": "{{ env_var('DBT_WAREHOUSE') }}"  # required to set the config in the dynamic tables;
+  # "DBT_WAREHOUSE": "{{ env_var('DBT_WAREHOUSE') }}"  # required to set the config in the dynamic tables;
+  # DBT_WAREHOUSE var from target.warehouse
+  "DBT_WAREHOUSE": "{{ target.warehouse }}"  
   # we need to set a dbt var because the config block cannot use env_var
   "full_refresh_start_date": "2025-01-01"
   "dbt_date:time_zone": "Etc/UTC"
@@ -108,7 +110,7 @@ models:
         }}_RL"
   nextail:
     # must be NEXTAIL_INTERNALS_<ENVIRONMENT>_DB
-    +database: "{{ env_var('DBT_DATABASE') }}"
+    # +database: "{{ env_var('DBT_DATABASE') }}"
 
     costs:
       costs_staging:

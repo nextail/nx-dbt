@@ -1,26 +1,35 @@
 nx_internal_profile:
-  target: nx_internal_reporting_target
+  target: nx_internal_sandbox
   outputs:
-    nx_internal_reporting_target:
+    nx_internal_production:
       type: snowflake
       account: xo52081.eu-west-1
-
       user: DBT
-
-      # Keypair config
-      # private_key_path: "/Users/pabloespeso/.snowflake/.ssh/dbt_user/rsa_key.p8"
-      # private_key_path: ".env/dbt_rsa_key.p8"
       private_key: "{{ env_var('DBT_RSA_KEY') }}"
-      # or private_key instead of private_key_path
       private_key_passphrase: "{{ env_var('DBT_RSA_PASSPHRASE') }}"
+      role: DBT_PROD_RL
+      database: NEXTAIL_INTERNALS_PROD_DB
+      warehouse: DATAPLATFORM_INTERNAL_WH
+      schema: DBT
+      # query_tag: for setting the query tag, check the macros/query_tags.sql
 
-      role: "{{ env_var('DBT_ROLE')}}"
-      database: "{{ env_var('DBT_DATABASE') }}"
-      warehouse: "{{ env_var('DBT_WAREHOUSE') }}"
-      schema: dbt
+      # optional
+      connect_retries: 0  # default 0
+      connect_timeout: 10  # default: 10
+      retry_on_database_errors: false  # default: false
+      retry_all: false  # default: false
+      reuse_connections: true  # default: True if client_session_keep_alive is False, otherwise None
 
-      threads: 8
-      client_session_keep_alive: false
+    nx_internal_sandbox:
+      type: snowflake
+      account: xo52081.eu-west-1
+      user: DBT
+      private_key: "{{ env_var('DBT_RSA_KEY') }}"
+      private_key_passphrase: "{{ env_var('DBT_RSA_PASSPHRASE') }}"
+      role: DBT_SANDBOX_RL
+      database: NEXTAIL_INTERNALS_SANDBOX_DB
+      warehouse: DATAPLATFORM_INTERNAL_WH
+      schema: DBT
       # query_tag: for setting the query tag, check the macros/query_tags.sql
 
       # optional
