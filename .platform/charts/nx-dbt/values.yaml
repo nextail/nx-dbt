@@ -15,16 +15,12 @@ envFromSecretsManager:
     key: RSA_PASSPHRASE_2
   - envVar: DBT_RSA_KEY
     key: RSA_PRIVATE_KEY_2
-  - envVar: DBT_ROLE
-    key: DBT_ROLE
-  - envVar: DBT_DATABASE
-    key: DBT_DATABASE
-  - envVar: DBT_WAREHOUSE
-    key: DBT_WAREHOUSE
+  - envVar: DBT_TARGET
+    key: DBT_TARGET
 
 # Centralized parameters to be accessed from the pod.
 # Format is [domain]/[filename]. They get mounted with the name _environment_domain_filename unless an alias is defined.
-# sharedParameters:
-#   - Name: "global/clients.yaml"
-#     Alias: "clients.yaml"
+sharedParameters:
+  - Name: "global/clients.yaml"
+    Alias: "clients.yaml"
 #   - Name: "customdomain/custom.json"
