@@ -9,9 +9,10 @@ select
     user,
     split(user, '@')[0]::TEXT as user_name,
     split(user, '@')[1]::TEXT as user_domain,
-    split(user_domain, '.')[0]::TEXT as tenant,
+    split(user_domain, '.')[0]::TEXT as domain_name,
     ip,
     country,
+    device_type,
     case 
         when upper(device_type) in ('UNKNOWN', 'COMPUTER') then 'Web'
         when upper(device_type) = 'MOBILE' then 'Mobile'
