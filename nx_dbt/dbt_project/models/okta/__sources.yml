@@ -1,0 +1,9 @@
+version: 2
+sources:
+  - name: okta_public
+    database: alltenants_costmonitor_allenvs_db
+    schema: okta_private
+    description: OKTA-related tables 
+    tables:
+      - name: login_event
+        description: OKTA Login events table

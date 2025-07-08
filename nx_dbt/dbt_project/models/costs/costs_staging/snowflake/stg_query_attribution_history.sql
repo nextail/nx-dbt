@@ -149,3 +149,8 @@ from source
 {% if should_full_refresh() %}
     where start_time >= '{{ var("full_refresh_start_date") }}'
 {% endif %}
+
+-- if NX_ENVIRONMENT environment variable is sandbox or SANDBOX then limit 1000; use upper to avoid case sensitivity
+{% if var("NX_ENVIRONMENT") | upper == "SANDBOX" %}
+    limit 100
+{% endif %}
