@@ -88,6 +88,7 @@ models:
                 'traning', 'pylarms', 'features', 'others', 'fact_table', 'inferece', 'validation',
                 'size_curves', 'nx_job_orchestraptor', 'nx_job_orchestrator', 'inference',
                 'firstallocation_data_pipelines', 'firstallocation', 'dbt_execution',
+                'msoapp'
               ]
       - name: label_operation
       - name: label_tenant
