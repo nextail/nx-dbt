@@ -38,8 +38,8 @@ schedules = [
     build_schedule_from_dbt_selection(
         [nx_internal_reporting_full],
         job_name="dbt_costs_materialization_job",
-        cron_schedule="0 */12 * * *",  # every 12 hours starting at 00:00
-        # cron_schedule="10 * * * *", # every hour at minute 10
+        # cron_schedule="0 */12 * * *",  # every 12 hours starting at 00:00
+        cron_schedule="0 8 * * *" if os.getenv("NX_ENVIRONMENT") == "production" else "0 8 * * 1",  # every 8 hours in production, once per week in sandbox at 08:00
         execution_timezone="UTC",
         dbt_select="fqn:costs.*",
         schedule_name="dbt_costs_materialization_schedule",
@@ -49,7 +49,7 @@ schedules = [
     build_schedule_from_dbt_selection(
         [nx_internal_reporting_full],
         job_name="dbt_internal_materialization_job",
-        cron_schedule="0 5 * * *",  # daily at 05:00 UTC
+        cron_schedule="0 6 * * *" if os.getenv("NX_ENVIRONMENT") == "production" else "0 6 * * 1",  # daily at 06:00 UTC in production, once per week in sandbox at 06:00
         # cron_schedule="*/10 * * * *", # every 10 minutes for testing
         execution_timezone="UTC",
         dbt_select="fqn:internal.*",
@@ -64,7 +64,7 @@ schedules = [
         execution_timezone="UTC",
         dbt_select="fqn:stg_query_attribution_history",
         schedule_name="dbt_snowflake_query_attribution_schedule",
-        default_status=DefaultScheduleStatus.RUNNING,
+        # default_status=DefaultScheduleStatus.RUNNING, # DISABLED
         tags=get_tags_with_operation("snowflake_query_attribution"),
     ),
 ]
