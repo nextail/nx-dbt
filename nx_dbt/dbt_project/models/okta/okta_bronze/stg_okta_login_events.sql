@@ -1,22 +1,22 @@
 {{
     config(
         materialized='incremental',
-        unique_key=['user', 'datetime']
+        unique_key=['email', 'datetime']
     )
 }}
 
 select 
-    user,
-    split(user, '@')[0]::TEXT as user_name,
-    split(user, '@')[1]::TEXT as user_domain,
-    split(user_domain, '.')[0]::TEXT as domain_name,
+    lower(user) as email,
+    split(email, '@')[0]::TEXT as user_name,
+    split(email, '@')[1]::TEXT as user_domain,
     ip,
     country,
     device_type,
     case 
-        when upper(device_type) in ('UNKNOWN', 'COMPUTER') then 'Web'
-        when upper(device_type) = 'MOBILE' then 'Mobile'
-        else 'Other'
+        when upper(device_type) in ('UNKNOWN', 'COMPUTER') then 'WEB'
+        when upper(device_type) = 'MOBILE' then 'MOBILE'
+        when upper(device_type) = 'TABLET' then 'TABLET'
+        else 'OTHER'
     end as device,
     datetime,
     integration,

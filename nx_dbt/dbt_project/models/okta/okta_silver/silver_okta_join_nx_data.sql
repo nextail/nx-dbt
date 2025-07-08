@@ -6,12 +6,13 @@
         snowflake_warehouse=var("DBT_WAREHOUSE"),
         refresh_mode="INCREMENTAL",
         initialize="ON_CREATE",
-        
-        unique_key=['email', 'datetime'],
+
+        unique_key=['email'],
     )
 }}
 
-select 
+select
+    split(split(email, '@')[1], '.')[0]::TEXT as domain_name,
     *,
-    row_number() over (partition by email order by datetime desc) as login_event_number
-from {{ ref('stg_okta_login_events') }}
+from {{ ref('silver_okta_first_last_logins') }}
+left join {{ ref('users_unique') }} using (email)

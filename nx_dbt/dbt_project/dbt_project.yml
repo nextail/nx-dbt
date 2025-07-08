@@ -126,6 +126,8 @@ models:
     internal:
       internal_staging:
         +schema: nx_internals_bronze
+      internal_silver:
+        +schema: nx_internals_silver
 
     okta:
       okta_bronze:

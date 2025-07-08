@@ -12,7 +12,9 @@
 {% for tenant in var('all_tenants') %}
 
 select
+    lower(email) as email,
     * exclude (
+        email,
         ENCRYPTED_PASSWORD,
         RESET_PASSWORD_TOKEN,
         RESET_PASSWORD_SENT_AT,
