@@ -21,6 +21,7 @@ clean-targets:
 vars:
   # "DBT_WAREHOUSE": "{{ env_var('DBT_WAREHOUSE') }}"  # required to set the config in the dynamic tables;
   # DBT_WAREHOUSE var from target.warehouse
+  "NX_ENVIRONMENT": "{{ env_var('NX_ENVIRONMENT') }}"
   "DBT_WAREHOUSE": "{{ target.warehouse }}"
   # we need to set a dbt var because the config block cannot use env_var
   "full_refresh_start_date": "2025-01-01"
@@ -106,6 +107,8 @@ models:
       - "BI_READER_{{
           'PROD' if env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') | upper == 'PRODUCTION'
           else 'SANDBOX' if env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') | upper == 'SANDBOX'
+          else 'SANDBOX' if env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') | upper == 'TEST'
+          else 'SANDBOX' if env_var('NX_ENVIRONMENT', 'NX_ENVIRONMENT_NOT_SET') | upper == 'DEV'
           else 'NX_ENVIRONMENT_NOT_SET'
         }}_RL"
   nextail:
@@ -123,6 +126,14 @@ models:
     internal:
       internal_staging:
         +schema: nx_internals_bronze
+
+    okta:
+      okta_bronze:
+        +schema: okta_bronze
+      okta_silver:
+        +schema: okta_silver
+      okta_gold:
+        +schema: nx_gold
 
     sales_engineering:
       +schema: nx_sales_engineering_playground
