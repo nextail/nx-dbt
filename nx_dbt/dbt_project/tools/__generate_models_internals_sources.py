@@ -39,6 +39,7 @@ SOURCE_CONFIG = {
         "globaldomain_public": {
             "description": "Raw data sources from our data warehouse",
             "tables": {
+                "admin_users": {"description": "admin users for each tenant"},
                 "first_allocation_execution": {"description": "first allocation execution"},
                 "category": {"description": "category table"},
                 "category_item_included": {"description": "category item included table"},

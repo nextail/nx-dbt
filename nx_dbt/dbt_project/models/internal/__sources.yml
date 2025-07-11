@@ -5,8 +5,10 @@ sources:
     database: ARISTOCRAZY_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -58,8 +60,10 @@ sources:
     database: BIMANI_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -111,8 +115,10 @@ sources:
     database: BZB_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -164,8 +170,10 @@ sources:
     database: CALLIOPE_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -217,8 +225,10 @@ sources:
     database: DCK_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -270,8 +280,10 @@ sources:
     database: DUB_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -323,8 +335,10 @@ sources:
     database: ECIBOLSOSMMEE_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -376,8 +390,10 @@ sources:
     database: ECICAMISERIACABALLEROMMEE_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -429,8 +445,10 @@ sources:
     database: ECIEASYWEARELLA_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -482,8 +500,10 @@ sources:
     database: ECIGAP_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -535,8 +555,10 @@ sources:
     database: ECIKIDS_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -588,8 +610,10 @@ sources:
     database: ECILLOYDSMEN_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -641,8 +665,10 @@ sources:
     database: ECIZAPATERIASENORAS_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -694,8 +720,10 @@ sources:
     database: ECRU_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -747,8 +775,10 @@ sources:
     database: ETHNICITY_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -800,8 +830,10 @@ sources:
     database: FLYINGTIGER_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -853,8 +885,10 @@ sources:
     database: FOOTGEAR_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -906,8 +940,10 @@ sources:
     database: FOREVERNEW_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -959,8 +995,10 @@ sources:
     database: GINATRICOT_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1012,8 +1050,10 @@ sources:
     database: GSTARRETAIL_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1065,8 +1105,10 @@ sources:
     database: GSTAR_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1118,8 +1160,10 @@ sources:
     database: GUESSEMEA_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1171,8 +1215,10 @@ sources:
     database: GUESSUS_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1224,8 +1270,10 @@ sources:
     database: HACKETT_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1277,8 +1325,10 @@ sources:
     database: JOTT_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1330,8 +1380,10 @@ sources:
     database: JULES_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1383,8 +1435,10 @@ sources:
     database: MAAG_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1436,8 +1490,10 @@ sources:
     database: MERKAL_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1489,8 +1545,10 @@ sources:
     database: METROBRANDS_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1542,8 +1600,10 @@ sources:
     database: MFG_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1595,8 +1655,10 @@ sources:
     database: MOUNTAINWAREHOUSE_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1648,8 +1710,10 @@ sources:
     database: PEPE_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1701,8 +1765,10 @@ sources:
     database: RIVERISLAND_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1754,8 +1820,10 @@ sources:
     database: SCOTTA_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1807,8 +1875,10 @@ sources:
     database: SILBON_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1860,8 +1930,10 @@ sources:
     database: SFERABASICMAN_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1913,8 +1985,10 @@ sources:
     database: SPORTSEMOTION_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -1966,8 +2040,10 @@ sources:
     database: SPORTSTREET_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -2019,8 +2095,10 @@ sources:
     database: SUAREZ_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -2072,8 +2150,10 @@ sources:
     database: TERRANOVA_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -2125,8 +2205,10 @@ sources:
     database: TVOE_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -2178,8 +2260,10 @@ sources:
     database: VALEXTRA_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -2231,8 +2315,10 @@ sources:
     database: VILET_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -2284,8 +2370,10 @@ sources:
     database: WHITESTUFF_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
@@ -2337,8 +2425,10 @@ sources:
     database: WOOLRICH_main_prod_db
     schema: globaldomain_public
     tables:
+      - name: admin_users
+        description: admin users for each tenant
       - name: first_allocation_execution
-        description: first allocation execution table
+        description: first allocation execution
       - name: category
         description: category table
       - name: category_item_included
