@@ -68,15 +68,4 @@ schedules = [
         # default_status=DefaultScheduleStatus.RUNNING, # DISABLED
         tags=get_tags_with_operation("snowflake_query_attribution"),
     ),
-    build_schedule_from_dbt_selection(
-        [nx_internal_reporting_full],
-        job_name="dbt_okta_login_events_job",
-        # daily at 06:00 UTC
-        cron_schedule="0 6 * * *" if os.getenv("NX_ENVIRONMENT") == "production" else "0 6 * * 1",
-        execution_timezone="UTC",
-        dbt_select="fqn:okta.*",
-        schedule_name="dbt_okta_login_events_schedule",
-        default_status=DefaultScheduleStatus.RUNNING,
-        tags=get_tags_with_operation("okta_login_events"),
-    ),
 ]
