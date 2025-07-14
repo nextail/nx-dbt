@@ -24,7 +24,7 @@ vars:
   "DBT_WAREHOUSE": "{{ target.warehouse }}"
 
   "NX_ENVIRONMENT": "{{ env_var('NX_ENVIRONMENT') }}"
-  
+
   # this date is set as default 2025-01-01 for the full refresh
   # you can override it in the command line with
   # dbt run --full-refresh --vars '{"full_refresh_start_date": "2025-07-01"}'
