@@ -18,19 +18,20 @@ with
             query_id,
             try_parse_json(query_tag) as parsed_query_tag,
 
-
-            replace(replace(lower(parsed_query_tag:service::TEXT), ' ', '_'), '-', '_') as service,
-            replace(replace(lower(parsed_query_tag:module::TEXT), ' ', '_'), '-', '_') as module,
-            replace(replace(lower(parsed_query_tag:submodule::TEXT), ' ', '_'), '-', '_') as submodule,
-            replace(replace(lower(parsed_query_tag:operation::TEXT), ' ', '_'), '-', '_') as operation,
-            replace(replace(lower(parsed_query_tag:tenant::TEXT), ' ', '_'), '-', '_') as tenant,
-            case
+            -- Replace hyphens with underscores and lowercase the text.
+            -- If the label is string 'null', we want to return sql null.
+            nullif(replace(replace(lower(parsed_query_tag:service::TEXT), ' ', '_'), '-', '_'), 'null') as service,
+            nullif(replace(replace(lower(parsed_query_tag:module::TEXT), ' ', '_'), '-', '_'), 'null') as module,
+            nullif(replace(replace(lower(parsed_query_tag:submodule::TEXT), ' ', '_'), '-', '_'), 'null') as submodule,
+            nullif(replace(replace(lower(parsed_query_tag:operation::TEXT), ' ', '_'), '-', '_'), 'null') as operation,
+            nullif(replace(replace(lower(parsed_query_tag:tenant::TEXT), ' ', '_'), '-', '_'), 'null') as tenant,
+            nullif(case
                 when parsed_query_tag:environment::TEXT ilike 'prod' then 'production'
                 else lower(parsed_query_tag:environment::TEXT)
-            end as environment,
-            lower(parsed_query_tag:correlation_id::TEXT) as correlation_id,
-            lower(parsed_query_tag:execution_id::TEXT) as execution_id,
-            lower(parse_json(parsed_query_tag:dbt_specific)) as dbt_specific,
+            end, 'null') as environment,
+            nullif(lower(parsed_query_tag:correlation_id::TEXT), 'null') as correlation_id,
+            nullif(lower(parsed_query_tag:execution_id::TEXT), 'null') as execution_id,
+            nullif(lower(parse_json(parsed_query_tag:dbt_specific)), 'null') as dbt_specific,
 
             warehouse_name,
             user_name,
