@@ -130,6 +130,10 @@ models:
         +schema: nx_internals_silver
 
     okta:
+      # disabled because we are not going to
+      # implement these at this moment
+      # we'll keep the models for future reference
+      +enabled: false
       okta_bronze:
         +schema: okta_bronze
       okta_silver:
