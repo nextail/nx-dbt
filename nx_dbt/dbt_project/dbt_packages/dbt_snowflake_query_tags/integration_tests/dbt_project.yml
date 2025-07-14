@@ -4,6 +4,9 @@ config-version: 2
 
 profile: integration_tests
 
+flags:
+  send_anonymous_usage_stats: false
+  use_colors: true
 
 dispatch:
   - macro_namespace: dbt

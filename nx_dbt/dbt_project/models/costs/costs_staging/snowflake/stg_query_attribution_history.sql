@@ -150,7 +150,10 @@ from source
     where start_time >= '{{ var("full_refresh_start_date") }}'
 {% endif %}
 
--- if NX_ENVIRONMENT environment variable is sandbox or SANDBOX then limit 1000; use upper to avoid case sensitivity
-{% if var("NX_ENVIRONMENT") | upper == "SANDBOX" %}
-    limit 100
+-- if the dbt target is nx_internal_sandbox, then limit the results to 1000
+-- otherwise (i.e.: production), don't limit the results
+-- this limitation is useful to avoid running the whole pipeline in sandbox,
+-- where it's not needed.
+{% if target.name|lower == 'nx_internal_sandbox' %}
+    limit 1000
 {% endif %}
