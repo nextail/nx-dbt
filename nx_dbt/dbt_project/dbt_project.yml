@@ -19,12 +19,16 @@ clean-targets:
   - "dbt_packages"
 
 vars:
-  # "DBT_WAREHOUSE": "{{ env_var('DBT_WAREHOUSE') }}"  # required to set the config in the dynamic tables;
   # DBT_WAREHOUSE var from target.warehouse
-  "NX_ENVIRONMENT": "{{ env_var('NX_ENVIRONMENT') }}"
-  "DBT_WAREHOUSE": "{{ target.warehouse }}"
   # we need to set a dbt var because the config block cannot use env_var
-  "full_refresh_start_date": "2025-01-01"
+  "DBT_WAREHOUSE": "{{ target.warehouse }}"
+
+  "NX_ENVIRONMENT": "{{ env_var('NX_ENVIRONMENT') }}"
+
+  # this date is set as default 2025-01-01 for the full refresh
+  # you can override it in the command line with
+  # dbt run --full-refresh --vars '{"full_refresh_start_date": "2025-07-01"}'
+  "full_refresh_start_date": "2024-06-01"
   "dbt_date:time_zone": "Etc/UTC"
   "tenant": "nextail"
   # to be modified to include the centralized configuration of tenants
