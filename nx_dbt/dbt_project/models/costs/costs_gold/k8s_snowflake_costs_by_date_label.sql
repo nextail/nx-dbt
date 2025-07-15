@@ -107,5 +107,13 @@ select
     case
         when is_service_module_submodule_valid then concat_ws('-', service, module, submodule, operation)
         else 'NA'
-    end as service_module_submodule_operation
+    end as service_module_submodule_operation,
+    case
+        when is_service_module_submodule_valid then concat_ws('-', service, module, submodule, operation, tenant)
+        else 'NA'
+    end as service_module_submodule_operation_tenant,
+    case
+        when is_service_module_submodule_valid then concat_ws('-', service, module, submodule, operation, tenant, environment)
+        else 'NA'
+    end as service_module_submodule_operation_tenant_environment
 from coalesce_nulls
