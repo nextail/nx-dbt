@@ -38,8 +38,8 @@ select
     nullif(replace(lower(pod_labels_json:operation::TEXT), '-', '_'), 'null') as label_operation,
     nullif(replace(lower(pod_labels_json:tenant::TEXT), '-', '_'), 'null') as label_tenant,
     nullif(replace(lower(pod_labels_json:environment::TEXT), '-', '_'), 'null') as label_environment,
-    nullif(replace(lower(pod_labels_json:correlation_id::TEXT), '-', '_'), 'null') as label_correlation_id,
-    nullif(replace(lower(pod_labels_json:execution_id::TEXT), '-', '_'), 'null') as label_execution_id,
+    nullif(lower(pod_labels_json:correlation_id::TEXT), 'null') as label_correlation_id,
+    nullif(lower(pod_labels_json:execution_id::TEXT), 'null') as label_execution_id,
     
     -- deprecated labels
     nullif(pod_labels_json:controller_uid::TEXT, 'null') as label_controller_uid,
