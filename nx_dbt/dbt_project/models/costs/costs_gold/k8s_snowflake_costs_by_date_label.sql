@@ -3,7 +3,7 @@
     (
         materialized="dynamic_table",
         on_configuration_change="apply",
-        target_lag='12 hours',
+        target_lag='8 hours',
         snowflake_warehouse=var("DBT_WAREHOUSE"),
         refresh_mode="INCREMENTAL",
         initialize="ON_CREATE",
