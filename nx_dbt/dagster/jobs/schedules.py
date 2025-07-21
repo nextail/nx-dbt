@@ -54,7 +54,7 @@ schedules = [
         execution_timezone="UTC",
         dbt_select="fqn:internal.*",
         schedule_name="dbt_internal_materialization_schedule",
-        default_status=DefaultScheduleStatus.RUNNING,
+        # default_status=DefaultScheduleStatus.RUNNING, # DISABLED
         tags=get_tags_with_operation("internal_materialization"),
     ),
     build_schedule_from_dbt_selection(
