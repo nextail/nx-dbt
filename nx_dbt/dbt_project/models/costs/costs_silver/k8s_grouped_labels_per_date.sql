@@ -15,8 +15,6 @@
 select
     k8s_environment,
     start_date,
-    -- min(end_date) as min_end_date,
-    -- max(end_date) as max_end_date,
     
     sum(SUM_TOTAL_COST) as total_cost,
 
@@ -39,8 +37,4 @@ select
     count_if(termination_reason = 'OOMKilled') as no_killed_pods,
     
 from {{ ref('stg_k8s_costs') }}
-{% if is_incremental() %}
-    where
-        start_date >= (select max(start_date) from {{ this }})
-{% endif %}
 group by k8s_environment, start_date, service, module, submodule, operation, tenant, environment, correlation_id, execution_id
