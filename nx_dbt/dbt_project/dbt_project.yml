@@ -128,6 +128,7 @@ models:
         +schema: nx_gold
 
     internal:
+      +enabled: false
       internal_staging:
         +schema: nx_internals_bronze
       internal_silver:
