@@ -19,10 +19,6 @@ if os.getenv("DAGSTER_DBT_PARSE_PROJECT_ON_LOAD"):
         .wait()
         .target_path.joinpath("manifest.json")
     )
-    # install dbt deps
-    dbt.cli(["deps"]).wait()
 else:
-    # install dbt deps
-    dbt.cli(["deps"]).wait()
     # set manifest path
     dbt_manifest_path = dbt_project_dir.joinpath("target", "manifest.json")
