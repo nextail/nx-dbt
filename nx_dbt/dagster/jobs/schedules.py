@@ -39,7 +39,7 @@ schedules = [
         [nx_internal_reporting_full],
         job_name="dbt_costs_materialization_job",
         # every 8 hours in production, once per week in sandbox at 08:00
-        cron_schedule="0 8 * * *" if os.getenv("NX_ENVIRONMENT") == "production" else "0 8 * * 1",
+        cron_schedule="0 8 * * *" if os.getenv("NX_ENVIRONMENT") == "production" else "*/10 * * * *", #else "0 8 * * 1",
         execution_timezone="UTC",
         dbt_select="fqn:costs.*",
         schedule_name="dbt_costs_materialization_schedule",
