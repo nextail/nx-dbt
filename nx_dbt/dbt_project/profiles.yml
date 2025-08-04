@@ -11,7 +11,7 @@ nx_internal_profile:
       database: NEXTAIL_INTERNALS_PROD_DB
       warehouse: DATAPLATFORM_INTERNAL_WH
       schema: DBT
-      # query_tag: for setting the query tag, check the macros/query_tags.sql
+      threads: 8
 
       # optional
       connect_retries: 0  # default 0
@@ -30,7 +30,7 @@ nx_internal_profile:
       database: NEXTAIL_INTERNALS_SANDBOX_DB
       warehouse: DATAPLATFORM_INTERNAL_WH
       schema: DBT
-      # query_tag: for setting the query tag, check the macros/query_tags.sql
+      threads: 8
 
       # optional
       connect_retries: 0  # default 0
