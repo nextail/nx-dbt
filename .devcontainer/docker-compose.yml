@@ -7,8 +7,6 @@ services:
       context: ./..
       dockerfile: .devcontainer/Dockerfile
     image: nextail/dagster-template:dev
-    environment:
-      GITHUB_TOKEN:
     volumes:
       - ${LOCAL_WORKSPACE_FOLDER:-.}/..:/opt/dagster-template:cached
     command: sleep infinity
