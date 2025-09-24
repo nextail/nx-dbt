@@ -52,8 +52,6 @@ RUN mkdir -p /var/logs
 RUN chown -R $USER_ID:$GROUP_ID /var/logs
 
 # set required environment vars from host
-# ARG GITHUB_PIP_TOKEN
-# ENV GITHUB_PIP_TOKEN=$GITHUB_PIP_TOKEN
 ARG COMMIT
 ENV COMMIT=$COMMIT
 ARG GITHUB_REPOSITORY

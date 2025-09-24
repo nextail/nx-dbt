@@ -56,7 +56,6 @@ test:
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target test -t nextail/${REPO_NAME}_test \
-		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg PACKAGE_NAME=${PACKAGE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
@@ -84,7 +83,6 @@ shell: start-dev
 		--build-arg UNAME=local-dev \
 		--build-arg USER_ID=${UID} \
 		--build-arg GROUP_ID=${GID} \
-		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg PACKAGE_NAME=${PACKAGE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
@@ -140,7 +138,6 @@ pdm-lock: dev-deps
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target pdm -t nextail/${REPO_NAME}_dev \
-		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg PACKAGE_NAME=${PACKAGE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
@@ -157,7 +154,6 @@ lint:
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target lint -t nextail/${REPO_NAME}_dev \
-		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg PACKAGE_NAME=${PACKAGE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
@@ -174,7 +170,6 @@ lint-check: dev-deps
 	@echo \
 	&& DOCKER_BUILDKIT=1 \
 	${DOCKER} build --target lint -t nextail/${REPO_NAME}_dev \
-		--build-arg GITHUB_PIP_TOKEN=${GITHUB_PIP_TOKEN} \
 		--build-arg PACKAGE_NAME=${PACKAGE_NAME} \
 		--build-arg REPO_NAME=${REPO_NAME} \
 		-f ${MKFILE_PATH}/docker/Dockerfile ${MKFILE_PATH} \
