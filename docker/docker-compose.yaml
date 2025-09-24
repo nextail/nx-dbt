@@ -21,9 +21,6 @@ services:
       target: srv
       args:
         - PACKAGE_NAME
-        - DBT_RSA_PASSPHRASE
-        - DBT_RSA_KEY
-        - DBT_TARGET
     working_dir: /opt/dagster
     image: nextail/${REPO_NAME}_webserver
     container_name: ${REPO_NAME}_webserver
